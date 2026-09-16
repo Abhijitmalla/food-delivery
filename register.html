@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Rasoova - Register & Verify</title>
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
+  <style>
+    :root {
+      --primary-maroon: #8f1738;
+      --primary-hover: #73122d;
+      --light-pink: #fdf2f4;
+      --bg-page: #faf8f8;
+      --card-bg: #ffffff;
+      --border-color: #edebeb;
+      --text-dark: #222222;
+      --text-muted: #666666;
+      --text-light: #888888;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-page);
+      color: var(--text-dark);
+    }
+
+    /* --- ANNOUNCEMENT BAR --- */
+    .announcement {
+      height: 38px;
+      background: var(--primary-maroon);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 4%;
+      font-size: 12px;
+      font-weight: 600;
+      gap: 8px;
+    }
+    .ann-left, .ann-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .ann-fire { font-size: 15px; }
+    .ann-sep { opacity: 0.5; }
+
+    /* --- TOP NAVBAR --- */
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 40px;
+      background-color: #ffffff;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .brand-logo {
+      height: 48px;
+      object-fit: contain;
+    }
+
+    .nav-search {
+      position: relative;
+      width: 45%;
+      max-width: 550px;
+    }
+
+    .nav-search input {
+      width: 100%;
+      padding: 10px 45px 10px 20px;
+      border-radius: 25px;
+      border: 1px solid #e0e0e0;
+      background-color: #fafafa;
+      outline: none;
+      font-size: 14px;
+      color: #333;
+    }
+
+    .nav-search input::placeholder {
+      color: #aaa;
+    }
+
+    .nav-search .search-btn {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: #888;
+      cursor: pointer;
+      font-size: 15px;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .notification-icon {
+      position: relative;
+      font-size: 18px;
+      color: var(--primary-maroon);
+      cursor: pointer;
+    }
+
+    .notification-icon .badge {
+      position: absolute;
+      top: -5px;
+      right: -7px;
+      background-color: #e53e3e;
+      color: #fff;
+      font-size: 10px;
+      font-weight: bold;
+      border-radius: 50%;
+      width: 15px;
+      height: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .user-dropdown {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+
+    .avatar-small {
+      width: 32px;
+      height: 32px;
+      background-color: var(--light-pink);
+      color: var(--primary-maroon);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+    }
+
+    .user-name {
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .user-dropdown .arrow {
+      font-size: 12px;
+      color: #666;
+    }
+
+    /* --- SUB NAVIGATION BAR --- */
+    .sub-nav {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 25px;
+      padding: 12px 0;
+      background-color: #ffffff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+    }
+
+    .sub-nav .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 24px;
+      border-radius: 20px;
+      text-decoration: none;
+      color: #444;
+      font-weight: 600;
+      font-size: 14px;
+      transition: all 0.2s ease;
+    }
+
+    .sub-nav .nav-item.active {
+      background-color: var(--primary-maroon);
+      color: #ffffff;
+    }
+
+    .sub-nav .nav-item:hover:not(.active) {
+      background-color: var(--light-pink);
+      color: var(--primary-maroon);
+    }
+
+    /* --- HERO SECTION --- */
+    .register-section {
+      width: 100%;
+      min-height: calc(100vh - 160px);
+      background: url('./assets/register-login-background.png') no-repeat center center;
+      background-size: 100% 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+      box-sizing: border-box;
+    }
+
+    /* --- FORM CARD --- */
+    .register-card {
+      background: #ffffff;
+      width: 100%;
+      max-width: 450px;
+      padding: 35px 30px;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+    }
+
+    /* Step Visibility Controls */
+    .view-step {
+      display: none;
+    }
+
+    .view-step.active-step {
+      display: block;
+    }
+
+    /* STEP 1 STYLES */
+    .register-card h2 {
+      font-size: 24px;
+      font-weight: 800;
+      color: #1e293b;
+      margin-bottom: 6px;
+    }
+
+    .register-card p.subtitle {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 25px;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: #475569;
+      margin-bottom: 6px;
+    }
+
+    .form-group label span {
+      color: #e11d48;
+    }
+
+    .input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .input-wrapper i {
+      position: absolute;
+      left: 14px;
+      color: #94a3b8;
+      font-size: 15px;
+    }
+
+    .input-wrapper input {
+      width: 100%;
+      padding: 12px 14px 12px 42px;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      outline: none;
+      font-size: 14px;
+      color: #334155;
+      background-color: #ffffff;
+      transition: border-color 0.2s ease;
+    }
+
+    .input-wrapper input:focus {
+      border-color: var(--primary-maroon);
+    }
+
+    .input-wrapper input::placeholder {
+      color: #cbd5e1;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 13px;
+      background-color: var(--primary-maroon);
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 10px;
+      transition: background-color 0.2s ease;
+      text-decoration: none;
+    }
+
+    .submit-btn:hover {
+      background-color: var(--primary-hover);
+    }
+
+    .divider {
+      text-align: center;
+      position: relative;
+      margin: 20px 0 15px 0;
+    }
+
+    .divider::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      width: 100%;
+      height: 1px;
+      background-color: #f1f5f9;
+      z-index: 1;
+    }
+
+    .divider span {
+      position: relative;
+      background: #ffffff;
+      padding: 0 10px;
+      font-size: 11px;
+      color: #94a3b8;
+      font-weight: 600;
+      z-index: 2;
+    }
+
+    .login-redirect {
+      text-align: center;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .login-redirect a {
+      color: var(--primary-maroon);
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .login-redirect a:hover {
+      text-decoration: underline;
+    }
+
+    /* STEP 2 (OTP) STYLES */
+    .otp-header {
+      text-align: center;
+    }
+
+    .card-brand-logo {
+      height: 44px;
+      object-fit: contain;
+      margin-bottom: 18px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .otp-container {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      margin: 22px 0;
+    }
+
+    .otp-input {
+      width: 45px;
+      height: 48px;
+      text-align: center;
+      font-size: 18px;
+      font-weight: 700;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      outline: none;
+      color: var(--text-dark);
+      background-color: #ffffff;
+      transition: all 0.2s ease;
+    }
+
+    .otp-input:focus {
+      border-color: var(--primary-maroon);
+      box-shadow: 0 0 0 3px rgba(143, 23, 56, 0.1);
+    }
+
+    .otp-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      margin-bottom: 22px;
+      padding: 0 4px;
+    }
+
+    .timer {
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 500;
+    }
+
+    .resend-link {
+      color: var(--primary-maroon);
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .resend-link:hover {
+      text-decoration: underline;
+    }
+
+    .security-box {
+      background-color: #f0f7ff;
+      border-radius: 10px;
+      padding: 12px 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-align: left;
+      margin-top: 20px;
+    }
+
+    .security-box i {
+      color: #1e3a8a;
+      font-size: 16px;
+      background: #e0edff;
+      padding: 8px;
+      border-radius: 50%;
+    }
+
+    .security-box p {
+      font-size: 11.5px;
+      color: #334155;
+      line-height: 1.4;
+      font-weight: 500;
+    }
+
+    .edit-number-btn {
+      color: var(--primary-maroon);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-left: 5px;
+      text-decoration: underline;
+    }
+
+    /* STEP 3 (SUCCESS) STYLES */
+    .success-card-content {
+      text-align: center;
+      padding: 10px 0;
+    }
+
+    .success-icon-wrapper {
+      position: relative;
+      width: 100px;
+      height: 100px;
+      margin: 0 auto 25px auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .green-check-circle {
+      width: 72px;
+      height: 72px;
+      background-color: #22c55e;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-size: 36px;
+      box-shadow: 0 4px 15px rgba(34, 197, 94, 0.3);
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Decorative Confetti Bits */
+    .confetti {
+      position: absolute;
+      border-radius: 2px;
+      z-index: 1;
+    }
+    .c1 { width: 6px; height: 12px; background: #22c55e; top: 10px; left: 15px; transform: rotate(-25deg); }
+    .c2 { width: 8px; height: 8px; background: #ef4444; top: 30px; left: 0px; transform: rotate(45deg); }
+    .c3 { width: 7px; height: 14px; background: #22c55e; top: 60px; left: 12px; transform: rotate(15deg); }
+    .c4 { width: 9px; height: 5px; background: #84cc16; top: 85px; left: 30px; transform: rotate(-35deg); }
+    .c5 { width: 6px; height: 12px; background: #22c55e; top: 10px; right: 18px; transform: rotate(30deg); }
+    .c6 { width: 8px; height: 8px; background: #ef4444; top: 32px; right: 2px; transform: rotate(-15deg); }
+    .c7 { width: 7px; height: 12px; background: #84cc16; top: 80px; right: 25px; transform: rotate(40deg); }
+
+    .success-card-content h2 {
+      font-size: 24px;
+      font-weight: 800;
+      color: #1e293b;
+      margin-bottom: 10px;
+    }
+
+    .success-card-content p {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      margin-bottom: 30px;
+    }
+
+    /* --- FOOTER --- */
+    .footer {
+      background-color: var(--primary-maroon);
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px 40px;
+    }
+
+    .footer-logo {
+      height: 52px;
+      object-fit: contain;
+      filter: invert(1);
+      mix-blend-mode: screen;
+      opacity: 0.95;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 15px;
+      font-size: 12px;
+    }
+
+    .footer-links a {
+      color: #fff;
+      text-decoration: none;
+      opacity: 0.9;
+    }
+
+    /* --- MOBILE BOTTOM NAV --- */
+    .mobile-bottom-nav {
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      .announcement { display: none; }
+
+      .navbar {
+        padding: 10px 20px;
+        position: relative;
+        justify-content: flex-end;
+      }
+      .nav-search { display: none; }
+      .sub-nav { display: none; }
+      .footer { display: none; }
+      body { padding-bottom: 70px; }
+
+      .nav-left {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      .user-name, .fa-chevron-down {
+        display: none;
+      }
+      .brand-logo { height: 35px; }
+
+      .register-section {
+        background-size: cover;
+        padding: 20px 15px;
+        min-height: auto;
+      }
+
+      .register-card {
+        padding: 25px 20px;
+      }
+
+      .otp-input {
+        width: 38px;
+        height: 44px;
+        font-size: 16px;
+      }
+
+      .mobile-bottom-nav {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: var(--primary-maroon);
+        padding: 10px 0;
+        z-index: 1000;
+      }
+      .mobile-bottom-nav a {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+        color: #f8b4c4;
+        font-size: 10px;
+        font-weight: 500;
+        text-decoration: none;
+      }
+      .mobile-bottom-nav a i {
+        font-size: 18px;
+      }
+      .mobile-bottom-nav a.active {
+        color: #ffffff;
+        font-weight: 600;
+      }
+      .mobile-bottom-nav a.active::after {
+        content: '';
+        width: 30px;
+        height: 2px;
+        background: #ffffff;
+        margin-top: 2px;
+        border-radius: 2px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ANNOUNCEMENT BAR -->
+  <div class="announcement">
+    <div class="ann-left">
+      <span class="ann-fire">🔥</span>
+      <span>First Order 20% OFF</span>
+      <span class="ann-sep">|</span>
+      <span>Every Order 10% OFF (Limited Time)</span>
+    </div>
+    <div class="ann-right">
+      <span class="ann-fire">🔥</span>
+      <span>Freshly Cooked</span>
+      <span class="ann-sep">|</span>
+      <span>Authentic Bihari Flavours</span>
+    </div>
+  </div>
+
+  <!-- TOP NAVBAR -->
+  <header class="navbar">
+    <div class="nav-left">
+      <img src="./assets/rasoova_logo_desktop.png" alt="Rasoova Logo" class="brand-logo" />
+    </div>
+
+    <div class="nav-search">
+      <input type="text" placeholder="Search for your favorite food..." />
+      <button class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+    </div>
+
+    <div class="nav-right">
+      <div class="notification-icon">
+        <i class="fa-regular fa-bell"></i>
+        <span class="badge">3</span>
+      </div>
+      <div class="user-dropdown">
+        <div class="avatar-small">
+          <i class="fa-solid fa-user"></i>
+        </div>
+        <span class="user-name">Guest</span>
+        <i class="fa-solid fa-chevron-down arrow"></i>
+      </div>
+    </div>
+  </header>
+
+  <!-- SUB NAVIGATION BAR -->
+  <nav class="sub-nav">
+    <a href="./index.html" class="nav-item">
+      <i class="fa-solid fa-house"></i>
+      <span>Home</span>
+    </a>
+    <a href="./order.html" class="nav-item">
+      <i class="fa-solid fa-box-open"></i>
+      <span>My Orders</span>
+    </a>
+    <a href="./profile.html" class="nav-item">
+      <i class="fa-solid fa-user"></i>
+      <span>Profile</span>
+    </a>
+    <a href="./address.html" class="nav-item">
+      <i class="fa-solid fa-location-dot"></i>
+      <span>Address</span>
+    </a>
+    <a href="./help-support.html" class="nav-item">
+      <i class="fa-solid fa-headset"></i>
+      <span>Help & Support</span>
+    </a>
+  </nav>
+
+  <!-- REGISTER HERO SECTION -->
+  <section class="register-section">
+    <div class="register-card">
+      
+      <!-- STEP 1: REGISTER FORM -->
+      <div id="step-register" class="view-step active-step">
+        <h2>Create Your Account</h2>
+        <p class="subtitle">Join Rasoova for a delightful food experience</p>
+
+        <form id="registerForm" onsubmit="handleGetOTP(event)">
+          <div class="form-group">
+            <label for="fullname">Full Name <span>*</span></label>
+            <div class="input-wrapper">
+              <i class="fa-regular fa-user"></i>
+              <input type="text" id="fullname" placeholder="Enter your full name" required />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="mobile">Mobile Number <span>*</span></label>
+            <div class="input-wrapper">
+              <i class="fa-solid fa-phone"></i>
+              <input type="tel" id="mobile" placeholder="Enter your mobile" maxlength="10" pattern="[0-9]{10}" required />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email Address (Optional)</label>
+            <div class="input-wrapper">
+              <i class="fa-regular fa-envelope"></i>
+              <input type="email" id="email" placeholder="Enter your email address" />
+            </div>
+          </div>
+
+          <button type="submit" class="submit-btn">
+            Get OTP <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </form>
+
+        <div class="divider">
+          <span>OR</span>
+        </div>
+
+        <p class="login-redirect">
+          Already have an account? <a href="./login.html">Login</a>
+        </p>
+      </div>
+
+      <!-- STEP 2: OTP VERIFICATION -->
+      <div id="step-otp" class="view-step">
+        <div class="otp-header">
+          <img src="./assets/rasoova_logo_desktop.png" alt="Rasoova Logo" class="card-brand-logo" />
+          <h2>Verify Your Mobile Number</h2>
+          <p class="subtitle">
+            We have sent a 6 digit OTP to <strong id="displayMobile">+91 98765 43210</strong>
+            <span class="edit-number-btn" onclick="goToRegisterStep()">(Change)</span>
+          </p>
+        </div>
+
+        <form id="otpForm" onsubmit="handleVerifyOTP(event)">
+          <div class="otp-container">
+            <input type="text" class="otp-input" maxlength="1" required />
+            <input type="text" class="otp-input" maxlength="1" required />
+            <input type="text" class="otp-input" maxlength="1" required />
+            <input type="text" class="otp-input" maxlength="1" required />
+            <input type="text" class="otp-input" maxlength="1" required />
+            <input type="text" class="otp-input" maxlength="1" required />
+          </div>
+
+          <div class="otp-meta">
+            <div class="timer">
+              <i class="fa-regular fa-clock"></i> <span id="timerText">00:45</span>
+            </div>
+            <span class="resend-link" onclick="startTimer()">Resend OTP</span>
+          </div>
+
+          <button type="submit" class="submit-btn">
+            Verify & Continue
+          </button>
+        </form>
+
+        <div class="security-box">
+          <i class="fa-solid fa-shield-halved"></i>
+          <p>Your mobile number is safe with us.<br>We don't share your data with anyone.</p>
+        </div>
+      </div>
+
+      <!-- STEP 3: SUCCESS VIEW -->
+      <div id="step-success" class="view-step">
+        <div class="success-card-content">
+          
+          <div class="success-icon-wrapper">
+            <div class="confetti c1"></div>
+            <div class="confetti c2"></div>
+            <div class="confetti c3"></div>
+            <div class="confetti c4"></div>
+            <div class="confetti c5"></div>
+            <div class="confetti c6"></div>
+            <div class="confetti c7"></div>
+            
+            <div class="green-check-circle">
+              <i class="fa-solid fa-check"></i>
+            </div>
+          </div>
+
+          <h2>Account Created Successfully!</h2>
+          <p>Welcome to Rasoova! Your account has been registered.</p>
+
+          <a href="./index.html" class="submit-btn">
+            Go to Home
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-left">
+      <img src="./assets/rasoova_logo_desktop.png" alt="Rasoova Logo" class="footer-logo" />
+    </div>
+
+    <div class="footer-links">
+      <a href="#"><i class="fa-solid fa-house"></i> Home</a> |
+      <a href="#"><i class="fa-solid fa-box-open"></i> My Orders</a> |
+      <a href="#"><i class="fa-solid fa-user"></i> Profile</a> |
+      <a href="#"><i class="fa-solid fa-location-dot"></i> Address</a> |
+      <a href="#"><i class="fa-solid fa-headset"></i> Help & Support</a>
+    </div>
+  </footer>
+
+  <!-- MOBILE BOTTOM NAV -->
+  <nav class="mobile-bottom-nav">
+    <a href="#">
+      <i class="fa-solid fa-house"></i>
+      <span>Home</span>
+    </a>
+    <a href="#">
+      <i class="fa-solid fa-bag-shopping"></i>
+      <span>My Orders</span>
+    </a>
+    <a href="#" class="active">
+      <i class="fa-regular fa-user"></i>
+      <span>Profile</span>
+    </a>
+    <a href="#">
+      <i class="fa-solid fa-location-dot"></i>
+      <span>Address</span>
+    </a>
+    <a href="#">
+      <i class="fa-solid fa-headset"></i>
+      <span>Help & Support</span>
+    </a>
+  </nav>
+
+  <!-- JAVASCRIPT FOR PAGE SWITCHING & OTP LOGIC -->
+  <script>
+    let timerInterval = null;
+
+    // Handle Registration Form Submit -> Switch to OTP
+    function handleGetOTP(e) {
+      e.preventDefault();
+      const mobileNumber = document.getElementById('mobile').value;
+
+      document.getElementById('displayMobile').innerText = `+91 ${mobileNumber}`;
+
+      // Switch Step
+      document.getElementById('step-register').classList.remove('active-step');
+      document.getElementById('step-otp').classList.add('active-step');
+
+      // Auto focus on first box
+      const firstOtpInput = document.querySelectorAll('.otp-input')[0];
+      firstOtpInput.focus();
+
+      startTimer();
+    }
+
+    // Go Back to Register Step
+    function goToRegisterStep() {
+      document.getElementById('step-otp').classList.remove('active-step');
+      document.getElementById('step-register').classList.add('active-step');
+      if (timerInterval) clearInterval(timerInterval);
+    }
+
+    // Handle OTP Submit -> Switch to Registration Success Screen
+    function handleVerifyOTP(e) {
+      e.preventDefault();
+      let otp = '';
+      document.querySelectorAll('.otp-input').forEach(input => otp += input.value);
+
+      if (otp.length === 6) {
+        if (timerInterval) clearInterval(timerInterval);
+
+        // Update header username
+        const name = document.getElementById('fullname').value;
+        if(name) {
+          document.querySelector('.user-name').innerText = name.split(' ')[0];
+        }
+
+        // Switch to Success Step
+        document.getElementById('step-otp').classList.remove('active-step');
+        document.getElementById('step-success').classList.add('active-step');
+      } else {
+        alert('Please enter a valid 6-digit OTP.');
+      }
+    }
+
+    // Auto-focus logic for 6 OTP boxes
+    const otpInputs = document.querySelectorAll('.otp-input');
+    otpInputs.forEach((input, index) => {
+      input.addEventListener('input', (e) => {
+        if (e.target.value.length === 1 && index < otpInputs.length - 1) {
+          otpInputs[index + 1].focus();
+        }
+      });
+
+      input.addEventListener('keydown', (e) => {
+        if (e.key === 'Backspace' && !e.target.value && index > 0) {
+          otpInputs[index - 1].focus();
+        }
+      });
+    });
+
+    // Countdown Timer logic
+    function startTimer() {
+      let timeLeft = 45;
+      const timerDisplay = document.getElementById('timerText');
+      if (timerInterval) clearInterval(timerInterval);
+
+      timerInterval = setInterval(() => {
+        if (timeLeft <= 0) {
+          clearInterval(timerInterval);
+          timerDisplay.innerText = "00:00";
+        } else {
+          let seconds = timeLeft < 10 ? `0${timeLeft}` : timeLeft;
+          timerDisplay.innerText = `00:${seconds}`;
+          timeLeft--;
+        }
+      }, 1000);
+    }
+  </script>
+
+</body>
+</html>

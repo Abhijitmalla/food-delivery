@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Rasoova - My Orders</title>
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
+  <style>
+    :root {
+      --primary-maroon: #8f1738;
+      --primary-hover: #73122d;
+      --light-pink: #fdf2f4;
+      --bg-page: #faf8f8;
+      --card-bg: #ffffff;
+      --border-color: #edebeb;
+      --text-dark: #222222;
+      --text-muted: #666666;
+      --text-light: #888888;
+      
+      /* Status Badge Colors */
+      --badge-processing-bg: #fffbeb;
+      --badge-processing-text: #d97706;
+      --badge-out-bg: #eff6ff;
+      --badge-out-text: #2563eb;
+      --badge-delivered-bg: #f0fdf4;
+      --badge-delivered-text: #16a34a;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-page);
+      color: var(--text-dark);
+    }
+
+    /* --- TOP NAVBAR --- */
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 40px;
+      background-color: #ffffff;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .mobile-menu-toggle {
+      display: none;
+    }
+
+    .brand-logo {
+      height: 48px;
+      object-fit: contain;
+    }
+
+    .nav-search {
+      position: relative;
+      width: 45%;
+      max-width: 550px;
+    }
+
+    .nav-search input {
+      width: 100%;
+      padding: 10px 45px 10px 20px;
+      border-radius: 25px;
+      border: 1px solid #e0e0e0;
+      background-color: #fafafa;
+      outline: none;
+      font-size: 14px;
+      color: #333;
+    }
+
+    .nav-search input::placeholder {
+      color: #aaa;
+    }
+
+    .nav-search .search-btn {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: #888;
+      cursor: pointer;
+      font-size: 15px;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .notification-icon {
+      position: relative;
+      font-size: 18px;
+      color: var(--primary-maroon);
+      cursor: pointer;
+    }
+
+    .notification-icon .badge {
+      position: absolute;
+      top: -5px;
+      right: -7px;
+      background-color: #e53e3e;
+      color: #fff;
+      font-size: 10px;
+      font-weight: bold;
+      border-radius: 50%;
+      width: 15px;
+      height: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .user-dropdown {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+
+    .avatar-small {
+      width: 32px;
+      height: 32px;
+      background-color: var(--light-pink);
+      color: var(--primary-maroon);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+    }
+
+    .user-name {
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .user-dropdown .arrow {
+      font-size: 12px;
+      color: #666;
+    }
+
+    /* --- SUB NAVIGATION BAR --- */
+    .sub-nav {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 25px;
+      padding: 12px 0;
+      background-color: #ffffff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+    }
+
+    .sub-nav .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 24px;
+      border-radius: 20px;
+      text-decoration: none;
+      color: #444;
+      font-weight: 600;
+      font-size: 14px;
+      transition: all 0.2s ease;
+    }
+
+    .sub-nav .nav-item.active {
+      background-color: var(--primary-maroon);
+      color: #ffffff;
+    }
+
+    .sub-nav .nav-item:hover:not(.active) {
+      background-color: var(--light-pink);
+      color: var(--primary-maroon);
+    }
+
+    /* ==================== BANNER SECTION ==================== */
+    .hero-banner {
+      width: 100%;
+      overflow: hidden;
+    }
+    .hero-banner img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* MAIN CONTAINER FOR CONTENT */
+    .main-container {
+      max-width: 100%;
+      margin: 25px auto 50px auto;
+      padding: 0 20px;
+    }
+
+    /* FILTER TABS */
+    .filter-tabs {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 25px;
+    }
+
+    .tab-btn {
+      padding: 8px 20px;
+      border-radius: 20px;
+      border: 1px solid var(--border-color);
+      background-color: #ffffff;
+      color: var(--text-dark);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .tab-btn.active {
+      background-color: var(--primary-maroon);
+      color: #ffffff;
+      border-color: var(--primary-maroon);
+    }
+
+    /* ORDER CARD */
+    .order-card {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 18px;
+      border: 1px solid var(--border-color);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.02);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .order-main-info {
+      flex-grow: 1;
+    }
+
+    .order-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 4px;
+    }
+
+    .order-id {
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .badge-status {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 12px;
+    }
+
+    .badge-status.processing {
+      background-color: var(--badge-processing-bg);
+      color: var(--badge-processing-text);
+    }
+
+    .badge-status.out-for-delivery {
+      background-color: var(--badge-out-bg);
+      color: var(--badge-out-text);
+    }
+
+    .badge-status.delivered {
+      background-color: var(--badge-delivered-bg);
+      color: var(--badge-delivered-text);
+    }
+
+    .order-date {
+      font-size: 12px;
+      color: var(--text-light);
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    /* ORDER ITEMS LIST */
+    .order-items-list {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .item-box {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .item-thumb {
+      width: 54px;
+      height: 54px;
+      border-radius: 8px;
+      object-fit: cover;
+    }
+
+    .item-title {
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .item-price {
+      font-size: 13px;
+      font-weight: 700;
+      margin-top: 2px;
+    }
+
+    .item-count {
+      font-size: 11px;
+      color: var(--text-light);
+    }
+
+    /* ORDER RIGHT SIDE */
+    .order-action-col {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      justify-content: space-between;
+      min-height: 90px;
+      padding-left: 20px;
+    }
+
+    .view-details-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 16px;
+      border-radius: 18px;
+      border: 1px solid var(--primary-maroon);
+      color: var(--primary-maroon);
+      background: transparent;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .view-details-btn:hover {
+      background-color: var(--primary-maroon);
+      color: #ffffff;
+    }
+
+    .total-price-block {
+      text-align: right;
+    }
+
+    .total-price-block .label {
+      font-size: 11px;
+      color: var(--text-light);
+    }
+
+    .total-price-block .price {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--text-dark);
+    }
+
+    /* FOOTER */
+    .footer {
+      background-color: var(--primary-maroon);
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px 40px;
+    }
+
+    .footer-logo {
+      height: 52px;
+      object-fit: contain;
+      filter: invert(1);
+      mix-blend-mode: screen;
+      opacity: 0.95;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 15px;
+      font-size: 12px;
+    }
+
+    .footer-links a {
+      color: #fff;
+      text-decoration: none;
+      opacity: 0.9;
+    }
+
+    /* MOBILE ONLY TEXT HEADER */
+    .mobile-page-header {
+      display: none;
+      padding: 20px 20px 5px;
+      background: linear-gradient(to bottom, #fdf4f6, #faf8f8);
+    }
+    .mobile-page-header h1 {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--primary-maroon);
+      margin-bottom: 4px;
+    }
+    .mobile-page-header p {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    /* MOBILE BOTTOM NAV */
+    .mobile-bottom-nav {
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      .announcement { display: none; }
+
+      /* Header Mobile */
+      .navbar {
+        padding: 10px 20px;
+        position: relative;
+        justify-content: flex-end;
+      }
+      .mobile-menu-toggle {
+        display: block;
+        position: absolute;
+        left: 14px;
+        top: 50%;
+        transform: translateY(-50%);
+        border: 0;
+        background: transparent;
+        color: var(--text-dark);
+        cursor: pointer;
+        font-size: 24px;
+        line-height: 1;
+        padding: 2px;
+        z-index: 2;
+      }
+      .nav-search { display: none; }
+      .sub-nav { display: none; }
+      .sub-nav.open {
+        display: flex;
+        position: absolute;
+        top: 58px;
+        left: 0;
+        right: 0;
+        z-index: 20;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        padding: 8px 0;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+      }
+      .sub-nav.open .nav-item {
+        justify-content: flex-start;
+        border-radius: 0;
+        padding: 12px 20px;
+      }
+      .footer { display: none; }
+      body { padding-bottom: 70px; } /* Space for bottom nav */
+
+      .nav-left {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      .user-name, .fa-chevron-down {
+        display: none; /* Hide text, keep avatar */
+      }
+      .brand-logo { height: 35px; }
+      .notification-icon { font-size: 20px; }
+
+      /* Hero Banner / Page Header */
+      .hero-banner { display: none; }
+      .mobile-page-header { display: block; }
+
+      /* Filter Tabs */
+      .filter-tabs {
+        overflow-x: auto;
+        white-space: nowrap;
+        flex-wrap: nowrap;
+        padding-bottom: 5px;
+      }
+      .filter-tabs::-webkit-scrollbar { display: none; }
+
+      /* Order Card */
+      .order-card {
+        flex-direction: column;
+        gap: 15px;
+        padding: 15px;
+      }
+      
+      .order-items-list {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+      }
+
+      .order-action-col {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        min-height: auto;
+        padding-left: 0;
+        margin-top: 10px;
+        border-top: 1px dashed var(--border-color);
+        padding-top: 15px;
+      }
+
+      .total-price-block {
+        text-align: left;
+        order: -1; /* Move total to the left */
+      }
+
+      /* Mobile Bottom Nav */
+      .mobile-bottom-nav {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: var(--primary-maroon);
+        padding: 10px 0;
+        z-index: 1000;
+      }
+      .mobile-bottom-nav a {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+        color: #f8b4c4;
+        font-size: 10px;
+        font-weight: 500;
+        text-decoration: none;
+      }
+      .mobile-bottom-nav a i {
+        font-size: 18px;
+      }
+      .mobile-bottom-nav a.active {
+        color: #ffffff;
+        font-weight: 600;
+      }
+      .mobile-bottom-nav a.active::after {
+        content: '';
+        width: 30px;
+        height: 2px;
+        background: #ffffff;
+        margin-top: 2px;
+        border-radius: 2px;
+      }
+    }
+
+
+    /* ─────────────────────────────────────────
+   ANNOUNCEMENT BAR
+───────────────────────────────────────── */
+.announcement {
+  height: 38px;
+  background: #8f1738;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 4%;
+  font-size: 12px;
+  font-weight: 600;
+  gap: 8px;
+}
+.ann-left, .ann-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.ann-fire { font-size: 15px; }
+.ann-sep  { opacity: 0.5; }
+
+@media (max-width: 768px) {
+  .announcement { display: none; }
+}
+  </style>
+</head>
+<body>
+
+
+    <!-- ── ANNOUNCEMENT BAR ── -->
+  <div class="announcement">
+    <div class="ann-left">
+      <span class="ann-fire">🔥</span>
+      <span>First Order 20% OFF</span>
+      <span class="ann-sep">|</span>
+      <span>Every Order 10% OFF (Limited Time)</span>
+    </div>
+    <div class="ann-right">
+      <span class="ann-fire">🔥</span>
+      <span>Freshly Cooked</span>
+      <span class="ann-sep">|</span>
+      <span>Authentic Bihari Flavours</span>
+    </div>
+  </div>
+
+  <!-- TOP NAVBAR -->
+  <header class="navbar">
+    <button class="mobile-menu-toggle" id="mobile-menu-toggle" type="button" aria-label="Open menu">☰</button>
+    <div class="nav-left">
+      <img src="./assets/rasoova_logo_desktop.png" alt="Rasoova Logo" class="brand-logo" />
+    </div>
+
+    <div class="nav-search">
+      <input type="text" placeholder="Search for your favorite food..." />
+      <button class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+    </div>
+
+    <div class="nav-right">
+      <div class="notification-icon">
+        <i class="fa-regular fa-bell"></i>
+        <span class="badge">3</span>
+      </div>
+      <div class="user-dropdown">
+        <div class="avatar-small">
+          <i class="fa-solid fa-user"></i>
+        </div>
+        <span class="user-name">Priya</span>
+        <i class="fa-solid fa-chevron-down arrow"></i>
+      </div>
+    </div>
+  </header>
+
+  <!-- SUB NAVIGATION BAR -->
+  <nav class="sub-nav">
+    <a href="./index.html" class="nav-item">
+      <i class="fa-solid fa-house"></i>
+      <span>Home</span>
+    </a>
+    <a href="./order.html" class="nav-item active">
+      <i class="fa-solid fa-box-open"></i>
+      <span>My Orders</span>
+    </a>
+      <a href="./menupage.html" class="nav-item">
+      <i class="fa-solid fa-box-open"></i>
+      <span>Menu</span>
+    </a>
+    <a href="./profile.html" class="nav-item">
+      <i class="fa-solid fa-user"></i>
+      <span>Profile</span>
+    </a>
+    <a href="./address.html" class="nav-item">
+      <i class="fa-solid fa-location-dot"></i>
+      <span>Address</span>
+    </a>
+    <a href="./help-support.html" class="nav-item">
+      <i class="fa-solid fa-headset"></i>
+      <span>Help & Support</span>
+    </a>
+  </nav>
+
+  <!-- Hero Banner (Desktop) -->
+  <div class="hero-banner">
+    <img src="./assets/order-banner-image.png" alt="Rasoova My Orders">
+  </div>
+
+  <!-- Mobile Page Header -->
+  <div class="mobile-page-header">
+    <h1>My Orders</h1>
+    <p>Track and manage your food orders</p>
+  </div>
+
+  <!-- MAIN CONTENT CONTAINER -->
+  <main class="main-container">
+
+    <!-- FILTER TABS -->
+    <div class="filter-tabs">
+      <button class="tab-btn active" data-filter="all">All Orders (4)</button>
+      <button class="tab-btn" data-filter="processing">Processing (1)</button>
+      <button class="tab-btn" data-filter="out-for-delivery">Out for Delivery (2)</button>
+      <button class="tab-btn" data-filter="delivered">Delivered (1)</button>
+    </div>
+
+    <!-- ORDER 1 -->
+    <div class="order-card" data-status="processing">
+      <div class="order-main-info">
+        <div class="order-header">
+          <span class="order-id">Order ID: #RSO128753</span>
+          <span class="badge-status processing">Processing</span>
+        </div>
+        <div class="order-date"><i class="fa-regular fa-calendar"></i> 12 Apr 2025, 02:15 PM</div>
+
+        <div class="order-items-list">
+          <div class="item-box">
+            <img src="https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=120" class="item-thumb" alt="Chicken Biryani" />
+            <div>
+              <div class="item-title">Chicken Biryani</div>
+              <div class="item-price">₹249</div>
+              <div class="item-count">(1 Item)</div>
+            </div>
+          </div>
+
+          <div class="item-box">
+            <img src="https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=120" class="item-thumb" alt="Raita" />
+            <div>
+              <div class="item-title">Raita</div>
+              <div class="item-price">₹50</div>
+              <div class="item-count">(1 Item)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="order-action-col">
+        <a href="order-details.html" class="view-details-btn">View Details <i class="fa-solid fa-arrow-right"></i></a>
+        <div class="total-price-block">
+          <div class="label">Total Amount</div>
+          <div class="price">₹299</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ORDER 2 -->
+    <div class="order-card" data-status="out-for-delivery">
+      <div class="order-main-info">
+        <div class="order-header">
+          <span class="order-id">Order ID: #RSO128752</span>
+          <span class="badge-status out-for-delivery">Out for Delivery</span>
+        </div>
+        <div class="order-date"><i class="fa-regular fa-calendar"></i> 11 Apr 2025, 07:32 PM</div>
+
+        <div class="order-items-list">
+          <div class="item-box">
+            <img src="https://images.unsplash.com/photo-1610192244261-3f33de3f55e4?w=120" class="item-thumb" alt="Veg Thali" />
+            <div>
+              <div class="item-title">Veg Thali</div>
+              <div class="item-price">₹179</div>
+              <div class="item-count">(1 Item)</div>
+            </div>
+          </div>
+
+          <div class="item-box">
+            <img src="https://images.unsplash.com/photo-1668236543090-82eba5ee5976?w=120" class="item-thumb" alt="Masala Dosa" />
+            <div>
+              <div class="item-title">Masala Dosa</div>
+              <div class="item-price">₹159</div>
+              <div class="item-count">(1 Item)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="order-action-col">
+        <a href="order-details.html" class="view-details-btn">View Details <i class="fa-solid fa-arrow-right"></i></a>
+        <div class="total-price-block">
+          <div class="label">Total Amount</div>
+          <div class="price">₹338</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ORDER 3 -->
+    <div class="order-card" data-status="delivered">
+      <div class="order-main-info">
+        <div class="order-header">
+          <span class="order-id">Order ID: #RSO128751</span>
+          <span class="badge-status delivered">Delivered</span>
+        </div>
+        <div class="order-date"><i class="fa-regular fa-calendar"></i> 10 Apr 2025, 01:20 PM</div>
+
+        <div class="order-items-list">
+          <div class="item-box">
+            <img src="https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=120" class="item-thumb" alt="Paneer Butter Masala" />
+            <div>
+              <div class="item-title">Paneer Butter Masala</div>
+              <div class="item-price">₹299</div>
+              <div class="item-count">(1 Item)</div>
+            </div>
+          </div>
+
+          <div class="item-box">
+            <img src="https://images.unsplash.com/photo-1601050690597-df0568f70950?w=120" class="item-thumb" alt="Naan" />
+            <div>
+              <div class="item-title">Naan</div>
+              <div class="item-price">₹49</div>
+              <div class="item-count">(1 Item)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="order-action-col">
+        <a href="order-details.html" class="view-details-btn">View Details <i class="fa-solid fa-arrow-right"></i></a>
+        <div class="total-price-block">
+          <div class="label">Total Amount</div>
+          <div class="price">₹348</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ORDER 4 -->
+    <div class="order-card" data-status="delivered">
+      <div class="order-main-info">
+        <div class="order-header">
+          <span class="order-id">Order ID: #RSO128750</span>
+          <span class="badge-status delivered">Delivered</span>
+        </div>
+        <div class="order-date"><i class="fa-regular fa-calendar"></i> 08 Apr 2025, 11:45 AM</div>
+
+        <div class="order-items-list">
+          <div class="item-box">
+            <img src="https://images.unsplash.com/photo-1668236543090-82eba5ee5976?w=120" class="item-thumb" alt="Masala Dosa" />
+            <div>
+              <div class="item-title">Masala Dosa</div>
+              <div class="item-price">₹159</div>
+              <div class="item-count">(1 Item)</div>
+            </div>
+          </div>
+
+          <div class="item-box">
+            <img src="https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=120" class="item-thumb" alt="Idli" />
+            <div>
+              <div class="item-title">Idli</div>
+              <div class="item-price">₹99</div>
+              <div class="item-count">(1 Item)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="order-action-col">
+        <a href="order-details.html" class="view-details-btn">View Details <i class="fa-solid fa-arrow-right"></i></a>
+        <div class="total-price-block">
+          <div class="label">Total Amount</div>
+          <div class="price">₹258</div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-left">
+      <img src="./assets/rasoova_logo_desktop.png" alt="Rasoova Logo" class="footer-logo" />
+    </div>
+
+    <div class="footer-links">
+      <a href="#"><i class="fa-solid fa-house"></i> Home</a> |
+      <a href="#"><i class="fa-solid fa-box-open"></i> My Orders</a> |
+      <a href="#"><i class="fa-solid fa-user"></i> Profile</a> |
+      <a href="#"><i class="fa-solid fa-location-dot"></i> Address</a> |
+      <a href="#"><i class="fa-solid fa-headset"></i> Help & Support</a>
+    </div>
+  </footer>
+
+  <!-- MOBILE BOTTOM NAV -->
+  <nav class="mobile-bottom-nav">
+    <a href="./index.html">
+      <i class="fa-solid fa-house"></i>
+      <span>Home</span>
+    </a>
+    <a href="./order.html" class="active">
+      <i class="fa-solid fa-bag-shopping"></i>
+      <span>My Orders</span>
+    </a>
+     <a href="./menupage.html" class="active">
+      <i class="fa-solid fa-bag-shopping"></i>
+      <span>Menu</span>
+    </a>
+    <a href="./profile.html">
+      <i class="fa-regular fa-user"></i>
+      <span>Profile</span>
+    </a>
+    <a href="./address.html">
+      <i class="fa-solid fa-location-dot"></i>
+      <span>Address</span>
+    </a>
+    <a href="./help-support.html">
+      <i class="fa-solid fa-headset"></i>
+      <span>Help & Support</span>
+    </a>
+  </nav>
+
+  <!-- JS FOR TAB FILTERING -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const tabs = document.querySelectorAll(".tab-btn");
+      const orderCards = document.querySelectorAll(".order-card");
+
+      tabs.forEach((tab) => {
+        tab.addEventListener("click", () => {
+          tabs.forEach((t) => t.classList.remove("active"));
+          tab.classList.add("active");
+
+          const filter = tab.getAttribute("data-filter");
+
+          orderCards.forEach((card) => {
+            const cardStatus = card.getAttribute("data-status");
+            if (filter === "all" || cardStatus === filter) {
+              card.style.display = "flex";
+            } else {
+              card.style.display = "none";
+            }
+          });
+        });
+      });
+
+      const menuButton = document.getElementById("mobile-menu-toggle");
+      const subNavigation = document.querySelector(".sub-nav");
+      menuButton?.addEventListener("click", () => subNavigation?.classList.toggle("open"));
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rasoova - My Addresses</title>
+  <!-- Google Fonts & Font Awesome Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+
+   /* ─────────────────────────────────────────
+   ANNOUNCEMENT BAR
+───────────────────────────────────────── */
+.announcement {
+  height: 38px;
+  background: #8f1738;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 4%;
+  font-size: 12px;
+  font-weight: 600;
+  gap: 8px;
+}
+.ann-left, .ann-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.ann-fire { font-size: 15px; }
+.ann-sep  { opacity: 0.5; }
+
+    /* ==================== GLOBAL STYLES ==================== */
+    :root {
+      --primary-maroon: #8f1738;
+      --primary-hover: #7a1230;
+      --bg-cream: #faf5f0;
+      --card-bg: #ffffff;
+      --text-dark: #333333;
+      --text-muted: #666666;
+      --border-color: #f0e6e0;
+      --shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-cream);
+      color: var(--text-dark);
+      line-height: 1.5;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 100%;
+      margin: 0 auto;
+      padding: 0 4%;
+    }
+
+    /* --- TOP NAVBAR --- */
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 40px;
+      background-color: #ffffff;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .brand-logo {
+      height: 48px;
+      object-fit: contain;
+    }
+
+    .nav-search {
+      position: relative;
+      width: 45%;
+      max-width: 550px;
+    }
+
+    .nav-search input {
+      width: 100%;
+      padding: 10px 45px 10px 20px;
+      border-radius: 25px;
+      border: 1px solid #e0e0e0;
+      background-color: #fafafa;
+      outline: none;
+      font-size: 14px;
+      color: #333;
+    }
+
+    .nav-search input::placeholder {
+      color: #aaa;
+    }
+
+    .nav-search .search-btn {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: #888;
+      cursor: pointer;
+      font-size: 15px;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .notification-icon {
+      position: relative;
+      font-size: 18px;
+      color: var(--primary-maroon);
+      cursor: pointer;
+    }
+
+    .notification-icon .badge {
+      position: absolute;
+      top: -5px;
+      right: -7px;
+      background-color: #e53e3e;
+      color: #fff;
+      font-size: 10px;
+      font-weight: bold;
+      border-radius: 50%;
+      width: 15px;
+      height: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .user-dropdown {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+
+    .avatar-small {
+      width: 32px;
+      height: 32px;
+      background-color: var(--light-pink);
+      color: var(--primary-maroon);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+    }
+
+    .user-name {
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .user-dropdown .arrow {
+      font-size: 12px;
+      color: #666;
+    }
+
+    /* --- SUB NAVIGATION BAR --- */
+    .sub-nav {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 25px;
+      padding: 12px 0;
+      background-color: #ffffff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+    }
+
+    .sub-nav .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 24px;
+      border-radius: 20px;
+      text-decoration: none;
+      color: #444;
+      font-weight: 600;
+      font-size: 14px;
+      transition: all 0.2s ease;
+    }
+
+    .sub-nav .nav-item.active {
+      background-color: var(--primary-maroon);
+      color: #ffffff;
+    }
+
+    .sub-nav .nav-item:hover:not(.active) {
+      background-color: var(--light-pink);
+      color: var(--primary-maroon);
+    }
+
+    /* ==================== BANNER SECTION ==================== */
+    .hero-banner {
+      width: 100%;
+      aspect-ratio: 1920 / 275;
+      overflow: hidden;
+    }
+    .hero-banner img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    /* ==================== ADDRESS SECTION ==================== */
+
+    .page-layout {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 25px;
+      margin-bottom: 60px;
+    }
+
+    .address-list {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .address-card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      border: 1px solid #f2e6df;
+      box-shadow: var(--shadow);
+      position: relative;
+    }
+
+    .address-card.default-border {
+      border: 1px solid #c8e6c9;
+    }
+
+    .address-card-left {
+      display: flex;
+      gap: 16px;
+    }
+
+    .address-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background-color: #fdf2f2;
+      color: var(--primary-maroon);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .address-info {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .tag-container {
+      margin-bottom: 4px;
+    }
+
+    .badge-default-tag {
+      background-color: #e8f5e9;
+      color: #2e7d32;
+      font-size: 11px;
+      padding: 2px 10px;
+      border-radius: 12px;
+      font-weight: 500;
+      display: inline-block;
+    }
+
+    .address-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #222;
+    }
+
+    .user-name {
+      font-size: 13px;
+      font-weight: 500;
+      color: #555;
+    }
+
+    .address-text {
+      font-size: 12px;
+      color: #777;
+      max-width: 420px;
+      line-height: 1.4;
+    }
+
+    .phone-number {
+      font-size: 12px;
+      color: #555;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .address-card-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 15px;
+    }
+
+    .badge-default-top {
+      background-color: #e8f5e9;
+      color: #2e7d32;
+      font-size: 11px;
+      padding: 3px 12px;
+      border-radius: 12px;
+      font-weight: 500;
+    }
+
+    .address-actions {
+      display: flex;
+      gap: 15px;
+      margin-top: 15px;
+    }
+
+    .action-btn {
+      background: none;
+      border: none;
+      color: #555;
+      font-size: 11px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      transition: color 0.2s;
+    }
+
+    .action-btn i {
+      font-size: 14px;
+    }
+
+    .action-btn:hover {
+      color: var(--primary-maroon);
+    }
+
+    /* Add New Address Sidebar Box */
+    .add-address-box {
+      background: #fff6f6;
+      border: 1px dashed #f0c5c5;
+      border-radius: 12px;
+      padding: 30px 20px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .add-icon-circle {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background-color: #fde8e8;
+      color: var(--primary-maroon);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      margin-bottom: 12px;
+    }
+
+    .add-address-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--primary-maroon);
+      margin-bottom: 6px;
+    }
+
+    .add-address-sub {
+      font-size: 12px;
+      color: #777;
+      margin-bottom: 20px;
+      line-height: 1.4;
+    }
+
+    .btn-add-address {
+      background-color: var(--primary-maroon);
+      color: white;
+      border: none;
+      padding: 10px 24px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      width: 100%;
+      transition: background-color 0.2s;
+    }
+
+    .btn-add-address:hover {
+      background-color: var(--primary-hover);
+    }
+
+    /* ==================== FOOTER ==================== */
+    footer {
+      background-color: var(--primary-maroon);
+      color: white;
+      padding: 20px 0;
+      margin-top: auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .footer-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-brand .footer-logo-img {
+      height: 52px;
+      width: auto;
+      object-fit: contain;
+      filter: invert(1);
+      mix-blend-mode: screen;
+      opacity: 0.95;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 20px;
+      list-style: none;
+    }
+
+    .footer-links a {
+      color: #e0e0e0;
+      text-decoration: none;
+      font-size: 12px;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: #ffffff;
+    }
+
+    .footer-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 8px;
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 12px;
+    }
+
+    .social-icons a {
+      color: white;
+      font-size: 14px;
+      text-decoration: none;
+    }
+
+    .copyright {
+      font-size: 10px;
+      color: #d1a8b4;
+    }
+
+    /* Mobile-only elements */
+    .hamb { display: none; }
+    .mobile-bottom-nav { display: none; }
+
+    /* Responsive Design */
+    @media (max-width: 992px) {
+      .page-layout { grid-template-columns: 1fr; }
+      .search-box { width: 280px; }
+    }
+
+    @media (max-width: 768px) {
+      /* Header Mobile */
+      .header-container {
+        flex-direction: row;
+        gap: 10px;
+      }
+      .hamb {
+        display: block;
+        background: transparent;
+        border: none;
+        font-size: 20px;
+        color: var(--primary-maroon);
+        cursor: pointer;
+      }
+      .brand-logo { height: 40px; }
+      .search-box { display: none; }
+      .user-profile { display: none; }
+      .icon-badge { font-size: 22px; color: #3a2a2d; }
+      .badge {
+        font-size: 10px; width: 16px; height: 16px;
+        display: flex; align-items: center; justify-content: center;
+        top: -5px; right: -8px; background: #e74c3c;
+      }
+
+      /* Hide Desktop Nav */
+      nav { display: none; }
+
+      /* Footer hidden on mobile */
+      footer { display: none; }
+      body { padding-bottom: 60px; }
+
+      /* Mobile Bottom Nav */
+      .mobile-bottom-nav {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: #fff;
+        box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+        padding: 10px 0 8px;
+        z-index: 1000;
+      }
+      .mobile-bottom-nav a {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+        color: #55606e;
+        font-size: 10px;
+        font-weight: 600;
+      }
+      .mobile-bottom-nav a.active { color: #c02844; }
+    }
+  </style>
+</head>
+<body>
+
+
+     <!-- ── ANNOUNCEMENT BAR ── -->
+  <div class="announcement">
+    <div class="ann-left">
+      <span class="ann-fire">🔥</span>
+      <span>First Order 20% OFF</span>
+      <span class="ann-sep">|</span>
+      <span>Every Order 10% OFF (Limited Time)</span>
+    </div>
+    <div class="ann-right">
+      <span class="ann-fire">🔥</span>
+      <span>Freshly Cooked</span>
+      <span class="ann-sep">|</span>
+      <span>Authentic Bihari Flavours</span>
+    </div>
+  </div>
+
+
+  <!-- TOP NAVBAR -->
+  <header class="navbar">
+    <div class="nav-left">
+      <img src="./assets/rasoova_logo_desktop.png" alt="Rasoova Logo" class="brand-logo" />
+    </div>
+
+    <div class="nav-search">
+      <input type="text" placeholder="Search for your favorite food..." />
+      <button class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+    </div>
+
+    <div class="nav-right">
+      <div class="notification-icon">
+        <i class="fa-regular fa-bell"></i>
+        <span class="badge">3</span>
+      </div>
+      <div class="user-dropdown">
+        <div class="avatar-small">
+          <i class="fa-solid fa-user"></i>
+        </div>
+        <span class="user-name">Priya</span>
+        <i class="fa-solid fa-chevron-down arrow"></i>
+      </div>
+    </div>
+  </header>
+
+  <!-- SUB NAVIGATION BAR -->
+  <nav class="sub-nav">
+    <a href="./index.html" class="nav-item">
+      <i class="fa-solid fa-house"></i>
+      <span>Home</span>
+    </a>
+    <a href="./order.html" class="nav-item">
+      <i class="fa-solid fa-box-open"></i>
+      <span>My Orders</span>
+    </a>
+
+     <a href="./menupage.html" class="nav-item">
+      <i class="fa-solid fa-box-open"></i>
+      <span>Menu</span>
+    </a>
+    <a href="./profile.html" class="nav-item">
+      <i class="fa-solid fa-user"></i>
+      <span>Profile</span>
+    </a>
+    <a href="./address.html" class="nav-item active">
+      <i class="fa-solid fa-location-dot"></i>
+      <span>Address</span>
+    </a>
+    <a href="./help-support.html" class="nav-item">
+      <i class="fa-solid fa-headset"></i>
+      <span>Help & Support</span>
+    </a>
+  </nav>
+
+  <!-- Hero Banner -->
+  <div class="hero-banner">
+    <img src="./assets/address-banner-image.png" alt="Rasoova My Addresses">
+  </div>
+
+  <!-- Main Content Layout -->
+  <main class="container page-layout" style="position: relative; z-index: 1;">
+    
+    <!-- Addresses List Container -->
+    <div class="address-list" id="addressList">
+      <!-- Cards rendered via JavaScript below -->
+    </div>
+
+    <!-- Add New Address Sidebar -->
+    <div>
+      <div class="add-address-box">
+        <div class="add-icon-circle">
+          <i class="fa-solid fa-location-dot"></i>
+        </div>
+        <h3 class="add-address-title">Add New Address</h3>
+        <p class="add-address-sub">Save a new address for faster checkout and smooth delivery.</p>
+        <button class="btn-add-address" id="addAddressBtn">+ Add Address</button>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container footer-container">
+      <div class="footer-brand">
+        <img src="./assets/rasoova_logo_desktop.png" alt="Rasoova Logo" class="footer-logo-img">
+      </div>
+
+      <ul class="footer-links">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">My Orders</a></li>
+        <li><a href="#">Profile</a></li>
+        <li><a href="#">Address</a></li>
+        <li><a href="#">Help & Support</a></li>
+      </ul>
+
+      <div class="footer-right">
+        <div class="social-icons">
+          <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#"><i class="fa-brands fa-youtube"></i></a>
+        </div>
+        <div class="copyright">
+          © 2025 Rasoova. All rights reserved
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- MOBILE BOTTOM NAV -->
+  <nav class="mobile-bottom-nav">
+    <a href="#home">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+      <span>Home</span>
+    </a>
+    <a href="#orders">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+      <span>My Orders</span>
+    </a>
+    <a href="#profile">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      <span>Profile</span>
+    </a>
+    <a href="#address" class="active">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+      <span>Address</span>
+    </a>
+    <a href="#help">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"></path><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path></svg>
+      <span>Help &amp; Support</span>
+    </a>
+  </nav>
+
+  <!-- JavaScript Dynamic Operations -->
+  <script>
+    // Addresses Data
+    const addresses = [
+      {
+        id: 1,
+        type: "Home",
+        icon: "fa-house",
+        name: "Priya Sharma",
+        details: "Flat No. 302, Sunshine Apartment, MG Road, Sector 14, Gurgaon, Haryana - 122001",
+        phone: "+91 98765 43210",
+        isDefault: true
+      },
+      {
+        id: 2,
+        type: "Office",
+        icon: "fa-briefcase",
+        name: "Priya Sharma",
+        details: "Tower B, 5th Floor, Cyber Hub, DLF Phase 3, Gurgaon, Haryana - 122002",
+        phone: "+91 98765 43210",
+        isDefault: false
+      },
+      {
+        id: 3,
+        type: "Friends House",
+        icon: "fa-house-user",
+        name: "Rohit Verma",
+        details: "C-12, Green Park, South Delhi, New Delhi - 110016",
+        phone: "+91 98765 43210",
+        isDefault: false
+      }
+    ];
+
+    const addressListEl = document.getElementById('addressList');
+
+    // Render Address List Function
+    function renderAddresses() {
+      addressListEl.innerHTML = '';
+      
+      addresses.forEach(addr => {
+        const card = document.createElement('div');
+        card.className = `address-card ${addr.isDefault ? 'default-border' : ''}`;
+
+        card.innerHTML = `
+          <div class="address-card-left">
+            <div class="address-icon">
+              <i class="fa-solid ${addr.icon}"></i>
+            </div>
+            <div class="address-info">
+              ${addr.isDefault ? '<div class="tag-container"><span class="badge-default-tag">Default Address</span></div>' : ''}
+              <span class="address-title">${addr.type}</span>
+              <span class="user-name">${addr.name}</span>
+              <p class="address-text">${addr.details}</p>
+              <div class="phone-number">
+                <i class="fa-solid fa-phone" style="font-size: 10px; color: #777;"></i>
+                <span>${addr.phone}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="address-card-right">
+            ${addr.isDefault ? '<span class="badge-default-top">Default</span>' : ''}
+            <div class="address-actions">
+              <button class="action-btn" onclick="editAddress(${addr.id})">
+                <i class="fa-solid fa-pen"></i>
+                <span>Edit</span>
+              </button>
+              <button class="action-btn" onclick="deleteAddress(${addr.id})">
+                <i class="fa-solid fa-trash-can"></i>
+                <span>Delete</span>
+              </button>
+            </div>
+          </div>
+        `;
+
+        addressListEl.appendChild(card);
+      });
+    }
+
+    // Action Handlers
+    function editAddress(id) {
+      alert(`Edit address with ID: ${id}`);
+    }
+
+    function deleteAddress(id) {
+      if (confirm("Are you sure you want to delete this address?")) {
+        const index = addresses.findIndex(a => a.id === id);
+        if (index !== -1) {
+          addresses.splice(index, 1);
+          renderAddresses();
+        }
+      }
+    }
+
+    document.getElementById('addAddressBtn').addEventListener('click', () => {
+      alert("Opening 'Add New Address' modal form...");
+    });
+
+    // Initial Render
+    renderAddresses();
+  </script>
+</body>
+</html>

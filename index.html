@@ -1,0 +1,608 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Rasoova | Fresh Food · Happy Moments</title>
+  <meta name="description" content="Rasoova – Freshly cooked authentic Bihari food delivered to your door. Order online and enjoy 20% off your first order.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    :root {
+      --primary-maroon: #8f1738;
+      --primary-hover: #73122d;
+      --light-pink: #fbf0f3;
+      --bg-page: #faf8f8;
+      --card-bg: #f8fafc;
+      --border-color: #edebeb;
+      --text-dark: #222222;
+      --text-muted: #666666;
+      --text-light: #888888;
+      --green-badge: #16a34a;
+      --green-bg: #eefdf4;
+    }
+
+    /* --- TOP NAVBAR --- */
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 40px;
+      background-color: #ffffff;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .brand-logo {
+      height: 48px;
+      object-fit: contain;
+    }
+
+    .nav-search {
+      position: relative;
+      width: 45%;
+      max-width: 550px;
+    }
+
+    .nav-search input {
+      width: 100%;
+      padding: 10px 45px 10px 20px;
+      border-radius: 25px;
+      border: 1px solid #e0e0e0;
+      background-color: #fafafa;
+      outline: none;
+      font-size: 14px;
+      color: #333;
+    }
+
+    .nav-search input::placeholder {
+      color: #aaa;
+    }
+
+    .nav-search .search-btn {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: #888;
+      cursor: pointer;
+      font-size: 15px;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .notification-icon {
+      position: relative;
+      font-size: 18px;
+      color: var(--primary-maroon);
+      cursor: pointer;
+    }
+
+    .notification-icon .badge {
+      position: absolute;
+      top: -5px;
+      right: -7px;
+      background-color: #e53e3e;
+      color: #fff;
+      font-size: 10px;
+      font-weight: bold;
+      border-radius: 50%;
+      width: 15px;
+      height: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .user-dropdown {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+
+    .avatar-small {
+      width: 32px;
+      height: 32px;
+      background-color: var(--light-pink);
+      color: var(--primary-maroon);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+    }
+
+    .user-name {
+      font-weight: 600;
+      font-size: 14px;
+      color: #000;
+    }
+
+    .user-dropdown .arrow {
+      font-size: 12px;
+      color: #666;
+    }
+
+    /* --- SUB NAVIGATION BAR --- */
+    .sub-nav {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 25px;
+      padding: 12px 0;
+      background-color: #ffffff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+    }
+
+    .sub-nav .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 24px;
+      border-radius: 20px;
+      text-decoration: none;
+      color: #444;
+      font-weight: 600;
+      font-size: 14px;
+      transition: all 0.2s ease;
+    }
+
+    .sub-nav .nav-item.active {
+      background-color: var(--primary-maroon);
+      color: #ffffff;
+    }
+
+    .sub-nav .nav-item:hover:not(.active) {
+      background-color: var(--light-pink);
+      color: var(--primary-maroon);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── ANNOUNCEMENT BAR ── -->
+  <div class="announcement">
+    <div class="ann-left">
+      <span class="ann-fire">🔥</span>
+      <span>First Order 20% OFF</span>
+      <span class="ann-sep">|</span>
+      <span>Every Order 10% OFF (Limited Time)</span>
+    </div>
+    <div class="ann-right">
+      <span class="ann-fire">🔥</span>
+      <span>Freshly Cooked</span>
+      <span class="ann-sep">|</span>
+      <span>Authentic Bihari Flavours</span>
+    </div>
+  </div>
+
+  <!-- TOP NAVBAR -->
+  <header class="navbar">
+    <div class="nav-left">
+      <button class="mobile-menu-toggle" id="hamb-btn" aria-label="Open menu">☰</button>
+      <img src="./assets/rasoova_logo_desktop.png" alt="Rasoova Logo" class="brand-logo" />
+    </div>
+
+    <div class="nav-search">
+      <input type="text" placeholder="Search for your favorite food..." />
+      <button class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+    </div>
+
+    <div class="nav-right">
+      <button class="mobile-search-toggle" aria-label="Search">⌕</button>
+      <div class="notification-icon">
+        <i class="fa-regular fa-bell"></i>
+        <span class="badge">3</span>
+      </div>
+      <div class="user-dropdown">
+        <div class="avatar-small">
+          <i class="fa-solid fa-user"></i>
+        </div>
+        <span class="user-name">Priya</span>
+        <i class="fa-solid fa-chevron-down arrow"></i>
+      </div>
+      <a class="mobile-cart-toggle" href="#cart" aria-label="Cart">🛒<span>0</span></a>
+    </div>
+  </header>
+
+  <!-- SUB NAVIGATION BAR -->
+  <nav class="sub-nav">
+    <a href="./index.html" class="nav-item active">
+      <i class="fa-solid fa-house"></i>
+      <span>Home</span>
+    </a>
+    <a href="./order.html" class="nav-item">
+      <i class="fa-solid fa-box-open"></i>
+      <span>My Orders</span>
+    </a>
+
+     <a href="./menupage.html" class="nav-item">
+      <i class="fa-solid fa-box-open"></i>
+      <span>Menu</span>
+    </a>
+    <a href="./profile.html" class="nav-item">
+      <i class="fa-solid fa-user"></i>
+      <span>Profile</span>
+    </a>
+    <a href="./address.html" class="nav-item">
+      <i class="fa-solid fa-location-dot"></i>
+      <span>Address</span>
+    </a>
+    <a href="./help-support.html" class="nav-item">
+      <i class="fa-solid fa-headset"></i>
+      <span>Help & Support</span>
+    </a>
+    <button class="logout-btn" type="button" id="logout-btn">
+      <i class="fa-solid fa-right-from-bracket"></i>
+      <span>Logout</span>
+    </button>
+  </nav>
+
+  <main>
+
+    <!-- ── DELIVERY / LOCATION BAR ── -->
+    <section class="delivery-bar">
+      <div class="delivery-bar-inner">
+
+        <div class="dlv-location">
+          <span class="dlv-pin-icon">📍</span>
+          <div class="dlv-loc-text">
+            <span>Satya Vihar, Bhubaneswar</span>
+            <svg class="dlv-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#8f1738" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+        </div>
+
+        <!-- Mobile-only food search (hidden on desktop) -->
+        <div class="dlv-food-search">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#746b6e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" id="food-search-input" placeholder="Search for your favourite food..." aria-label="Search food">
+          <button class="food-search-btn" aria-label="Search">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          </button>
+        </div>
+
+        <div class="dlv-input-wrap">
+          <input type="text" id="pincode-input" placeholder="Enter your delivery pincode" aria-label="Delivery pincode">
+          <button class="btn primary dlv-check-btn" id="check-pincode-btn">Check</button>
+        </div>
+
+        <div class="dlv-info">
+          <span class="dlv-info-icon">📍</span>
+          <p>We deliver within <strong>10–15 km</strong> from Satya Vihar</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── HERO BANNER ── -->
+    <section class="hero">
+      <picture>
+        <source media="(max-width: 760px)" srcset="./assets/hero_mobile_banner.webp">
+        <img src="./assets/hero_desktop_banner.webp" alt="Rasoova – Welcome Offer 20% off on first order, 10% off on every order">
+      </picture>
+    </section>
+
+    <!-- ── BENEFITS STRIP ── -->
+    <section class="benefits">
+      <article>
+        <img src="./assets/icon_free_delivery.png" alt="Free Delivery" class="benefit-icon">
+        <div>
+          <b>Free Delivery</b>
+          <small>on Prepaid Orders</small>
+        </div>
+      </article>
+      <article>
+        <img src="./assets/icon_extra_5_percent.png" alt="Extra 5% Off" class="benefit-icon">
+        <div>
+          <b>Extra 5% Off</b>
+          <small>on Prepaid Orders</small>
+        </div>
+      </article>
+      <article>
+        <img src="./assets/icon_min_order.png" alt="Min. Order Value" class="benefit-icon">
+        <div>
+          <b>Min. Order Value ₹300</b>
+          <small>(For Free Delivery) <span class="info-icon" title="Minimum order of ₹300 required for free delivery">ℹ</span></small>
+        </div>
+      </article>
+      <article>
+        <img src="./assets/icon_cod.png" alt="COD Orders" class="benefit-icon">
+        <div>
+          <b>COD Orders</b>
+          <small>Delivery Charges Applicable</small>
+        </div>
+      </article>
+      <article>
+        <img src="./assets/icon_freshly_cooked.png" alt="Freshly Cooked" class="benefit-icon">
+        <div>
+          <b>Freshly Cooked</b>
+          <small>20–40 mins<br>(As per order volume)</small>
+        </div>
+      </article>
+    </section>
+
+    <!-- ── OUR MENU ── -->
+    <section class="section menu-section" id="menu">
+
+      <div class="menu-heading">
+        <div class="menu-title-group">
+          <span class="menu-icon">
+            <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#8f1738" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <!-- Fork -->
+              <line x1="8" y1="2" x2="8" y2="22"/>
+              <path d="M6 2v5a2 2 0 0 0 4 0V2"/>
+              <!-- Knife -->
+              <line x1="16" y1="22" x2="16" y2="11"/>
+              <path d="M16 2C16 2 20 4 20 9L16 11"/>
+            </svg>
+          </span>
+          <div>
+            <h2 class="menu-title">Our Menu</h2>
+            <p class="menu-subtitle">Delicious meals, made with love</p>
+          </div>
+        </div>
+        <a class="view-all-link" href="#">View All →</a>
+      </div>
+
+      <!-- Filter Tabs -->
+      <div class="filter-tabs" role="tablist">
+        <button class="tab-btn active" role="tab" aria-selected="true" data-filter="all">All</button>
+        <button class="tab-btn" role="tab" aria-selected="false" data-filter="biryani">Biryani</button>
+        <button class="tab-btn" role="tab" aria-selected="false" data-filter="curries">Curries</button>
+        <button class="tab-btn" role="tab" aria-selected="false" data-filter="tandoor">Tandoor</button>
+        <button class="tab-btn" role="tab" aria-selected="false" data-filter="snacks">Snacks</button>
+        <button class="tab-btn" role="tab" aria-selected="false" data-filter="beverages">Beverages</button>
+      </div>
+
+      <!-- Products Grid -->
+      <div class="products" id="products-grid">
+
+        <article class="product-card" data-category="biryani">
+          <div class="product-img-wrap">
+            <picture>
+              <source media="(max-width: 760px)" srcset="./assets/mobile_menu_chicken_biryani.webp">
+              <img src="./assets/menu_chicken_biryani.webp" alt="Chicken Biryani">
+            </picture>
+            <span class="product-badge bestseller">Bestseller</span>
+          </div>
+          <div class="product-body">
+            <h4>Chicken Biryani</h4>
+            <p>Aromatic rice with tender chicken &amp; special spices</p>
+            <div class="product-meta">
+              <div class="product-rating">
+                <span class="stars">⭐</span>
+                <span class="rating-val">4.8</span>
+                <span class="rating-count">(124)</span>
+              </div>
+              <span class="product-price">₹249</span>
+            </div>
+            <button class="add-to-cart-btn" id="add-chicken-biryani">🛒 Add to Cart</button>
+          </div>
+        </article>
+
+        <article class="product-card" data-category="biryani">
+          <div class="product-img-wrap">
+            <picture>
+              <source media="(max-width: 760px)" srcset="./assets/mobile_menu_mutton_biryani.webp">
+              <img src="./assets/menu_mutton_biryani.webp" alt="Mutton Biryani">
+            </picture>
+            <span class="product-badge chefs-special">Chef's Special</span>
+          </div>
+          <div class="product-body">
+            <h4>Mutton Biryani</h4>
+            <p>Rich &amp; flavorful with authentic Bihari masala</p>
+            <div class="product-meta">
+              <div class="product-rating">
+                <span class="stars">⭐</span>
+                <span class="rating-val">4.7</span>
+                <span class="rating-count">(98)</span>
+              </div>
+              <span class="product-price">₹299</span>
+            </div>
+            <button class="add-to-cart-btn" id="add-mutton-biryani">🛒 Add to Cart</button>
+          </div>
+        </article>
+
+        <article class="product-card" data-category="snacks">
+          <div class="product-img-wrap">
+            <picture>
+              <source media="(max-width: 760px)" srcset="./assets/mobile_menu_litti_chokha.webp">
+              <img src="./assets/menu_litti_chokha.webp" alt="Litti Chokha">
+            </picture>
+            <span class="product-badge local-fav">Local Favourite</span>
+          </div>
+          <div class="product-body">
+            <h4>Litti Chokha</h4>
+            <p>Traditional Bihari dish with desi ghee</p>
+            <div class="product-meta">
+              <div class="product-rating">
+                <span class="stars">⭐</span>
+                <span class="rating-val">4.5</span>
+                <span class="rating-count">(156)</span>
+              </div>
+              <span class="product-price">₹149</span>
+            </div>
+            <button class="add-to-cart-btn" id="add-litti-chokha">🛒 Add to Cart</button>
+          </div>
+        </article>
+
+        <article class="product-card" data-category="curries">
+          <div class="product-img-wrap">
+            <img src="./assets/menu_veg_thali.webp" alt="Veg Thali">
+            <span class="product-badge"></span>
+          </div>
+          <div class="product-body">
+            <h4>Veg Thali</h4>
+            <p>Complete meal with homemade taste</p>
+            <div class="product-meta">
+              <div class="product-rating">
+                <span class="stars">⭐</span>
+                <span class="rating-val">4.6</span>
+                <span class="rating-count">(87)</span>
+              </div>
+              <span class="product-price">₹129</span>
+            </div>
+            <button class="add-to-cart-btn" id="add-veg-thali">🛒 Add to Cart</button>
+          </div>
+        </article>
+
+        <article class="product-card" data-category="tandoor">
+          <div class="product-img-wrap">
+            <picture>
+              <source media="(max-width: 760px)" srcset="./assets/mobile_menu_paneer_tikka.webp">
+              <img src="./assets/menu_paneer_tikka.webp" alt="Paneer Tikka">
+            </picture>
+            <span class="product-badge"></span>
+          </div>
+          <div class="product-body">
+            <h4>Paneer Tikka</h4>
+            <p>Smoky and delicious tandoor style</p>
+            <div class="product-meta">
+              <div class="product-rating">
+                <span class="stars">⭐</span>
+                <span class="rating-val">4.4</span>
+                <span class="rating-count">(63)</span>
+              </div>
+              <span class="product-price">₹179</span>
+            </div>
+            <button class="add-to-cart-btn" id="add-paneer-tikka">🛒 Add to Cart</button>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ── WHY CHOOSE RASOOVA ── -->
+    <section class="fresh" id="about">
+      <img src="./assets/why_choose_rasoova_banner.webp" alt="Why Choose Rasoova – Authentic Bihari Taste, Freshly Cooked, Hygienic Kitchen, Fast & Reliable On-Time Delivery">
+    </section>
+
+    <!-- ── CUSTOMER REVIEWS ── -->
+    <section class="reviews-section" id="reviews">
+      <div class="reviews-inner">
+        <div class="reviews-label">
+          <span class="reviews-icon">💬</span>
+          <h3>What Our Customers Say</h3>
+        </div>
+        <div class="review-card-wrap">
+          <div class="review-card" id="review-card">
+            <img src="./assets/customer_testimonial_photo.png" alt="Priya Sharma" class="reviewer-photo">
+            <div class="review-content">
+              <div class="reviewer-meta">
+                <strong>Priya Sharma</strong>
+                <span class="review-stars">⭐⭐⭐⭐⭐</span>
+              </div>
+              <p class="review-text">"Amazing food! The litti chokha was just like home. Fresh, tasty and delivered on time. Highly recommended!"</p>
+              <small class="review-time">2 days ago</small>
+            </div>
+          </div>
+          <button class="review-nav-btn" aria-label="Next review" id="next-review-btn">›</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ── FOOTER ── -->
+  <footer id="contact">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <img src="./assets/rasoova_logo_desktop.png" alt="Rasoova" class="footer-logo">
+        <p>Fresh Food · Happy Moments</p>
+      </div>
+      <nav class="footer-nav" aria-label="Footer navigation">
+        <a href="#home">Home</a>
+        <a href="#menu">Menu</a>
+        <a href="#about">About Us</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div class="footer-social">
+        <a href="#" class="social-btn" aria-label="Facebook" id="fb-link">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+        </a>
+        <a href="#" class="social-btn" aria-label="Instagram" id="ig-link">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        </a>
+        <a href="#" class="social-btn" aria-label="YouTube" id="yt-link">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.96-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="#1a0a0f"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Rasoova. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- ── MOBILE BOTTOM NAV ── -->
+  <nav class="mobile-bottom-nav">
+    <a href="#home" class="active">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+      <span>Home</span>
+    </a>
+    <a href="#menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+      <span>Menu</span>
+    </a>
+    <a href="#cart" class="nav-cart">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+      <i class="cart-badge">0</i>
+      <span>Cart</span>
+    </a>
+    <a href="#orders">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+      <span>Orders</span>
+    </a>
+    <a href="#profile">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      <span>Profile</span>
+    </a>
+  </nav>
+
+  <script>
+    // Filter tabs
+    const tabs = document.querySelectorAll('.tab-btn');
+    const cards = document.querySelectorAll('.product-card');
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected','false'); });
+        tab.classList.add('active');
+        tab.setAttribute('aria-selected','true');
+        const filter = tab.dataset.filter;
+        cards.forEach(card => {
+          card.style.display = (filter === 'all' || card.dataset.category === filter) ? '' : 'none';
+        });
+      });
+    });
+
+    // Add to cart feedback
+    document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        this.textContent = '✔ Added!';
+        this.style.background = '#2d7a3c';
+        setTimeout(() => { this.textContent = '🛒 Add to Cart'; this.style.background = ''; }, 1500);
+      });
+    });
+
+    // Hamburger (mobile)
+    const menuButton = document.getElementById('hamb-btn');
+    const subNavigation = document.querySelector('.sub-nav');
+    if (menuButton && subNavigation) {
+      menuButton.addEventListener('click', () => subNavigation.classList.toggle('open'));
+    }
+
+    document.getElementById('logout-btn')?.addEventListener('click', () => {
+      alert('You have been logged out.');
+    });
+  </script>
+
+</body>
+</html>

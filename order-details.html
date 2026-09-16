@@ -1,0 +1,1270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Rasoova - Order Details</title>
+  <meta name="description" content="View your Rasoova order details, track delivery status, and share your food experience.">
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary-maroon: #8f1738;
+      --primary-hover: #73122d;
+      --light-pink: #fdf2f4;
+      --bg-page: #f5f5f5;
+      --card-bg: #ffffff;
+      --border-color: #edebeb;
+      --text-dark: #222222;
+      --text-muted: #666666;
+      --text-light: #999999;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-page);
+      color: var(--text-dark);
+    }
+
+    img { display: block; }
+    a { text-decoration: none; color: inherit; }
+
+    /* ─────────────────────────────────────────
+       ANNOUNCEMENT BAR
+    ───────────────────────────────────────── */
+    .announcement {
+      height: 38px;
+      background: #8f1738;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 4%;
+      font-size: 12px;
+      font-weight: 600;
+      gap: 8px;
+    }
+
+    .mobile-header { display: none; }
+    .ann-left, .ann-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .ann-fire { font-size: 15px; }
+    .ann-sep  { opacity: 0.5; }
+
+    /* --- TOP NAVBAR --- */
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 40px;
+      background-color: #ffffff;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .brand-logo {
+      height: 48px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .nav-search {
+      position: relative;
+      width: 45%;
+      max-width: 550px;
+    }
+
+    .nav-search input {
+      width: 100%;
+      padding: 10px 45px 10px 20px;
+      border-radius: 25px;
+      border: 1px solid #e0e0e0;
+      background-color: #fafafa;
+      outline: none;
+      font-size: 14px;
+      color: #333;
+    }
+
+    .nav-search input::placeholder { color: #aaa; }
+
+    .nav-search .search-btn {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: #888;
+      cursor: pointer;
+      font-size: 15px;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .notification-icon {
+      position: relative;
+      font-size: 18px;
+      color: var(--primary-maroon);
+      cursor: pointer;
+    }
+
+    .notification-icon .notif-badge {
+      position: absolute;
+      top: -5px;
+      right: -7px;
+      background-color: #e53e3e;
+      color: #fff;
+      font-size: 10px;
+      font-weight: bold;
+      border-radius: 50%;
+      width: 15px;
+      height: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .user-dropdown {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+
+    .avatar-small {
+      width: 32px;
+      height: 32px;
+      background-color: #e8e0e0;
+      color: var(--primary-maroon);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+    }
+
+    .user-name {
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .user-dropdown .arrow { font-size: 12px; color: #666; }
+
+    /* --- SUB NAVIGATION BAR --- */
+    .sub-nav {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 25px;
+      padding: 12px 0;
+      background-color: #ffffff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+    }
+
+    .sub-nav .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 24px;
+      border-radius: 20px;
+      text-decoration: none;
+      color: #444;
+      font-weight: 600;
+      font-size: 14px;
+      transition: all 0.2s ease;
+    }
+
+    .sub-nav .nav-item.active {
+      background-color: var(--primary-maroon);
+      color: #ffffff;
+    }
+
+    .sub-nav .nav-item:hover:not(.active) {
+      background-color: var(--light-pink);
+      color: var(--primary-maroon);
+    }
+
+    /* ─────────────────────────────────────────
+       PAGE WRAPPER
+    ───────────────────────────────────────── */
+    .page-wrapper {
+      width: 100%;
+      padding: 24px 20px 60px;
+    }
+
+    /* BACK NAV */
+    .back-nav {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-bottom: 20px;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+    .back-nav:hover { color: var(--primary-maroon); }
+
+    /* CARD */
+    .card {
+      background: #ffffff;
+      border-radius: 14px;
+      border: 1px solid #e8e8e8;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+
+    /* ─────────────────────────────────────────
+       TOP DETAILS CARD
+    ───────────────────────────────────────── */
+    .order-top-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+
+    .order-header-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .order-img-thumb {
+      width: 80px !important;
+      max-width: 80px !important;
+      min-width: 80px !important;
+      height: 80px !important;
+      border-radius: 10px;
+      object-fit: cover;
+      flex-shrink: 0;
+      display: block;
+    }
+
+    .order-id-text {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text-dark);
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .status-badge.delivered {
+      background: #e8f8ef;
+      color: #16a34a;
+    }
+    .status-badge.processing {
+      background: #fffbeb;
+      color: #d97706;
+    }
+    .status-badge.out-for-delivery {
+      background: #eff6ff;
+      color: #2563eb;
+    }
+
+    .order-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+    .order-meta .sep { color: #ccc; }
+
+    .delivered-time {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+    }
+
+    .items-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: var(--primary-maroon);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 20px;
+      margin-bottom: 14px;
+    }
+
+    .invoice-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 20px;
+      border: 1.5px solid var(--primary-maroon);
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--primary-maroon);
+      background: #fff;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+    }
+    .invoice-btn:hover {
+      background: var(--primary-maroon);
+      color: #fff;
+    }
+
+    /* ─────────────────────────────────────────
+       ORDER TRACKER
+    ───────────────────────────────────────── */
+    .tracker-col {
+      padding-top: 10px;
+    }
+
+    .tracker {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    .tracker::before {
+      content: '';
+      position: absolute;
+      top: 18px;
+      left: 18px;
+      right: 18px;
+      height: 3px;
+      background: #e0e0e0;
+      z-index: 0;
+    }
+
+    .tracker-fill {
+      position: absolute;
+      top: 18px;
+      left: 18px;
+      height: 3px;
+      background: var(--primary-maroon);
+      z-index: 1;
+      transition: width 0.4s;
+    }
+
+    .step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      position: relative;
+      z-index: 2;
+      flex: 1;
+    }
+
+    .step-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #e0e0e0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      color: #aaa;
+      border: 2px solid #e0e0e0;
+    }
+
+    .step.done .step-icon {
+      background: var(--primary-maroon);
+      border-color: var(--primary-maroon);
+      color: #fff;
+    }
+
+    .step.active .step-icon {
+      background: #fff;
+      border-color: #16a34a;
+      color: #16a34a;
+    }
+
+    .step.final-done .step-icon {
+      background: #16a34a;
+      border-color: #16a34a;
+      color: #fff;
+    }
+
+    .step-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-dark);
+      text-align: center;
+      line-height: 1.3;
+    }
+
+    .step-time {
+      font-size: 10px;
+      color: var(--text-muted);
+      text-align: center;
+    }
+
+    /* ─────────────────────────────────────────
+       ORDER ITEMS + BILL CARD
+    ───────────────────────────────────────── */
+    .items-section-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 16px;
+    }
+
+    .items-title-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .items-view-all {
+      display: none;
+      color: var(--primary-maroon);
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .items-bill-grid {
+      display: grid;
+      grid-template-columns: 1fr 260px;
+      gap: 28px;
+      align-items: start;
+    }
+
+    .food-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 12px 0;
+      border-bottom: 1px solid #f2f2f2;
+    }
+    .food-item:last-child { border-bottom: none; }
+
+    .food-thumb {
+      width: 56px !important;
+      max-width: 56px !important;
+      min-width: 56px !important;
+      height: 56px !important;
+      border-radius: 10px;
+      object-fit: cover;
+      flex-shrink: 0;
+      display: block;
+    }
+
+    .food-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-bottom: 4px;
+    }
+    .food-price {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--primary-maroon);
+      margin-bottom: 2px;
+    }
+    .food-qty {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    /* BILL SUMMARY */
+    .bill-summary {
+      background: #fafafa;
+      border: 1px solid #efefef;
+      border-radius: 10px;
+      padding: 18px;
+    }
+
+    .bill-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+    .bill-row:last-child { margin-bottom: 0; }
+
+    .bill-divider {
+      border: none;
+      border-top: 1px dashed #e0e0e0;
+      margin: 12px 0;
+    }
+
+    .bill-total {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-dark);
+    }
+
+    .bill-total-amount {
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--primary-maroon);
+    }
+
+    /* ─────────────────────────────────────────
+       EXPERIENCE / REVIEW SECTION
+    ───────────────────────────────────────── */
+    .section-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 4px;
+    }
+    .section-subtitle {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 18px;
+    }
+
+    .review-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+      align-items: start;
+    }
+
+    /* Stars */
+    .stars-row {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 6px;
+    }
+
+    .star {
+      font-size: 28px;
+      color: #ddd;
+      cursor: pointer;
+      transition: color 0.15s;
+    }
+    .star.filled { color: #f5a623; }
+    .star:hover { color: #f5a623; }
+
+    .rating-text {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    .mood-btns {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .mood-btn {
+      padding: 7px 20px;
+      border-radius: 20px;
+      border: 1.5px solid #e0e0e0;
+      background: #fff;
+      font-size: 13px;
+      font-weight: 600;
+      color: #555;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .mood-btn.active {
+      background: var(--primary-maroon);
+      color: #fff;
+      border-color: var(--primary-maroon);
+    }
+    .mood-btn:hover:not(.active) {
+      border-color: var(--primary-maroon);
+      color: var(--primary-maroon);
+    }
+
+    /* Review input col */
+    .review-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-bottom: 8px;
+    }
+
+    .review-textarea {
+      width: 100%;
+      height: 100px;
+      padding: 12px 14px;
+      border: 1px solid #e0e0e0;
+      border-radius: 10px;
+      font-size: 13px;
+      resize: none;
+      outline: none;
+      color: #555;
+      margin-bottom: 12px;
+      font-family: inherit;
+      transition: border-color 0.2s;
+    }
+    .review-textarea:focus { border-color: var(--primary-maroon); }
+    .review-textarea::placeholder { color: #bbb; }
+
+    .submit-review-btn {
+      width: 100%;
+      padding: 12px;
+      background: var(--primary-maroon);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .submit-review-btn:hover { background: var(--primary-hover); }
+
+    /* ─────────────────────────────────────────
+       CUSTOMER REVIEWS
+    ───────────────────────────────────────── */
+    .customer-review-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 14px 0;
+      border-bottom: 1px solid #f2f2f2;
+    }
+    .customer-review-item:last-child { border-bottom: none; }
+
+    .reviewer-avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: #e8e0e0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary-maroon);
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .reviewer-avatar img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .reviewer-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 2px;
+    }
+    .reviewer-date {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .reviewer-stars {
+      display: flex;
+      gap: 3px;
+      margin-bottom: 6px;
+    }
+    .reviewer-stars .star { font-size: 16px; }
+
+    .reviewer-text {
+      font-size: 13px;
+      color: #555;
+      line-height: 1.5;
+    }
+
+    /* ─────────────────────────────────────────
+       FOOTER
+    ───────────────────────────────────────── */
+    .footer {
+      background: #6b1029;
+      padding: 28px 4%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-logo {
+      height: 56px;
+      object-fit: contain;
+      mix-blend-mode: screen;
+      filter: invert(1);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .footer-links a {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: #f8c8d4;
+      font-size: 13px;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: #fff; }
+
+    /* ─────────────────────────────────────────
+       MOBILE BOTTOM NAV
+    ───────────────────────────────────────── */
+    .mobile-bottom-nav { display: none; }
+      .mobile-page-title { display: none; }
+
+    /* ─────────────────────────────────────────
+       RESPONSIVE
+    ───────────────────────────────────────── */
+    @media (max-width: 768px) {
+      .announcement,
+      .navbar,
+      .sub-nav { display: none; }
+
+      .mobile-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 48px;
+        padding: 6px 14px;
+        background: #fff;
+        border-bottom: 1px solid #f0e8e8;
+      }
+      .mobile-header > a,
+      .mobile-cart {
+        width: 28px;
+        color: var(--primary-maroon);
+        font-size: 16px;
+      }
+      .mobile-header img { width: 82px; height: 36px; object-fit: contain; }
+      .mobile-cart { position: relative; text-align: right; }
+      .mobile-cart span {
+        position: absolute;
+        top: -7px;
+        right: -5px;
+        width: 13px;
+        height: 13px;
+        border-radius: 50%;
+        background: #e53e3e;
+        color: #fff;
+        font-size: 8px;
+        line-height: 13px;
+        text-align: center;
+      }
+
+      .mobile-page-title {
+        display: block;
+        padding: 9px 12px 4px;
+        background: #fff;
+        color: var(--text-dark);
+        font-size: 18px;
+        font-weight: 800;
+      }
+
+      .page-wrapper { padding: 0 12px 72px; }
+      .back-nav { display: none; }
+      .card {
+        padding: 10px;
+        margin-bottom: 8px;
+        border-radius: 8px;
+        box-shadow: 0 1px 5px rgba(0,0,0,0.06);
+      }
+
+      .order-top-grid { grid-template-columns: 1fr; }
+      .order-header-row { align-items: flex-start; gap: 8px; margin-bottom: 8px; }
+      .order-header-row > div { min-width: 0; flex: 1; }
+      .order-img-thumb { width: 64px !important; min-width: 64px !important; height: 64px !important; border-radius: 7px; }
+      .order-id-text { font-size: 14px; }
+      .status-badge { padding: 4px 8px; font-size: 11px; gap: 3px; }
+      .order-header-row > div > div:first-child { gap: 5px !important; margin-bottom: 4px !important; }
+      .order-meta { gap: 5px; font-size: 11px; margin-bottom: 5px; white-space: nowrap; }
+      .delivered-time { font-size: 11px; margin-bottom: 9px; }
+      .items-tag { padding: 4px 8px; margin-bottom: 0; font-size: 11px; }
+      .invoice-btn { padding: 7px 11px; border-radius: 6px; font-size: 11px; gap: 4px; }
+
+      .tracker-col { padding: 8px 0 0; }
+      .tracker { flex-direction: column; gap: 8px; padding-left: 0; }
+      .tracker::before {
+        top: 18px;
+        bottom: 18px;
+        left: 9px;
+        right: auto;
+        width: 2px;
+        height: auto;
+      }
+      .tracker-fill {
+        top: 18px;
+        bottom: 18px;
+        left: 8px;
+        width: 3px !important;
+        height: auto !important;
+      }
+      .step {
+        width: 100%;
+        min-height: 28px;
+        flex: none;
+        flex-direction: row;
+        justify-content: flex-start;
+        gap: 8px;
+        text-align: left;
+      }
+      .step-icon { width: 18px; height: 18px; min-width: 18px; font-size: 8px; border-width: 1px; }
+      .step-label { font-size: 12px; text-align: left; line-height: 1.2; }
+      .step-time { font-size: 10px; text-align: left; margin-left: auto; }
+
+      .items-bill-grid { grid-template-columns: 1fr; }
+      .items-section-title { font-size: 15px; margin-bottom: 8px; }
+      .items-view-all { display: block; }
+      .food-item { gap: 8px; padding: 7px 0; }
+      .food-thumb { width: 40px !important; min-width: 40px !important; height: 40px !important; border-radius: 6px; }
+      .food-name, .food-price { font-size: 12px; margin-bottom: 2px; }
+      .food-qty { font-size: 10px; }
+      .bill-summary { display: none; }
+
+      .review-grid { grid-template-columns: 1fr; }
+      .section-title { font-size: 15px; }
+      .section-subtitle { font-size: 11px; margin-bottom: 8px; }
+      .stars-row { gap: 2px; margin-bottom: 2px; }
+      .star { font-size: 20px; }
+      .rating-text { font-size: 11px; margin-bottom: 7px; }
+      .mood-btns { gap: 5px; }
+      .mood-btn { flex: 1; padding: 6px 3px; border-radius: 12px; font-size: 11px; }
+      .review-label { font-size: 11px; margin-bottom: 4px; }
+      .review-textarea { height: 54px; padding: 8px; margin-bottom: 6px; border-radius: 6px; font-size: 11px; }
+      .submit-review-btn { padding: 8px; border-radius: 6px; font-size: 11px; }
+
+      .customer-review-item { gap: 8px; padding: 8px 0; }
+      .reviewer-avatar { width: 28px; height: 28px; font-size: 12px; }
+      .reviewer-name { font-size: 12px; }
+      .reviewer-date, .reviewer-text { font-size: 11px; }
+      .reviewer-stars .star { font-size: 15px; }
+
+      .footer { display: none; }
+
+      .mobile-bottom-nav {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: #6b1029;
+        padding: 10px 0 8px;
+        z-index: 1000;
+        box-shadow: 0 -2px 10px rgba(0,0,0,0.15);
+      }
+      .mobile-bottom-nav a {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+        color: #f8c8d4;
+        font-size: 12px;
+        font-weight: 600;
+      }
+      .mobile-bottom-nav a i { font-size: 18px; }
+      .mobile-bottom-nav a.active { color: #ffffff; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- MOBILE HEADER -->
+  <header class="mobile-header">
+    <a href="./order.html" aria-label="Back to My Orders">
+      <i class="fa-solid fa-arrow-left"></i>
+    </a>
+    <img src="./assets/rasoova_logo_desktop.png" alt="Rasoova Logo" />
+    <div class="mobile-cart" aria-label="Cart">
+      <i class="fa-solid fa-cart-shopping"></i>
+      <span>2</span>
+    </div>
+  </header>
+
+  <h1 class="mobile-page-title">Order Details</h1>
+
+  <!-- ── ANNOUNCEMENT BAR ── -->
+  <div class="announcement">
+    <div class="ann-left">
+      <span class="ann-fire">🔥</span>
+      <span>First Order 20% OFF</span>
+      <span class="ann-sep">|</span>
+      <span>Every Order 10% OFF (Limited Time)</span>
+    </div>
+    <div class="ann-right">
+      <span class="ann-fire">🔥</span>
+      <span>Freshly Cooked</span>
+      <span class="ann-sep">|</span>
+      <span>Authentic Bihari Flavours</span>
+    </div>
+  </div>
+
+  <!-- TOP NAVBAR -->
+  <header class="navbar">
+    <div class="nav-left">
+      <img src="./assets/rasoova_logo_desktop.png" alt="Rasoova Logo" class="brand-logo" />
+    </div>
+
+    <div class="nav-search">
+      <input type="text" placeholder="Search for your favorite food..." />
+      <button class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+    </div>
+
+    <div class="nav-right">
+      <div class="notification-icon">
+        <i class="fa-regular fa-bell"></i>
+        <span class="notif-badge">2</span>
+      </div>
+      <div class="user-dropdown">
+        <div class="avatar-small">
+          <i class="fa-solid fa-user"></i>
+        </div>
+        <span class="user-name">Priya</span>
+        <i class="fa-solid fa-chevron-down arrow"></i>
+      </div>
+    </div>
+  </header>
+
+  <!-- SUB NAVIGATION BAR -->
+  <nav class="sub-nav">
+    <a href="./index.html" class="nav-item">
+      <i class="fa-solid fa-house"></i>
+      <span>Home</span>
+    </a>
+    <a href="./order.html" class="nav-item active">
+      <i class="fa-solid fa-box-open"></i>
+      <span>My Orders</span>
+    </a>
+    <a href="./profile.html" class="nav-item">
+      <i class="fa-solid fa-user"></i>
+      <span>Profile</span>
+    </a>
+    <a href="./address.html" class="nav-item">
+      <i class="fa-solid fa-location-dot"></i>
+      <span>Address</span>
+    </a>
+    <a href="./help-support.html" class="nav-item">
+      <i class="fa-solid fa-headset"></i>
+      <span>Help &amp; Support</span>
+    </a>
+  </nav>
+
+  <!-- PAGE WRAPPER -->
+  <div class="page-wrapper">
+
+    <!-- BACK NAV -->
+    <a href="./order.html" class="back-nav">
+      <i class="fa-solid fa-arrow-left"></i>
+      Back to My Orders
+    </a>
+
+    <!-- ── TOP DETAILS CARD ── -->
+    <div class="card">
+      <div class="order-top-grid">
+
+        <!-- LEFT: Order info -->
+        <div class="order-info-col">
+          <div class="order-header-row">
+            <img
+              src="https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=200"
+              alt="Order"
+              class="order-img-thumb"
+            />
+            <div>
+              <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
+                <span class="order-id-text">Order ID: #RSO128753</span>
+                <span class="status-badge delivered">
+                  <i class="fa-solid fa-circle-check" style="font-size:11px;"></i> Delivered
+                </span>
+              </div>
+              <div class="order-meta">
+                <i class="fa-regular fa-calendar" style="font-size:12px;"></i>
+                <span>12 Apr 2025, 02:15 PM</span>
+                <span class="sep">|</span>
+                <span>2 Items</span>
+                <span class="sep">|</span>
+                <span style="font-weight:700;color:var(--text-dark);">₹299</span>
+              </div>
+              <div class="delivered-time">Delivered on 14 Apr 2025, 11:32 AM</div>
+              <div style="display:flex;align-items:center;gap:12px;">
+                <span class="items-tag"><i class="fa-solid fa-utensils"></i> 2 Items</span>
+                <a href="#" class="invoice-btn">
+                  View Invoice <i class="fa-solid fa-download" style="font-size:12px;"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: Tracker -->
+        <div class="tracker-col">
+          <div class="tracker" id="tracker">
+            <!-- fill line will be injected by JS -->
+            <div class="tracker-fill" id="tracker-fill"></div>
+
+            <div class="step done">
+              <div class="step-icon"><i class="fa-solid fa-check"></i></div>
+              <div class="step-label">Order Placed</div>
+              <div class="step-time">12 Apr, 02:15 PM</div>
+            </div>
+
+            <div class="step done">
+              <div class="step-icon"><i class="fa-solid fa-check"></i></div>
+              <div class="step-label">Preparing<br>Your Food</div>
+              <div class="step-time">12 Apr, 02:25 PM</div>
+            </div>
+
+            <div class="step done">
+              <div class="step-icon"><i class="fa-solid fa-check"></i></div>
+              <div class="step-label">Out for Delivery</div>
+              <div class="step-time">12 Apr, 04:10 PM</div>
+            </div>
+
+            <div class="step final-done">
+              <div class="step-icon"><i class="fa-solid fa-check"></i></div>
+              <div class="step-label">Delivered</div>
+              <div class="step-time">14 Apr, 11:32 AM</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── ORDER ITEMS + BILL CARD ── -->
+    <div class="card">
+      <div class="items-title-row">
+        <div class="items-section-title">Order Items</div>
+        <span class="items-view-all">View all</span>
+      </div>
+      <div class="items-bill-grid">
+
+        <!-- Food Items -->
+        <div class="food-items-list">
+          <div class="food-item">
+            <img
+              src="https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=200"
+              alt="Chicken Biryani + Raita"
+              class="food-thumb"
+            />
+            <div class="food-details">
+              <div class="food-name">Chicken Biryani + Raita</div>
+              <div class="food-price">₹249</div>
+              <div class="food-qty">Qty: 1</div>
+            </div>
+          </div>
+
+          <div class="food-item">
+            <img
+              src="https://images.unsplash.com/photo-1668236543090-82eba5ee5976?w=200"
+              alt="Masala Dosa + Idli"
+              class="food-thumb"
+            />
+            <div class="food-details">
+              <div class="food-name">Masala Dosa + Idli</div>
+              <div class="food-price">₹159</div>
+              <div class="food-qty">Qty: 1</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bill Summary -->
+        <div class="bill-summary">
+          <div class="bill-row">
+            <span>Item Total</span>
+            <span>₹408</span>
+          </div>
+          <div class="bill-row">
+            <span>Delivery Charges</span>
+            <span style="color:#16a34a;font-weight:600;">₹0</span>
+          </div>
+          <hr class="bill-divider" />
+          <div class="bill-row">
+            <span class="bill-total">Total Amount</span>
+            <span class="bill-total-amount">₹299</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── SHARE EXPERIENCE CARD ── -->
+    <div class="card">
+      <div class="section-title">Share Your Experience</div>
+      <div class="section-subtitle">How was your food? Your feedback helps us serve you better!</div>
+
+      <div class="review-grid">
+        <!-- Left: Stars & Mood -->
+        <div>
+          <div class="stars-row" id="stars-row">
+            <span class="star filled" data-val="1">&#9733;</span>
+            <span class="star filled" data-val="2">&#9733;</span>
+            <span class="star filled" data-val="3">&#9733;</span>
+            <span class="star filled" data-val="4">&#9733;</span>
+            <span class="star" data-val="5">&#9733;</span>
+          </div>
+          <div class="rating-text" id="rating-text">4.0 out of 5</div>
+          <div class="mood-btns">
+            <button class="mood-btn active" data-mood="excellent">Excellent</button>
+            <button class="mood-btn" data-mood="good">Good</button>
+            <button class="mood-btn" data-mood="average">Average</button>
+            <button class="mood-btn" data-mood="poor">Poor</button>
+          </div>
+        </div>
+
+        <!-- Right: Review text -->
+        <div>
+          <div class="review-label">Write a Review (Optional)</div>
+          <textarea
+            class="review-textarea"
+            id="review-textarea"
+            placeholder="Tell us about your experience..."
+          ></textarea>
+          <button class="submit-review-btn" id="submit-review-btn">Submit Review</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── CUSTOMER REVIEWS CARD ── -->
+    <div class="card">
+      <div class="section-title" style="margin-bottom:16px;">Customer Reviews</div>
+
+      <div class="customer-review-item">
+        <div class="reviewer-avatar">
+          <img src="./assets/customer_testimonial_photo.png" alt="Priya Sharma" />
+        </div>
+        <div class="reviewer-info">
+          <div class="reviewer-name">Priya Sharma</div>
+          <div class="reviewer-date">14 Apr 2025</div>
+          <div class="reviewer-stars">
+            <span class="star filled">&#9733;</span>
+            <span class="star filled">&#9733;</span>
+            <span class="star filled">&#9733;</span>
+            <span class="star filled">&#9733;</span>
+            <span class="star filled">&#9733;</span>
+          </div>
+          <div class="reviewer-text">
+            Food was really tasty and fresh. Biryani was amazing and packaging was also good. Will definitely order again!
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div><!-- end page-wrapper -->
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-left">
+      <img src="./assets/rasoova_logo_desktop.png" alt="Rasoova Logo" class="footer-logo" />
+    </div>
+    <div class="footer-links">
+      <a href="./index.html"><i class="fa-solid fa-house"></i> Home</a>
+      <a href="./order.html"><i class="fa-solid fa-box-open"></i> My Orders</a>
+      <a href="./profile.html"><i class="fa-solid fa-user"></i> Profile</a>
+      <a href="./address.html"><i class="fa-solid fa-location-dot"></i> Address</a>
+      <a href="./help-support.html"><i class="fa-solid fa-headset"></i> Help &amp; Support</a>
+    </div>
+  </footer>
+
+  <!-- MOBILE BOTTOM NAV -->
+  <nav class="mobile-bottom-nav">
+    <a href="./index.html">
+      <i class="fa-solid fa-house"></i>
+      <span>Home</span>
+    </a>
+    <a href="./order.html" class="active">
+      <i class="fa-solid fa-bag-shopping"></i>
+      <span>My Orders</span>
+    </a>
+    <a href="./profile.html">
+      <i class="fa-regular fa-user"></i>
+      <span>Profile</span>
+    </a>
+    <a href="./address.html">
+      <i class="fa-solid fa-location-dot"></i>
+      <span>Address</span>
+    </a>
+    <a href="./help-support.html">
+      <i class="fa-solid fa-headset"></i>
+      <span>Help &amp; Support</span>
+    </a>
+  </nav>
+
+  <script>
+    // ── STAR RATING ──
+    const stars = document.querySelectorAll('#stars-row .star');
+    const ratingText = document.getElementById('rating-text');
+    let currentRating = 4;
+
+    function setStars(n) {
+      stars.forEach((s, i) => {
+        s.classList.toggle('filled', i < n);
+      });
+      ratingText.textContent = n + '.0 out of 5';
+      currentRating = n;
+    }
+
+    stars.forEach(s => {
+      s.addEventListener('click', () => setStars(parseInt(s.dataset.val)));
+      s.addEventListener('mouseover', () => {
+        stars.forEach((st, i) => st.classList.toggle('filled', i < parseInt(s.dataset.val)));
+      });
+      s.addEventListener('mouseout', () => setStars(currentRating));
+    });
+
+    // ── MOOD BUTTONS ──
+    const moodBtns = document.querySelectorAll('.mood-btn');
+    moodBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        moodBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      });
+    });
+
+    // ── SUBMIT REVIEW ──
+    document.getElementById('submit-review-btn').addEventListener('click', () => {
+      const review = document.getElementById('review-textarea').value.trim();
+      alert('Thank you for your review! ⭐'.concat(review ? '\n\nYour review: ' + review : ''));
+      document.getElementById('review-textarea').value = '';
+    });
+
+    // ── TRACKER FILL WIDTH ──
+    window.addEventListener('load', () => {
+      const tracker = document.getElementById('tracker');
+      const fill = document.getElementById('tracker-fill');
+      const steps = tracker.querySelectorAll('.step');
+      const totalSteps = steps.length;
+      // All delivered, so fill = 100%
+      const completedSteps = Array.from(steps).filter(s => s.classList.contains('done') || s.classList.contains('final-done')).length;
+      const pct = ((completedSteps - 1) / (totalSteps - 1)) * 100;
+      fill.style.width = pct + '%';
+    });
+  </script>
+
+</body>
+</html>

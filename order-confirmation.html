@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Rasoova - Order Confirmed</title>
+  <style>
+    :root {
+      --primary-maroon: #8f1738;
+      --primary-hover: #73122d;
+      --light-pink: #fdf2f4;
+      --bg-page: #fbf9f9;
+      --card-bg: #ffffff;
+      --border-color: #f0ecec;
+      --text-dark: #1e293b;
+      --text-muted: #64748b;
+      --text-light: #94a3b8;
+      --green-success: #16a34a;
+      --green-light: #f0fdf4;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-page);
+      color: var(--text-dark);
+    }
+
+    /* ─────────────────────────────────────────
+       ANNOUNCEMENT BAR
+    ───────────────────────────────────────── */
+    .announcement {
+      height: 38px;
+      background: #8f1738;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 4%;
+      font-size: 12px;
+      font-weight: 600;
+      gap: 8px;
+    }
+    .ann-left, .ann-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .ann-fire { font-size: 15px; }
+    .ann-sep  { opacity: 0.5; }
+
+    /* Offline icon fallbacks */
+    i[class*="fa-"] {
+      font-style: normal;
+      font-family: inherit;
+    }
+    .fa-magnifying-glass::before { content: "\\1F50D"; }
+    .fa-bell::before { content: "\\1F514"; }
+    .fa-user::before { content: "\\1F464"; }
+    .fa-chevron-down::before { content: "\\2304"; }
+    .fa-house::before { content: "\\2302"; }
+    .fa-box-open::before { content: "[ ]"; }
+    .fa-location-dot::before { content: "\\2316"; }
+    .fa-headset::before { content: "\\260E"; }
+    .fa-check::before { content: "\\2713"; }
+    .fa-clock::before { content: "\\25F7"; }
+    .fa-motorcycle::before { content: "\\1F6F5"; }
+    .fa-mobile-screen-button::before { content: "\\1F4F1"; }
+    .fa-bag-shopping::before { content: "\\1F6CD"; }
+    .fa-percentage::before { content: "%"; }
+    .fa-wallet::before { content: "\\1F45B"; }
+    .fa-qrcode::before { content: "#"; }
+    .fa-circle-check::before { content: "\\2713"; }
+    .fa-receipt::before { content: "= "; }
+    .fa-utensils::before { content: "\\1F37D"; }
+    .fa-arrow-right::before { content: "\\2192"; }
+
+    /* --- TOP NAVBAR --- */
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 40px;
+      background-color: #ffffff;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .brand-logo {
+      height: 48px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .nav-search {
+      position: relative;
+      width: 45%;
+      max-width: 550px;
+    }
+
+    .nav-search input {
+      width: 100%;
+      padding: 10px 45px 10px 20px;
+      border-radius: 25px;
+      border: 1px solid #e0e0e0;
+      background-color: #fafafa;
+      outline: none;
+      font-size: 14px;
+      color: #333;
+    }
+
+    .nav-search input::placeholder { color: #aaa; }
+
+    .nav-search .search-btn {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: #888;
+      cursor: pointer;
+      font-size: 15px;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .notification-icon {
+      position: relative;
+      font-size: 18px;
+      color: var(--primary-maroon);
+      cursor: pointer;
+    }
+
+    .notification-icon .notif-badge {
+      position: absolute;
+      top: -5px;
+      right: -7px;
+      background-color: #e53e3e;
+      color: #fff;
+      font-size: 10px;
+      font-weight: bold;
+      border-radius: 50%;
+      width: 15px;
+      height: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .user-dropdown {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+
+    .avatar-small {
+      width: 32px;
+      height: 32px;
+      background-color: #e8e0e0;
+      color: var(--primary-maroon);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+    }
+
+    .user-name {
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .user-dropdown .arrow { font-size: 12px; color: #666; }
+
+    /* --- SUB NAVIGATION BAR --- */
+    .sub-nav {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 25px;
+      padding: 12px 0;
+      background-color: #ffffff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+    }
+
+    .sub-nav .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 24px;
+      border-radius: 20px;
+      text-decoration: none;
+      color: #444;
+      font-weight: 600;
+      font-size: 14px;
+      transition: all 0.2s ease;
+    }
+
+    .sub-nav .nav-item.active {
+      background-color: var(--primary-maroon);
+      color: #ffffff;
+    }
+
+    .sub-nav .nav-item:hover:not(.active) {
+      background-color: var(--light-pink);
+      color: var(--primary-maroon);
+    }
+
+    /* --- HERO BACKGROUND & HEADER --- */
+    .confirmation-hero {
+      position: relative;
+      background: url('./assets/order-confirmation-banner.png') no-repeat center center;
+      background-size: cover;
+      padding: 40px 20px 30px 20px;
+      text-align: center;
+    }
+
+    .status-badge-wrapper {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 12px;
+    }
+
+    .check-circle {
+      width: 64px;
+      height: 64px;
+      background-color: var(--green-success);
+      color: #ffffff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+      margin: 0 auto;
+      box-shadow: 0 4px 12px rgba(22, 163, 74, 0.25);
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Confetti Bits */
+    .confetti {
+      position: absolute;
+      border-radius: 2px;
+      z-index: 1;
+    }
+    .c1 { width: 6px; height: 10px; background: #22c55e; top: 5px; left: -25px; transform: rotate(-20deg); }
+    .c2 { width: 8px; height: 8px; background: #ef4444; top: 20px; left: -40px; transform: rotate(45deg); }
+    .c3 { width: 6px; height: 10px; background: #eab308; top: 45px; left: -20px; transform: rotate(15deg); }
+    .c4 { width: 6px; height: 10px; background: #22c55e; top: 5px; right: -25px; transform: rotate(20deg); }
+    .c5 { width: 8px; height: 8px; background: #3b82f6; top: 22px; right: -42px; transform: rotate(-15deg); }
+    .c6 { width: 6px; height: 10px; background: #ef4444; top: 45px; right: -20px; transform: rotate(-35deg); }
+
+    .confirmation-hero h1 {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--primary-maroon);
+      margin-bottom: 6px;
+    }
+
+    .confirmation-hero p.sub-text {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    .order-id-pill {
+      display: inline-block;
+      background-color: #ecfdf5;
+      color: #047857;
+      border: 1px dashed #a7f3d0;
+      padding: 6px 18px;
+      border-radius: 20px;
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    /* --- TRACKING HIGHLIGHT CARDS --- */
+    .tracking-grid {
+      max-width: 1000px;
+      margin: -15px auto 30px auto;
+      padding: 0 20px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      position: relative;
+      z-index: 5;
+    }
+
+    .track-card {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+    }
+
+    .track-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .icon-red { background: var(--light-pink); color: var(--primary-maroon); }
+    .icon-pink { background: #fff0f3; color: #e11d48; }
+
+    .track-info h4 {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    .track-info .val {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-dark);
+    }
+
+    .track-info .sub-val {
+      font-size: 11px;
+      color: var(--text-light);
+      margin-top: 2px;
+    }
+
+    /* --- MAIN CONTENT LAYOUT --- */
+    .main-container {
+      max-width: 1000px;
+      margin: 0 auto 50px auto;
+      padding: 0 20px;
+      display: grid;
+      grid-template-columns: 1.25fr 1fr;
+      gap: 20px;
+    }
+
+    .card {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 22px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.01);
+    }
+
+    .card-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text-dark);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .card-title i {
+      color: var(--primary-maroon);
+    }
+
+    /* Order Details List */
+    .order-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 16px;
+      margin-bottom: 16px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .item-left {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .item-img {
+      width: 58px;
+      height: 58px;
+      border-radius: 10px;
+      object-fit: cover;
+    }
+
+    .item-meta h5 {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-dark);
+    }
+
+    .item-meta p {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin: 2px 0;
+    }
+
+    .item-meta .qty {
+      font-size: 12px;
+      color: var(--text-light);
+    }
+
+    .item-price {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-dark);
+    }
+
+    /* Price Summary Table */
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+
+    .summary-row.discount {
+      color: var(--green-success);
+    }
+
+    .summary-row.free-delivery {
+      color: var(--green-success);
+    }
+
+    .prepaid-offer-badge {
+      background-color: #ecfdf5;
+      color: var(--green-success);
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 12px 0 16px 0;
+    }
+
+    .grand-total {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 14px;
+      border-top: 1px solid var(--border-color);
+      margin-top: 10px;
+    }
+
+    .grand-total span {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--text-dark);
+    }
+
+    .grand-total .amount {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--primary-maroon);
+    }
+
+    /* Address Card */
+    .address-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .type-pill {
+      background: var(--green-light);
+      color: var(--green-success);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 12px;
+    }
+
+    .address-text {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-top: 8px;
+    }
+
+    .address-text strong {
+      color: var(--text-dark);
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    /* Payment Card */
+    .payment-method-box {
+      font-size: 13px;
+      color: var(--text-dark);
+      font-weight: 600;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .payment-status-tag {
+      font-size: 12px;
+      color: var(--green-success);
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .upi-icon {
+      height: 14px;
+      object-fit: contain;
+    }
+
+    /* Order Summary Key-Value List */
+    .info-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      font-size: 13px;
+    }
+
+    .info-item {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .info-item .label {
+      color: var(--text-muted);
+    }
+
+    .info-item .value {
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+
+    .info-item .value.status-paid {
+      color: var(--green-success);
+    }
+
+    /* Freshly Cooked Info Banner */
+    .fresh-banner {
+      background: var(--light-pink);
+      border-radius: 8px;
+      padding: 10px 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .fresh-banner i {
+      color: var(--primary-maroon);
+      font-size: 16px;
+    }
+
+    .fresh-banner p {
+      font-size: 11px;
+      color: var(--primary-maroon);
+      font-weight: 600;
+      line-height: 1.3;
+    }
+
+    /* Action Buttons */
+    .action-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .btn-track {
+      background: var(--primary-maroon);
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      padding: 12px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      text-decoration: none;
+      transition: background-color 0.2s;
+    }
+
+    .btn-track:hover {
+      background: var(--primary-hover);
+    }
+
+    .btn-home {
+      background: #ffffff;
+      color: var(--text-dark);
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 11px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      text-decoration: none;
+      transition: background-color 0.2s;
+    }
+
+    .btn-home:hover {
+      background: #f8fafc;
+    }
+
+    /* --- FOOTER --- */
+    .footer {
+      background-color: var(--primary-maroon);
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px 40px;
+    }
+
+    .footer-logo {
+      height: 52px;
+      object-fit: contain;
+      filter: invert(1);
+      mix-blend-mode: screen;
+      opacity: 0.95;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 15px;
+      font-size: 12px;
+    }
+
+    .footer-links a {
+      color: #fff;
+      text-decoration: none;
+      opacity: 0.9;
+    }
+
+    /* --- RESPONSIVE MEDIA QUERIES --- */
+    @media (max-width: 850px) {
+      .announcement { display: none; }
+      .navbar { padding: 10px 16px; gap: 10px; }
+      .nav-search { display: none; }
+
+      .sub-nav { gap: 6px; padding: 8px 4px; overflow-x: auto; justify-content: flex-start; padding-left: 12px; }
+      .sub-nav .nav-item { padding: 7px 14px; font-size: 12px; white-space: nowrap; }
+      
+      .tracking-grid {
+        grid-template-columns: 1fr;
+        margin-top: 10px;
+      }
+
+      .main-container {
+        grid-template-columns: 1fr;
+      }
+
+      .footer { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── ANNOUNCEMENT BAR ── -->
+  <div class="announcement">
+    <div class="ann-left">
+      <span class="ann-fire">🔥</span>
+      <span>First Order 20% OFF</span>
+      <span class="ann-sep">|</span>
+      <span>Every Order 10% OFF (Limited Time)</span>
+    </div>
+    <div class="ann-right">
+      <span class="ann-fire">🔥</span>
+      <span>Freshly Cooked</span>
+      <span class="ann-sep">|</span>
+      <span>Authentic Bihari Flavours</span>
+    </div>
+  </div>
+
+  <!-- TOP NAVBAR -->
+  <header class="navbar">
+    <div class="nav-left">
+      <img src="./assets/rasoova_logo_desktop.png" alt="Rasoova Logo" class="brand-logo" />
+    </div>
+
+    <div class="nav-search">
+      <input type="text" placeholder="Search for your favorite food..." />
+      <button class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+    </div>
+
+    <div class="nav-right">
+      <div class="notification-icon">
+        <i class="fa-regular fa-bell"></i>
+        <span class="notif-badge">2</span>
+      </div>
+      <div class="user-dropdown">
+        <div class="avatar-small">
+          <i class="fa-solid fa-user"></i>
+        </div>
+        <span class="user-name">Priya</span>
+        <i class="fa-solid fa-chevron-down arrow"></i>
+      </div>
+    </div>
+  </header>
+
+  <!-- SUB NAVIGATION BAR -->
+  <nav class="sub-nav">
+    <a href="./index.html" class="nav-item">
+      <i class="fa-solid fa-house"></i>
+      <span>Home</span>
+    </a>
+    <a href="./order.html" class="nav-item active">
+      <i class="fa-solid fa-box-open"></i>
+      <span>My Orders</span>
+    </a>
+    <a href="./profile.html" class="nav-item">
+      <i class="fa-solid fa-user"></i>
+      <span>Profile</span>
+    </a>
+    <a href="./address.html" class="nav-item">
+      <i class="fa-solid fa-location-dot"></i>
+      <span>Address</span>
+    </a>
+    <a href="./help-support.html" class="nav-item">
+      <i class="fa-solid fa-headset"></i>
+      <span>Help &amp; Support</span>
+    </a>
+  </nav>
+
+  <!-- CONFIRMATION HERO HEADER -->
+  <section class="confirmation-hero">
+    <div class="status-badge-wrapper">
+      <div class="confetti c1"></div>
+      <div class="confetti c2"></div>
+      <div class="confetti c3"></div>
+      <div class="confetti c4"></div>
+      <div class="confetti c5"></div>
+      <div class="confetti c6"></div>
+      <div class="check-circle">
+        <i class="fa-solid fa-check"></i>
+      </div>
+    </div>
+
+    <h1>Your Order Has Been Confirmed!</h1>
+    <p class="sub-text">Thank you for choosing Rasoova! Your delicious food is on the way.</p>
+    <div class="order-id-pill">
+      Order ID: #Rasoova123456
+    </div>
+  </section>
+
+  <!-- THREE TRACKING STATUS CARDS -->
+  <div class="tracking-grid">
+    <div class="track-card">
+      <div class="track-icon icon-red">
+        <i class="fa-regular fa-clock"></i>
+      </div>
+      <div class="track-info">
+        <h4>Estimated Delivery Time</h4>
+        <div class="val">30 - 45 mins</div>
+        <div class="sub-val">(Within 10-15 km from Satya Vihar)</div>
+      </div>
+    </div>
+
+    <div class="track-card">
+      <div class="track-icon icon-pink">
+        <i class="fa-solid fa-motorcycle"></i>
+      </div>
+      <div class="track-info">
+        <h4>Order Status</h4>
+        <div class="val">Preparing Your Food</div>
+        <div class="sub-val">We'll keep you updated!</div>
+      </div>
+    </div>
+
+    <div class="track-card">
+      <div class="track-icon icon-red">
+        <i class="fa-solid fa-mobile-screen-button"></i>
+      </div>
+      <div class="track-info">
+        <h4>You'll Get Updates</h4>
+        <div class="val">via SMS & WhatsApp</div>
+        <div class="sub-val">with live tracking link</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN DETAILS LAYOUT -->
+  <main class="main-container">
+    
+    <!-- LEFT COLUMN: ORDER ITEMS & PRICE BREAKDOWN -->
+    <div class="left-column">
+      <div class="card">
+        <div class="card-title">
+          <i class="fa-solid fa-bag-shopping"></i>
+          <span>Order Details</span>
+        </div>
+
+        <!-- Item 1 -->
+        <div class="order-item">
+          <div class="item-left">
+            <img src="./assets/menu_chicken_biryani.webp" alt="Chicken Biryani" class="item-img" />
+            <div class="item-meta">
+              <h5>Chicken Biryani</h5>
+              <p>Aromatic rice with tender chicken & special spices</p>
+              <span class="qty">Qty: 1</span>
+            </div>
+          </div>
+          <div class="item-price">₹249</div>
+        </div>
+
+        <!-- Item 2 -->
+        <div class="order-item">
+          <div class="item-left">
+            <img src="./assets/menu_mutton_biryani.webp" alt="Mutton Biryani" class="item-img" />
+            <div class="item-meta">
+              <h5>Mutton Biryani</h5>
+              <p>Rich & flavourful with authentic Bihari masala</p>
+              <span class="qty">Qty: 1</span>
+            </div>
+          </div>
+          <div class="item-price">₹299</div>
+        </div>
+
+        <!-- Item 3 -->
+        <div class="order-item">
+          <div class="item-left">
+            <img src="./assets/menu_veg_thali.webp" alt="Veg Thali" class="item-img" />
+            <div class="item-meta">
+              <h5>Veg Thali</h5>
+              <p>Complete meal with homemade taste</p>
+              <span class="qty">Qty: 1</span>
+            </div>
+          </div>
+          <div class="item-price">₹129</div>
+        </div>
+
+        <!-- Price Calculation Summary -->
+        <div class="summary-row">
+          <span>Item Total (3 items)</span>
+          <span>₹677</span>
+        </div>
+
+        <div class="summary-row discount">
+          <span>Discount</span>
+          <span>- ₹107</span>
+        </div>
+
+        <div class="summary-row free-delivery">
+          <span>Delivery Charges <small style="color:#94a3b8;">(Free Delivery on Prepaid Orders)</small></span>
+          <span>₹0</span>
+        </div>
+
+        <div class="prepaid-offer-badge">
+          <span><i class="fa-solid fa-percentage"></i> Extra 5% OFF (Prepaid)</span>
+          <span>- ₹28</span>
+        </div>
+
+        <div class="grand-total">
+          <span>Grand Total</span>
+          <span class="amount">₹542</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT COLUMN: ADDRESS, PAYMENT, ORDER SUMMARY & ACTIONS -->
+    <div class="right-column">
+      
+      <!-- Delivery Address Card -->
+      <div class="card">
+        <div class="card-title address-card-header">
+          <div style="display:flex; align-items:center; gap:8px;">
+            <i class="fa-solid fa-location-dot"></i>
+            <span>Delivery Address</span>
+          </div>
+          <span class="type-pill">Home</span>
+        </div>
+
+        <div class="address-text">
+          <strong>Satya Vihar, Bhubaneswar</strong>
+          House No. 12, Street 4, Near Sai Mandir,<br>
+          Satya Vihar, Bhubaneswar, Odisha - 751007<br>
+          <span style="color:#1e293b; font-weight:600; margin-top:4px; display:inline-block;">+91 98765 43210</span>
+        </div>
+      </div>
+
+      <!-- Payment Method Card -->
+      <div class="card">
+        <div class="card-title">
+          <i class="fa-solid fa-wallet"></i>
+          <span>Payment Method</span>
+        </div>
+
+        <div class="payment-method-box">
+          <span>UPI (PhonePe / Google Pay / Paytm)</span>
+          <i class="fa-solid fa-qrcode" style="color: #64748b;"></i>
+        </div>
+
+        <div class="payment-status-tag">
+          <i class="fa-solid fa-circle-check"></i>
+          <span>Payment Successful</span>
+        </div>
+      </div>
+
+      <!-- Order Meta Summary Card -->
+      <div class="card">
+        <div class="card-title">
+          <i class="fa-solid fa-receipt"></i>
+          <span>Order Summary</span>
+        </div>
+
+        <div class="info-list">
+          <div class="info-item">
+            <span class="label">Order ID</span>
+            <span class="value">#Rasoova123456</span>
+          </div>
+          <div class="info-item">
+            <span class="label">Order Date</span>
+            <span class="value">25 Apr 2025, 12:45 PM</span>
+          </div>
+          <div class="info-item">
+            <span class="label">Payment Status</span>
+            <span class="value status-paid">Paid</span>
+          </div>
+          <div class="info-item">
+            <span class="label">Delivery Type</span>
+            <span class="value">Delivery</span>
+          </div>
+        </div>
+
+        <!-- Fresh Cooked Note -->
+        <div class="fresh-banner">
+          <i class="fa-solid fa-utensils"></i>
+          <div>
+            <p>Freshly Cooked After Order</p>
+            <span style="font-size:10px; color:#8f1738; opacity:0.8;">Your food is prepared only after you place the order</span>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+          <a href="./track-order.html" class="btn-track">
+            Track Your Order <i class="fa-solid fa-arrow-right"></i>
+          </a>
+          <a href="./index.html" class="btn-home">
+            <i class="fa-solid fa-house"></i> Back to Home
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-left">
+      <img src="./assets/rasoova_logo_desktop.png" alt="Rasoova Logo" class="footer-logo" />
+    </div>
+
+    <div class="footer-links">
+      <a href="./index.html">Home</a> |
+      <a href="./menu.html">Menu</a> |
+      <a href="./about.html">About Us</a> |
+      <a href="./contact.html">Contact</a>
+    </div>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rasoova - Personal Information</title>
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <style>
+
+   /* ─────────────────────────────────────────
+   ANNOUNCEMENT BAR
+───────────────────────────────────────── */
+.announcement {
+  height: 38px;
+  background: #8f1738;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 4%;
+  font-size: 12px;
+  font-weight: 600;
+  gap: 8px;
+}
+.ann-left, .ann-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.ann-fire { font-size: 15px; }
+.ann-sep  { opacity: 0.5; }
+
+
+    /* --- GLOBAL & COLOR VARIABLES --- */
+    :root {
+      --primary-maroon: #8f1738;
+      --primary-hover: #73122d;
+      --light-pink: #fbf0f3;
+      --bg-page: #faf8f8;
+      --card-bg: #f8fafc;
+      --border-color: #edebeb;
+      --text-dark: #222222;
+      --text-muted: #666666;
+      --text-light: #888888;
+      --green-badge: #16a34a;
+      --green-bg: #eefdf4;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-page);
+      color: var(--text-dark);
+    }
+
+    /* --- TOP NAVBAR --- */
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 40px;
+      background-color: #ffffff;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .brand-logo {
+      height: 48px;
+      object-fit: contain;
+    }
+
+    .nav-search {
+      position: relative;
+      width: 45%;
+      max-width: 550px;
+    }
+
+    .nav-search input {
+      width: 100%;
+      padding: 10px 45px 10px 20px;
+      border-radius: 25px;
+      border: 1px solid #e0e0e0;
+      background-color: #fafafa;
+      outline: none;
+      font-size: 14px;
+      color: #333;
+    }
+
+    .nav-search input::placeholder {
+      color: #aaa;
+    }
+
+    .nav-search .search-btn {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: #888;
+      cursor: pointer;
+      font-size: 15px;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .notification-icon {
+      position: relative;
+      font-size: 18px;
+      color: var(--primary-maroon);
+      cursor: pointer;
+    }
+
+    .notification-icon .badge {
+      position: absolute;
+      top: -5px;
+      right: -7px;
+      background-color: #e53e3e;
+      color: #fff;
+      font-size: 10px;
+      font-weight: bold;
+      border-radius: 50%;
+      width: 15px;
+      height: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .user-dropdown {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+
+    .avatar-small {
+      width: 32px;
+      height: 32px;
+      background-color: var(--light-pink);
+      color: var(--primary-maroon);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+    }
+
+    .user-name {
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .user-dropdown .arrow {
+      font-size: 12px;
+      color: #666;
+    }
+
+    /* --- SUB NAVIGATION BAR --- */
+    .sub-nav {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 25px;
+      padding: 12px 0;
+      background-color: #ffffff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+    }
+
+    .sub-nav .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 24px;
+      border-radius: 20px;
+      text-decoration: none;
+      color: #444;
+      font-weight: 600;
+      font-size: 14px;
+      transition: all 0.2s ease;
+    }
+
+    .sub-nav .nav-item.active {
+      background-color: var(--primary-maroon);
+      color: #ffffff;
+    }
+
+    .sub-nav .nav-item:hover:not(.active) {
+      background-color: var(--light-pink);
+      color: var(--primary-maroon);
+    }
+
+    /* --- MAIN LAYOUT --- */
+    .main-container {
+      max-width: 100%;
+      margin: 25px auto;
+      display: flex;
+      gap: 25px;
+      padding: 0 20px;
+    }
+
+    /* SIDEBAR */
+    .sidebar {
+      width: 310px;
+      flex-shrink: 0;
+    }
+
+    .profile-card {
+      background: #ffffff;
+      border-radius: 14px;
+      padding: 24px 20px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+      margin-bottom: 20px;
+    }
+
+    .avatar-wrapper {
+      position: relative;
+      width: 90px;
+      height: 90px;
+      margin: 0 auto 15px auto;
+    }
+
+    .avatar-large {
+      width: 100%;
+      height: 100%;
+      background-color: var(--light-pink);
+      color: var(--primary-maroon);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 44px;
+    }
+
+    .camera-btn {
+      position: absolute;
+      bottom: 2px;
+      right: 2px;
+      background-color: var(--primary-maroon);
+      color: #fff;
+      border: 2px solid #fff;
+      border-radius: 50%;
+      width: 26px;
+      height: 26px;
+      font-size: 11px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .user-fullname {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 4px;
+    }
+
+    .user-phone,
+    .user-email {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 3px;
+    }
+
+    .badge-verified {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background-color: var(--green-bg);
+      color: var(--green-badge);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 12px;
+      margin-top: 8px;
+    }
+
+    .sidebar-menu {
+      list-style: none;
+      background: #ffffff;
+      border-radius: 14px;
+      padding: 10px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+      margin-bottom: 20px;
+    }
+
+    .sidebar-menu .menu-item a {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 14px;
+      color: var(--text-dark);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      border-radius: 8px;
+      transition: background 0.2s;
+    }
+
+    .sidebar-menu .menu-item i {
+      color: #555;
+    }
+
+    .sidebar-menu .menu-item.active a {
+      background-color: var(--light-pink);
+      color: var(--primary-maroon);
+      font-weight: 600;
+    }
+
+    .sidebar-menu .menu-item.active i {
+      color: var(--primary-maroon);
+    }
+
+    .sidebar-menu .menu-item:hover:not(.active) a {
+      background-color: #f9f9f9;
+    }
+
+    .promo-banner {
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+    }
+
+    .promo-banner img {
+      width: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    /* CONTENT AREA */
+    .content-area {
+      flex-grow: 1;
+      background: #ffffff;
+      border-radius: 14px;
+      padding: 30px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+    }
+
+    .section-block {
+      margin-bottom: 35px;
+    }
+
+    .section-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text-dark);
+    }
+
+    .section-subtitle {
+      font-size: 13px;
+      color: var(--text-light);
+      margin-top: 2px;
+      margin-bottom: 20px;
+    }
+
+    .info-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .info-card {
+      display: flex;
+      align-items: center;
+      background-color: var(--card-bg);
+      padding: 16px 20px;
+      border-radius: 10px;
+    }
+
+    .info-icon {
+      font-size: 18px;
+      color: #444;
+      width: 40px;
+    }
+
+    .info-details {
+      flex-grow: 1;
+    }
+
+    .info-details label {
+      display: block;
+      font-size: 12px;
+      color: var(--text-light);
+      margin-bottom: 2px;
+    }
+
+    .info-details .info-value {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+
+    .card-right-group {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .status-badge {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      background-color: var(--green-bg);
+      color: var(--green-badge);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 12px;
+    }
+
+    .edit-btn {
+      background: none;
+      border: none;
+      color: #0284c7;
+      font-size: 14px;
+      cursor: pointer;
+      padding: 4px;
+    }
+
+    /* ACCOUNT SECURITY */
+    .security-list {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+
+    .security-item {
+      display: flex;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid #f2f2f2;
+      cursor: pointer;
+    }
+
+    .security-icon {
+      width: 40px;
+      font-size: 18px;
+      color: #444;
+    }
+
+    .security-details {
+      flex-grow: 1;
+    }
+
+    .security-details h4 {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+
+    .security-details p {
+      font-size: 12px;
+      color: var(--text-light);
+      margin-top: 2px;
+    }
+
+    .arrow-icon {
+      color: #bbb;
+      font-size: 12px;
+    }
+
+    .security-banner {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      background-color: var(--light-pink);
+      padding: 16px 20px;
+      border-radius: 10px;
+    }
+
+    .shield-icon {
+      width: 34px;
+      height: 34px;
+      background-color: var(--primary-maroon);
+      color: #ffffff;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+
+    .banner-text h4 {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--primary-maroon);
+    }
+
+    .banner-text p {
+      font-size: 12px;
+      color: #777;
+      margin-top: 2px;
+    }
+
+    /* --- FOOTER --- */
+    .footer {
+      background-color: var(--primary-maroon);
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 40px;
+      margin-top: 40px;
+    }
+
+    .footer-logo {
+      height: 52px;
+      object-fit: contain;
+      filter: invert(1);
+      mix-blend-mode: screen;
+      opacity: 0.95;
+    }
+
+    .footer-links {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .footer-links a {
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 13px;
+      opacity: 0.9;
+    }
+
+    .footer-links .divider {
+      opacity: 0.5;
+      font-size: 12px;
+    }
+
+    .footer-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 8px;
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 15px;
+    }
+
+    .social-icons a {
+      color: #ffffff;
+      font-size: 14px;
+    }
+
+    .copyright {
+      font-size: 11px;
+      opacity: 0.7;
+    }
+
+    /* --- RESPONSIVE DESIGN --- */
+    @media (max-width: 900px) {
+      .main-container {
+        flex-direction: column;
+      }
+
+      .sidebar {
+        width: 100%;
+      }
+
+      .sub-nav {
+        overflow-x: auto;
+        justify-content: flex-start;
+        padding: 10px 20px;
+      }
+
+      .footer {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+      }
+
+      .footer-right {
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+
+     <!-- ── ANNOUNCEMENT BAR ── -->
+  <div class="announcement">
+    <div class="ann-left">
+      <span class="ann-fire">🔥</span>
+      <span>First Order 20% OFF</span>
+      <span class="ann-sep">|</span>
+      <span>Every Order 10% OFF (Limited Time)</span>
+    </div>
+    <div class="ann-right">
+      <span class="ann-fire">🔥</span>
+      <span>Freshly Cooked</span>
+      <span class="ann-sep">|</span>
+      <span>Authentic Bihari Flavours</span>
+    </div>
+  </div>
+
+
+  <!-- TOP NAVBAR -->
+  <header class="navbar">
+    <div class="nav-left">
+      <img src="./assets/rasoova_logo_desktop.png" alt="Rasoova Logo" class="brand-logo" />
+    </div>
+
+    <div class="nav-search">
+      <input type="text" placeholder="Search for your favorite food..." />
+      <button class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+    </div>
+
+    <div class="nav-right">
+      <div class="notification-icon">
+        <i class="fa-regular fa-bell"></i>
+        <span class="badge">3</span>
+      </div>
+      <div class="user-dropdown">
+        <div class="avatar-small">
+          <i class="fa-solid fa-user"></i>
+        </div>
+        <span class="user-name">Priya</span>
+        <i class="fa-solid fa-chevron-down arrow"></i>
+      </div>
+    </div>
+  </header>
+
+  <!-- SUB NAVIGATION BAR -->
+  <nav class="sub-nav">
+    <a href="./index.html" class="nav-item">
+      <i class="fa-solid fa-house"></i>
+      <span>Home</span>
+    </a>
+    <a href="./order.html" class="nav-item">
+      <i class="fa-solid fa-box-open"></i>
+      <span>My Orders</span>
+    </a>
+
+       <a href="./menupage.html" class="nav-item">
+      <i class="fa-solid fa-box-open"></i>
+      <span>Menu</span>
+    </a>
+    <a href="./profile.html" class="nav-item active">
+      <i class="fa-solid fa-user"></i>
+      <span>Profile</span>
+    </a>
+    <a href="./address.html" class="nav-item">
+      <i class="fa-solid fa-location-dot"></i>
+      <span>Address</span>
+    </a>
+    <a href="./help-support.html" class="nav-item">
+      <i class="fa-solid fa-headset"></i>
+      <span>Help & Support</span>
+    </a>
+  </nav>
+
+  <!-- MAIN CONTAINER -->
+  <main class="main-container">
+
+    <!-- LEFT SIDEBAR -->
+    <aside class="sidebar">
+
+      <!-- User Profile Card -->
+      <div class="profile-card">
+        <div class="avatar-wrapper">
+          <div class="avatar-large">
+            <i class="fa-solid fa-user"></i>
+          </div>
+          <button class="camera-btn"><i class="fa-solid fa-camera"></i></button>
+        </div>
+        <h3 class="user-fullname">Priya Sharma</h3>
+        <p class="user-phone">+91 98765 43210</p>
+        <p class="user-email">priya.sharma@gmail.com</p>
+        <div class="badge-verified">
+          <i class="fa-solid fa-circle-check"></i> Verified
+        </div>
+      </div>
+
+      <!-- Navigation Menu -->
+      <ul class="sidebar-menu">
+        <li class="menu-item active">
+          <a href="#">
+            <div class="menu-left">
+              <i class="fa-regular fa-user"></i>
+              <span>Personal Information</span>
+            </div>
+            <i class="fa-solid fa-chevron-right"></i>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="#">
+            <div class="menu-left">
+              <i class="fa-solid fa-box"></i>
+              <span>Order History</span>
+            </div>
+            <i class="fa-solid fa-chevron-right"></i>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="#">
+            <div class="menu-left">
+              <i class="fa-regular fa-bookmark"></i>
+              <span>Saved Addresses</span>
+            </div>
+            <i class="fa-solid fa-chevron-right"></i>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="#">
+            <div class="menu-left">
+              <i class="fa-solid fa-headset"></i>
+              <span>Help & Support</span>
+            </div>
+            <i class="fa-solid fa-chevron-right"></i>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="#">
+            <div class="menu-left">
+              <i class="fa-solid fa-arrow-right-from-bracket"></i>
+              <span>Logout</span>
+            </div>
+            <i class="fa-solid fa-chevron-right"></i>
+          </a>
+        </li>
+      </ul>
+
+      <!-- Promo Banner Image -->
+      <div class="promo-banner">
+        <img src="./assets/profile-image.png" alt="Good Food Brings People Together" />
+      </div>
+
+    </aside>
+
+    <!-- RIGHT CONTENT AREA -->
+    <section class="content-area">
+
+      <!-- Personal Information Section -->
+      <div class="section-block">
+        <h2 class="section-title">Personal Information</h2>
+        <p class="section-subtitle">Manage your account details</p>
+
+        <div class="info-cards">
+          <!-- Full Name -->
+          <div class="info-card">
+            <div class="info-icon">
+              <i class="fa-regular fa-user"></i>
+            </div>
+            <div class="info-details">
+              <label>Full Name</label>
+              <div class="info-value">Priya Sharma</div>
+            </div>
+            <button class="edit-btn"><i class="fa-solid fa-pencil"></i></button>
+          </div>
+
+          <!-- Mobile Number -->
+          <div class="info-card">
+            <div class="info-icon">
+              <i class="fa-solid fa-mobile-screen-button"></i>
+            </div>
+            <div class="info-details">
+              <label>Mobile Number</label>
+              <div class="info-value">+91 98765 43210</div>
+            </div>
+            <div class="card-right-group">
+              <span class="status-badge"><i class="fa-solid fa-circle-check"></i> Verified</span>
+              <button class="edit-btn"><i class="fa-solid fa-pencil"></i></button>
+            </div>
+          </div>
+
+          <!-- Email Address -->
+          <div class="info-card">
+            <div class="info-icon">
+              <i class="fa-regular fa-envelope"></i>
+            </div>
+            <div class="info-details">
+              <label>Email Address</label>
+              <div class="info-value">priya.sharma@gmail.com</div>
+            </div>
+            <div class="card-right-group">
+              <span class="status-badge"><i class="fa-solid fa-circle-check"></i> Verified</span>
+              <button class="edit-btn"><i class="fa-solid fa-pencil"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Account Security Section -->
+      <div class="section-block security-section">
+        <h2 class="section-title">Account Security</h2>
+        <p class="section-subtitle">Keep your account safe and secure</p>
+
+        <div class="security-list">
+          <div class="security-item">
+            <div class="security-icon">
+              <i class="fa-solid fa-lock"></i>
+            </div>
+            <div class="security-details">
+              <h4>Change Password</h4>
+              <p>Update your password regularly</p>
+            </div>
+            <i class="fa-solid fa-chevron-right arrow-icon"></i>
+          </div>
+
+          <div class="security-item">
+            <div class="security-icon">
+              <i class="fa-regular fa-bell"></i>
+            </div>
+            <div class="security-details">
+              <h4>Notification Preferences</h4>
+              <p>Manage your order and promotional notifications</p>
+            </div>
+            <i class="fa-solid fa-chevron-right arrow-icon"></i>
+          </div>
+        </div>
+
+        <!-- Security Banner -->
+        <div class="security-banner">
+          <div class="shield-icon">
+            <i class="fa-solid fa-shield-halved"></i>
+          </div>
+          <div class="banner-text">
+            <h4>Your account is secure</h4>
+            <p>We keep your information safe and private.</p>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-left">
+      <img src="./assets/rasoova_logo_desktop.png" alt="Rasoova Logo" class="footer-logo" />
+    </div>
+
+    <div class="footer-links">
+      <a href="#">Home</a>
+      <span class="divider">|</span>
+      <a href="#">My Orders</a>
+      <span class="divider">|</span>
+      <a href="#">Profile</a>
+      <span class="divider">|</span>
+      <a href="#">Address</a>
+      <span class="divider">|</span>
+      <a href="#">Help & Support</a>
+    </div>
+
+    <div class="footer-right">
+      <div class="social-icons">
+        <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#"><i class="fa-brands fa-youtube"></i></a>
+      </div>
+      <div class="copyright">
+        © 2025 Rasoova. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const editButtons = document.querySelectorAll(".edit-btn");
+      editButtons.forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+          const parentCard = e.target.closest(".info-card");
+          const label = parentCard.querySelector("label").innerText;
+          const valueDiv = parentCard.querySelector(".info-value");
+
+          const newValue = prompt(`Edit your ${label}:`, valueDiv.innerText);
+          if (newValue !== null && newValue.trim() !== "") {
+            valueDiv.innerText = newValue.trim();
+          }
+        });
+      });
+    });
+  </script>
+
+</body>
+
+</html>

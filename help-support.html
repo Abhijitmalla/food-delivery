@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rasoova - Help & Support</title>
+  <!-- Google Fonts & Font Awesome Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+
+   /* ─────────────────────────────────────────
+   ANNOUNCEMENT BAR
+───────────────────────────────────────── */
+.announcement {
+  height: 38px;
+  background: #8f1738;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 4%;
+  font-size: 12px;
+  font-weight: 600;
+  gap: 8px;
+}
+.ann-left, .ann-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.ann-fire { font-size: 15px; }
+.ann-sep  { opacity: 0.5; }
+
+
+    /* ==================== GLOBAL STYLES ==================== */
+    :root {
+      --primary-maroon: #8f1738;
+      --primary-hover: #7a1230;
+      --bg-cream: #faf5f0;
+      --card-bg: #ffffff;
+      --text-dark: #333333;
+      --text-muted: #666666;
+      --border-color: #f0e6e0;
+      --shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-cream);
+      color: var(--text-dark);
+      line-height: 1.5;
+    }
+
+    .container {
+      max-width: 100%;
+      margin: 0 auto;
+      padding: 0 4%;
+    }
+
+    /* --- TOP NAVBAR --- */
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 40px;
+      background-color: #ffffff;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .brand-logo {
+      height: 48px;
+      object-fit: contain;
+    }
+
+    .nav-search {
+      position: relative;
+      width: 45%;
+      max-width: 550px;
+    }
+
+    .nav-search input {
+      width: 100%;
+      padding: 10px 45px 10px 20px;
+      border-radius: 25px;
+      border: 1px solid #e0e0e0;
+      background-color: #fafafa;
+      outline: none;
+      font-size: 14px;
+      color: #333;
+    }
+
+    .nav-search input::placeholder {
+      color: #aaa;
+    }
+
+    .nav-search .search-btn {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: #888;
+      cursor: pointer;
+      font-size: 15px;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .notification-icon {
+      position: relative;
+      font-size: 18px;
+      color: var(--primary-maroon);
+      cursor: pointer;
+    }
+
+    .notification-icon .badge {
+      position: absolute;
+      top: -5px;
+      right: -7px;
+      background-color: #e53e3e;
+      color: #fff;
+      font-size: 10px;
+      font-weight: bold;
+      border-radius: 50%;
+      width: 15px;
+      height: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .user-dropdown {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+
+    .avatar-small {
+      width: 32px;
+      height: 32px;
+      background-color: var(--light-pink);
+      color: var(--primary-maroon);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+    }
+
+    .user-name {
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .user-dropdown .arrow {
+      font-size: 12px;
+      color: #666;
+    }
+
+    /* --- SUB NAVIGATION BAR --- */
+    .sub-nav {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 25px;
+      padding: 12px 0;
+      background-color: #ffffff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+    }
+
+    .sub-nav .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 24px;
+      border-radius: 20px;
+      text-decoration: none;
+      color: #444;
+      font-weight: 600;
+      font-size: 14px;
+      transition: all 0.2s ease;
+    }
+
+    .sub-nav .nav-item.active {
+      background-color: var(--primary-maroon);
+      color: #ffffff;
+    }
+
+    .sub-nav .nav-item:hover:not(.active) {
+      background-color: var(--light-pink);
+      color: var(--primary-maroon);
+    }
+
+    /* ==================== BANNER SECTION ==================== */
+    .hero-banner {
+      margin-bottom: 30px;
+    }
+
+    .hero-banner img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+
+    /* ==================== NEED HELP CARDS ==================== */
+    .section-title {
+      font-size: 20px;
+      color: var(--primary-maroon);
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+
+    .section-subtitle {
+      font-size: 13px;
+      color: #777;
+      margin-bottom: 20px;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+      margin-bottom: 40px;
+    }
+
+    .contact-card {
+      background: var(--card-bg);
+      border-radius: 10px;
+      padding: 18px;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      box-shadow: var(--shadow);
+      border: 1px solid #f7eeea;
+    }
+
+    .contact-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .contact-icon.call {
+      background-color: #fde8e8;
+      color: var(--primary-maroon);
+    }
+
+    .contact-icon.email {
+      background-color: #fde8e8;
+      color: var(--primary-maroon);
+    }
+
+    .contact-icon.whatsapp {
+      background-color: #e6f9ed;
+      color: #25D366;
+    }
+
+    .contact-icon.location {
+      background-color: #fde8e8;
+      color: var(--primary-maroon);
+    }
+
+    .contact-details h3 {
+      font-size: 14px;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 2px;
+    }
+
+    .contact-details p {
+      font-size: 12px;
+      color: #555;
+      margin-bottom: 2px;
+      word-break: break-word;
+    }
+
+    .contact-details span {
+      font-size: 11px;
+      color: #888;
+      display: block;
+    }
+
+    /* ==================== FAQ SECTION ==================== */
+    .faq-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px 20px;
+      margin-bottom: 50px;
+    }
+
+    .faq-item {
+      background-color: var(--card-bg);
+      border-radius: 8px;
+      border: 1px solid #f2e9e4;
+      overflow: hidden;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.01);
+    }
+
+    .faq-header {
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+      transition: background-color 0.2s;
+    }
+
+    .faq-header:hover {
+      background-color: #fffaf8;
+    }
+
+    .faq-number {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background-color: #fde8e8;
+      color: var(--primary-maroon);
+      font-weight: 600;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 12px;
+      flex-shrink: 0;
+    }
+
+    .faq-title {
+      font-size: 13px;
+      font-weight: 500;
+      color: #444;
+      flex-grow: 1;
+    }
+
+    .faq-icon {
+      font-size: 12px;
+      color: #888;
+      transition: transform 0.3s ease;
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease, padding 0.3s ease;
+      background-color: #fff;
+      padding: 0 16px;
+      font-size: 12px;
+      color: #666;
+      border-top: 1px solid transparent;
+    }
+
+    .faq-item.active .faq-icon {
+      transform: rotate(180deg);
+    }
+
+    .faq-item.active .faq-answer {
+      max-height: 150px;
+      padding: 10px 16px 14px 52px;
+      border-top-color: #f9f0ec;
+    }
+
+    /* ==================== FOOTER ==================== */
+    footer {
+      background-color: var(--primary-maroon);
+      color: white;
+      padding: 40px 0 20px;
+      margin-top: 50px;
+    }
+
+    .footer-container {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding-bottom: 30px;
+      margin-bottom: 20px;
+    }
+
+    .footer-brand {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .footer-brand p {
+      margin: 10px 0 0;
+      font-size: 11px;
+      color: rgba(255, 255, 255, .6);
+    }
+
+    .footer-logo {
+      height: 48px;
+      width: auto;
+      object-fit: contain;
+      filter: invert(1);
+      mix-blend-mode: screen;
+      opacity: 0.95;
+    }
+
+    .footer-logo span {
+      display: block;
+      font-size: 8px;
+      font-style: normal;
+      letter-spacing: 0.5px;
+      margin-top: 2px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 20px;
+      list-style: none;
+    }
+
+    .footer-links a {
+      color: #e0e0e0;
+      text-decoration: none;
+      font-size: 12px;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: #ffffff;
+    }
+
+    .footer-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 8px;
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 12px;
+    }
+
+    .social-icons a {
+      color: white;
+      font-size: 14px;
+      text-decoration: none;
+    }
+
+    .copyright {
+      font-size: 10px;
+      color: #d1a8b4;
+    }
+
+    /* Mobile-only elements */
+    .hamb {
+      display: none;
+    }
+
+    .mobile-chevron {
+      display: none;
+    }
+
+    .mobile-bottom-nav {
+      display: none;
+    }
+
+    /* Responsive adjustment */
+    @media (max-width: 992px) {
+      .contact-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .search-box {
+        width: 280px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .faq-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      /* Header Mobile */
+      .header-container {
+        flex-direction: row;
+        gap: 10px;
+      }
+
+      .hamb {
+        display: block;
+        background: transparent;
+        border: none;
+        font-size: 20px;
+        color: var(--primary-maroon);
+        cursor: pointer;
+      }
+
+      .brand-logo {
+        height: 40px;
+      }
+
+      .search-box {
+        display: none;
+      }
+
+      .user-profile {
+        display: none;
+      }
+
+      .icon-badge {
+        font-size: 22px;
+        color: #3a2a2d;
+      }
+
+      .badge {
+        font-size: 10px;
+        width: 16px;
+        height: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        top: -5px;
+        right: -8px;
+        background: #e74c3c;
+      }
+
+      /* Hide Desktop Nav */
+      nav {
+        display: none;
+      }
+
+      /* Contact Cards */
+      .contact-card {
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .contact-details {
+        flex: 1;
+      }
+
+      .mobile-chevron {
+        display: block;
+        color: #1a4a76;
+        font-size: 12px;
+      }
+
+      /* Mobile Bottom Nav */
+      footer {
+        display: none;
+      }
+
+      body {
+        padding-bottom: 60px;
+      }
+
+      .mobile-bottom-nav {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: #fff;
+        box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+        padding: 10px 0 8px;
+        z-index: 1000;
+      }
+
+      .mobile-bottom-nav a {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+        color: #55606e;
+        font-size: 10px;
+        font-weight: 600;
+        position: relative;
+      }
+
+      .mobile-bottom-nav a.active {
+        color: #c02844;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+
+   <!-- ── ANNOUNCEMENT BAR ── -->
+  <div class="announcement">
+    <div class="ann-left">
+      <span class="ann-fire">🔥</span>
+      <span>First Order 20% OFF</span>
+      <span class="ann-sep">|</span>
+      <span>Every Order 10% OFF (Limited Time)</span>
+    </div>
+    <div class="ann-right">
+      <span class="ann-fire">🔥</span>
+      <span>Freshly Cooked</span>
+      <span class="ann-sep">|</span>
+      <span>Authentic Bihari Flavours</span>
+    </div>
+  </div>
+
+
+
+  <!-- TOP NAVBAR -->
+  <header class="navbar">
+    <div class="nav-left">
+      <img src="./assets/rasoova_logo_desktop.png" alt="Rasoova Logo" class="brand-logo" />
+    </div>
+
+    <div class="nav-search">
+      <input type="text" placeholder="Search for your favorite food..." />
+      <button class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+    </div>
+
+    <div class="nav-right">
+      <div class="notification-icon">
+        <i class="fa-regular fa-bell"></i>
+        <span class="badge">3</span>
+      </div>
+      <div class="user-dropdown">
+        <div class="avatar-small">
+          <i class="fa-solid fa-user"></i>
+        </div>
+        <span class="user-name">Priya</span>
+        <i class="fa-solid fa-chevron-down arrow"></i>
+      </div>
+    </div>
+  </header>
+
+  <!-- SUB NAVIGATION BAR -->
+  <nav class="sub-nav">
+    <a href="./index.html" class="nav-item">
+      <i class="fa-solid fa-house"></i>
+      <span>Home</span>
+    </a>
+    <a href="./order.html" class="nav-item">
+      <i class="fa-solid fa-box-open"></i>
+      <span>My Orders</span>
+    </a>
+     <a href="./menupage.html" class="nav-item">
+      <i class="fa-solid fa-box-open"></i>
+      <span>Menu</span>
+    </a>
+    <a href="./profile.html" class="nav-item">
+      <i class="fa-solid fa-user"></i>
+      <span>Profile</span>
+    </a>
+    <a href="./address.html" class="nav-item">
+      <i class="fa-solid fa-location-dot"></i>
+      <span>Address</span>
+    </a>
+    <a href="./help-support.html" class="nav-item active">
+      <i class="fa-solid fa-headset"></i>
+      <span>Help & Support</span>
+    </a>
+  </nav>
+
+  <!-- Banner Section -->
+  <div class="hero-banner">
+    <img src="./assets/help-support-banner-image.png" alt="Rasoova Help & Support">
+  </div>
+
+  <main class="container">
+    <!-- Need Help Contact Section -->
+    <section>
+      <h2 class="section-title">Need Help?</h2>
+      <p class="section-subtitle">Our support team is available 24/7 to assist you.</p>
+
+      <div class="contact-grid">
+        <div class="contact-card">
+          <div class="contact-icon call"><i class="fa-solid fa-phone"></i></div>
+          <div class="contact-details">
+            <h3>Call Us</h3>
+            <p><strong>+91 98765 43210</strong></p>
+            <span>(Mon - Sun, 9 AM - 11 PM)</span>
+          </div>
+          <i class="fa-solid fa-chevron-down mobile-chevron"></i>
+        </div>
+
+        <div class="contact-card">
+          <div class="contact-icon email"><i class="fa-solid fa-envelope"></i></div>
+          <div class="contact-details">
+            <h3>Email Us</h3>
+            <p>support@rasoova.com</p>
+            <span>We'll reply within 24 hours</span>
+          </div>
+          <i class="fa-solid fa-chevron-down mobile-chevron"></i>
+        </div>
+
+        <div class="contact-card">
+          <div class="contact-icon whatsapp"><i class="fa-brands fa-whatsapp"></i></div>
+          <div class="contact-details">
+            <h3>WhatsApp Chat</h3>
+            <p>Chat with us on WhatsApp</p>
+            <span>(Quick & Easy)</span>
+          </div>
+          <i class="fa-solid fa-chevron-down mobile-chevron"></i>
+        </div>
+
+        <div class="contact-card">
+          <div class="contact-icon location"><i class="fa-solid fa-location-dot"></i></div>
+          <div class="contact-details">
+            <h3>Office Address</h3>
+            <p>Tower B, 5th Floor, Cyber Hub, DLF Phase 3, Gurgaon, Haryana - 122002</p>
+          </div>
+          <i class="fa-solid fa-chevron-down mobile-chevron"></i>
+        </div>
+      </div>
+    </section>
+
+    <!-- Frequently Asked Questions Section -->
+    <section>
+      <h2 class="section-title">Frequently Asked Questions</h2>
+      <p class="section-subtitle">Find quick answers to common questions</p>
+
+      <div class="faq-grid" id="faqGrid">
+        <!-- FAQs populated dynamically by JS -->
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer Section -->
+  <footer>
+    <div class="container footer-container">
+      <div class="footer-brand">
+        <img src="./assets/rasoova_logo_desktop.png" alt="Rasoova" class="footer-logo">
+        <p>Fresh Food · Happy Moments</p>
+      </div>
+
+      <ul class="footer-links">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">My Orders</a></li>
+        <li><a href="#">Profile</a></li>
+        <li><a href="#">Address</a></li>
+        <li><a href="#">Help & Support</a></li>
+      </ul>
+
+      <div class="footer-right">
+        <div class="social-icons">
+          <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#"><i class="fa-brands fa-youtube"></i></a>
+        </div>
+        <div class="copyright">
+          © 2025 Rasoova. All rights reserved
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ── MOBILE BOTTOM NAV ── -->
+  <nav class="mobile-bottom-nav">
+    <a href="#home">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+      </svg>
+      <span>Home</span>
+    </a>
+    <a href="#orders">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round">
+        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+        <line x1="3" y1="6" x2="21" y2="6"></line>
+        <path d="M16 10a4 4 0 0 1-8 0"></path>
+      </svg>
+      <span>My Orders</span>
+    </a>
+    <a href="#profile">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+        <circle cx="12" cy="7" r="4" />
+      </svg>
+      <span>Profile</span>
+    </a>
+    <a href="#address">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+        <circle cx="12" cy="10" r="3"></circle>
+      </svg>
+      <span>Address</span>
+    </a>
+    <a href="#help" class="active">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 18v-6a9 9 0 0 1 18 0v6"></path>
+        <path
+          d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z">
+        </path>
+      </svg>
+      <span>Help & Support</span>
+    </a>
+  </nav>
+
+  <!-- JavaScript for Interactive Accordion -->
+  <script>
+    const faqs = [
+      { id: 1, q: "How can I track my order?", a: "You can track your order live through the 'My Orders' section by selecting your active order." },
+      { id: 2, q: "How can I place an order?", a: "Simply browse through our menu, add your desired items to the cart, and proceed to checkout." },
+      { id: 3, q: "What is the delivery time?", a: "Average delivery time ranges from 30 to 45 minutes depending on your location and traffic conditions." },
+      { id: 4, q: "Do you deliver to my area?", a: "You can check deliverability by adding your pincode in the address selector at the top." },
+      { id: 5, q: "What are the payment options?", a: "We accept Credit/Debit Cards, Net Banking, UPI (Google Pay, PhonePe), and Cash on Delivery." },
+      { id: 6, q: "Can I cancel my order?", a: "Orders can be canceled within 60 seconds of placing them. After that, preparation begins." },
+      { id: 7, q: "How can I update my mobile number?", a: "Go to Profile > Edit Account > Mobile Number to update your contact details." },
+      { id: 8, q: "How do I give a review?", a: "After your order is delivered, a review prompt will appear under the order summary page." },
+      { id: 9, q: "What are the current offers?", a: "Check the 'Offers' tab on the homepage for active promo codes and discounts." },
+      { id: 10, q: "Is delivery free?", a: "Free delivery applies to orders above ₹299. Standard delivery charges apply otherwise." },
+      { id: 11, q: "Why does my food take some time to arrive?", a: "Fresh preparation takes time! We ensure every dish is freshly prepared once ordered." },
+      { id: 12, q: "What type of food does Rasoova serve?", a: "We serve a wide variety of Authentic Indian, Chinese, Continental, and South Indian cuisines." },
+      { id: 13, q: "What is Rasoova's delivery area?", a: "We currently deliver across major sectors in Gurgaon, Delhi NCR, and neighboring regions." },
+      { id: 14, q: "How can I contact Rasoova Support?", a: "You can call us at +91 98765 43210 or email us at support@rasoova.com anytime." }
+    ];
+
+    const faqGrid = document.getElementById('faqGrid');
+
+    // Render FAQs
+    faqs.forEach(faq => {
+      const item = document.createElement('div');
+      item.className = 'faq-item';
+      item.innerHTML = `
+        <div class="faq-header">
+          <span class="faq-number">${faq.id}</span>
+          <span class="faq-title">${faq.q}</span>
+          <i class="fa-solid fa-chevron-down faq-icon"></i>
+        </div>
+        <div class="faq-answer">
+          <p>${faq.a}</p>
+        </div>
+      `;
+      faqGrid.appendChild(item);
+    });
+
+    // Accordion Toggle Feature
+    document.querySelectorAll('.faq-header').forEach(header => {
+      header.addEventListener('click', () => {
+        const item = header.parentElement;
+
+        // Close other open accordion items
+        document.querySelectorAll('.faq-item').forEach(otherItem => {
+          if (otherItem !== item) {
+            otherItem.classList.remove('active');
+          }
+        });
+
+        // Toggle current item
+        item.classList.toggle('active');
+      });
+    });
+  </script>
+</body>
+
+</html>
