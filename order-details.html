@@ -162,7 +162,24 @@
       font-size: 14px;
     }
 
-    .user-dropdown .arrow { font-size: 12px; color: #666; }
+    .user-dropdown .arrow {
+      font-size: 12px;
+      color: #666;
+      transition: transform 0.2s ease;
+    }
+
+    /* ── USER DROPDOWN MENU ── */
+    .user-dropdown-wrapper { position: relative; display: flex; align-items: center; }
+    .user-dropdown-menu { display: none; position: absolute; top: calc(100% + 12px); right: 0; background: #ffffff; border: 1px solid #edebeb; border-radius: 12px; min-width: 180px; box-shadow: 0 8px 24px rgba(0,0,0,0.12); z-index: 999; overflow: hidden; animation: dropdownIn 0.18s ease; }
+    @keyframes dropdownIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
+    .user-dropdown-menu.open { display: block; }
+    .dropdown-item { display: flex; align-items: center; gap: 10px; padding: 12px 18px; font-size: 14px; font-weight: 500; color: #333; text-decoration: none; transition: background 0.15s; border: none; background: none; width: 100%; cursor: pointer; font-family: inherit; }
+    .dropdown-item:hover { background: #fdf2f4; color: #8f1738; }
+    .dropdown-item i { width: 16px; text-align: center; color: #8f1738; }
+    .dropdown-divider { border: none; border-top: 1px solid #f0eded; margin: 0; }
+    .dropdown-item.logout-item { color: #dc2626; }
+    .dropdown-item.logout-item i { color: #dc2626; }
+    .dropdown-item.logout-item:hover { background: #fff5f5; color: #dc2626; }
 
     /* --- SUB NAVIGATION BAR --- */
     .sub-nav {
@@ -211,7 +228,7 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      font-size: 14px;
+      font-size: 16px;
       font-weight: 600;
       color: var(--text-dark);
       margin-bottom: 20px;
@@ -260,7 +277,7 @@
     }
 
     .order-id-text {
-      font-size: 17px;
+      font-size: 19px;
       font-weight: 700;
       color: var(--text-dark);
     }
@@ -271,7 +288,7 @@
       gap: 5px;
       padding: 4px 12px;
       border-radius: 20px;
-      font-size: 12px;
+      font-size: 14px;
       font-weight: 700;
     }
     .status-badge.delivered {
@@ -291,14 +308,14 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      font-size: 13px;
+      font-size: 15px;
       color: var(--text-muted);
       margin-bottom: 6px;
     }
     .order-meta .sep { color: #ccc; }
 
     .delivered-time {
-      font-size: 13px;
+      font-size: 15px;
       color: var(--text-muted);
       margin-bottom: 14px;
     }
@@ -309,7 +326,7 @@
       gap: 5px;
       background: var(--primary-maroon);
       color: #fff;
-      font-size: 11px;
+      font-size: 13px;
       font-weight: 700;
       padding: 3px 10px;
       border-radius: 20px;
@@ -323,7 +340,7 @@
       padding: 8px 20px;
       border: 1.5px solid var(--primary-maroon);
       border-radius: 8px;
-      font-size: 13px;
+      font-size: 15px;
       font-weight: 600;
       color: var(--primary-maroon);
       background: #fff;
@@ -389,7 +406,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 14px;
+      font-size: 16px;
       color: #aaa;
       border: 2px solid #e0e0e0;
     }
@@ -413,7 +430,7 @@
     }
 
     .step-label {
-      font-size: 11px;
+      font-size: 13px;
       font-weight: 600;
       color: var(--text-dark);
       text-align: center;
@@ -421,7 +438,7 @@
     }
 
     .step-time {
-      font-size: 10px;
+      font-size: 12px;
       color: var(--text-muted);
       text-align: center;
     }
@@ -430,7 +447,7 @@
        ORDER ITEMS + BILL CARD
     ───────────────────────────────────────── */
     .items-section-title {
-      font-size: 16px;
+      font-size: 18px;
       font-weight: 700;
       color: var(--text-dark);
       margin-bottom: 16px;
@@ -445,7 +462,7 @@
     .items-view-all {
       display: none;
       color: var(--primary-maroon);
-      font-size: 11px;
+      font-size: 13px;
       font-weight: 700;
     }
 
@@ -477,19 +494,19 @@
     }
 
     .food-name {
-      font-size: 14px;
+      font-size: 16px;
       font-weight: 600;
       color: var(--text-dark);
       margin-bottom: 4px;
     }
     .food-price {
-      font-size: 14px;
+      font-size: 16px;
       font-weight: 700;
       color: var(--primary-maroon);
       margin-bottom: 2px;
     }
     .food-qty {
-      font-size: 12px;
+      font-size: 14px;
       color: var(--text-muted);
     }
 
@@ -505,7 +522,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 13px;
+      font-size: 15px;
       color: var(--text-muted);
       margin-bottom: 10px;
     }
@@ -518,13 +535,13 @@
     }
 
     .bill-total {
-      font-size: 15px;
+      font-size: 17px;
       font-weight: 700;
       color: var(--text-dark);
     }
 
     .bill-total-amount {
-      font-size: 17px;
+      font-size: 19px;
       font-weight: 800;
       color: var(--primary-maroon);
     }
@@ -533,13 +550,13 @@
        EXPERIENCE / REVIEW SECTION
     ───────────────────────────────────────── */
     .section-title {
-      font-size: 17px;
+      font-size: 19px;
       font-weight: 700;
       color: var(--text-dark);
       margin-bottom: 4px;
     }
     .section-subtitle {
-      font-size: 13px;
+      font-size: 15px;
       color: var(--text-muted);
       margin-bottom: 18px;
     }
@@ -568,7 +585,7 @@
     .star:hover { color: #f5a623; }
 
     .rating-text {
-      font-size: 13px;
+      font-size: 15px;
       color: var(--text-muted);
       margin-bottom: 16px;
     }
@@ -584,7 +601,7 @@
       border-radius: 20px;
       border: 1.5px solid #e0e0e0;
       background: #fff;
-      font-size: 13px;
+      font-size: 15px;
       font-weight: 600;
       color: #555;
       cursor: pointer;
@@ -602,7 +619,7 @@
 
     /* Review input col */
     .review-label {
-      font-size: 13px;
+      font-size: 15px;
       font-weight: 600;
       color: var(--text-dark);
       margin-bottom: 8px;
@@ -614,7 +631,7 @@
       padding: 12px 14px;
       border: 1px solid #e0e0e0;
       border-radius: 10px;
-      font-size: 13px;
+      font-size: 15px;
       resize: none;
       outline: none;
       color: #555;
@@ -632,7 +649,7 @@
       color: #fff;
       border: none;
       border-radius: 10px;
-      font-size: 14px;
+      font-size: 16px;
       font-weight: 700;
       cursor: pointer;
       transition: background 0.2s;
@@ -939,12 +956,29 @@
         <i class="fa-regular fa-bell"></i>
         <span class="notif-badge">2</span>
       </div>
-      <div class="user-dropdown">
-        <div class="avatar-small">
-          <i class="fa-solid fa-user"></i>
+      <div class="user-dropdown-wrapper" id="user-dropdown-wrapper">
+        <div class="user-dropdown" id="user-dropdown-trigger" role="button" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-label="User menu">
+          <div class="avatar-small">
+            <i class="fa-solid fa-user"></i>
+          </div>
+          <span class="user-name" id="header-user-name">Priya</span>
+          <i class="fa-solid fa-chevron-down arrow" id="user-dropdown-arrow"></i>
         </div>
-        <span class="user-name">Priya</span>
-        <i class="fa-solid fa-chevron-down arrow"></i>
+        <div class="user-dropdown-menu" id="user-dropdown-menu" role="menu">
+          <a href="./profile.html" class="dropdown-item" role="menuitem">
+            <i class="fa-solid fa-user"></i>
+            My Profile
+          </a>
+          <a href="./order.html" class="dropdown-item" role="menuitem">
+            <i class="fa-solid fa-box-open"></i>
+            My Orders
+          </a>
+          <hr class="dropdown-divider">
+          <button class="dropdown-item logout-item" id="header-logout-btn" type="button" role="menuitem">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            Logout
+          </button>
+        </div>
       </div>
     </div>
   </header>
@@ -1178,7 +1212,7 @@
   </div><!-- end page-wrapper -->
 
   <!-- FOOTER -->
-  <footer class="footer">
+  <footer class="footer" style="display: none;">
     <div class="footer-left">
       <img src="./assets/rasoova_logo_desktop.png" alt="Rasoova Logo" class="footer-logo" />
     </div>
@@ -1264,6 +1298,26 @@
       const pct = ((completedSteps - 1) / (totalSteps - 1)) * 100;
       fill.style.width = pct + '%';
     });
+  </script>
+
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const dropdownTrigger = document.getElementById('user-dropdown-trigger');
+    const dropdownMenu    = document.getElementById('user-dropdown-menu');
+    const dropdownArrow   = document.getElementById('user-dropdown-arrow');
+    const headerLogoutBtn = document.getElementById('header-logout-btn');
+    const headerUserName  = document.getElementById('header-user-name');
+    if (headerUserName) { const n = localStorage.getItem('rasoovaUserName'); if (n) headerUserName.textContent = n; }
+    function openDropdown() { dropdownMenu.classList.add('open'); dropdownTrigger.setAttribute('aria-expanded','true'); dropdownArrow.style.transform='rotate(180deg)'; }
+    function closeDropdown() { dropdownMenu.classList.remove('open'); dropdownTrigger.setAttribute('aria-expanded','false'); dropdownArrow.style.transform='rotate(0deg)'; }
+    if (dropdownTrigger && dropdownMenu) {
+      dropdownTrigger.addEventListener('click', (e) => { e.stopPropagation(); dropdownMenu.classList.contains('open') ? closeDropdown() : openDropdown(); });
+      document.addEventListener('click', (e) => { if (!dropdownTrigger.contains(e.target) && !dropdownMenu.contains(e.target)) closeDropdown(); });
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeDropdown(); });
+    }
+    function doLogout() { localStorage.removeItem('rasoovaAuth'); localStorage.removeItem('rasoovaUserName'); closeDropdown(); window.location.href = './login.html'; }
+    if (headerLogoutBtn) headerLogoutBtn.addEventListener('click', doLogout);
+  });
   </script>
 
 </body>

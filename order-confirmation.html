@@ -4,6 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Rasoova - Order Confirmed</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" defer></script>
   <style>
     :root {
       --primary-maroon: #8f1738;
@@ -180,7 +182,24 @@
       font-size: 14px;
     }
 
-    .user-dropdown .arrow { font-size: 12px; color: #666; }
+    .user-dropdown .arrow {
+      font-size: 12px;
+      color: #666;
+      transition: transform 0.2s ease;
+    }
+
+    /* ── USER DROPDOWN MENU ── */
+    .user-dropdown-wrapper { position: relative; display: flex; align-items: center; }
+    .user-dropdown-menu { display: none; position: absolute; top: calc(100% + 12px); right: 0; background: #ffffff; border: 1px solid #edebeb; border-radius: 12px; min-width: 180px; box-shadow: 0 8px 24px rgba(0,0,0,0.12); z-index: 999; overflow: hidden; animation: dropdownIn 0.18s ease; }
+    @keyframes dropdownIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
+    .user-dropdown-menu.open { display: block; }
+    .dropdown-item { display: flex; align-items: center; gap: 10px; padding: 12px 18px; font-size: 14px; font-weight: 500; color: #333; text-decoration: none; transition: background 0.15s; border: none; background: none; width: 100%; cursor: pointer; font-family: inherit; }
+    .dropdown-item:hover { background: #fdf2f4; color: #8f1738; }
+    .dropdown-item i { width: 16px; text-align: center; color: #8f1738; }
+    .dropdown-divider { border: none; border-top: 1px solid #f0eded; margin: 0; }
+    .dropdown-item.logout-item { color: #dc2626; }
+    .dropdown-item.logout-item i { color: #dc2626; }
+    .dropdown-item.logout-item:hover { background: #fff5f5; color: #dc2626; }
 
     /* --- SUB NAVIGATION BAR --- */
     .sub-nav {
@@ -261,14 +280,14 @@
     .c6 { width: 6px; height: 10px; background: #ef4444; top: 45px; right: -20px; transform: rotate(-35deg); }
 
     .confirmation-hero h1 {
-      font-size: 28px;
+      font-size: 30px;
       font-weight: 800;
       color: var(--primary-maroon);
       margin-bottom: 6px;
     }
 
     .confirmation-hero p.sub-text {
-      font-size: 14px;
+      font-size: 16px;
       color: var(--text-muted);
       margin-bottom: 16px;
     }
@@ -281,7 +300,7 @@
       padding: 6px 18px;
       border-radius: 20px;
       font-weight: 700;
-      font-size: 14px;
+      font-size: 16px;
     }
 
     /* --- TRACKING HIGHLIGHT CARDS --- */
@@ -322,20 +341,20 @@
     .icon-pink { background: #fff0f3; color: #e11d48; }
 
     .track-info h4 {
-      font-size: 12px;
+      font-size: 14px;
       color: var(--text-muted);
       font-weight: 600;
       margin-bottom: 2px;
     }
 
     .track-info .val {
-      font-size: 15px;
+      font-size: 17px;
       font-weight: 700;
       color: var(--text-dark);
     }
 
     .track-info .sub-val {
-      font-size: 11px;
+      font-size: 13px;
       color: var(--text-light);
       margin-top: 2px;
     }
@@ -360,7 +379,7 @@
     }
 
     .card-title {
-      font-size: 16px;
+      font-size: 18px;
       font-weight: 700;
       color: var(--text-dark);
       display: flex;
@@ -397,24 +416,24 @@
     }
 
     .item-meta h5 {
-      font-size: 14px;
+      font-size: 16px;
       font-weight: 700;
       color: var(--text-dark);
     }
 
     .item-meta p {
-      font-size: 12px;
+      font-size: 14px;
       color: var(--text-muted);
       margin: 2px 0;
     }
 
     .item-meta .qty {
-      font-size: 12px;
+      font-size: 14px;
       color: var(--text-light);
     }
 
     .item-price {
-      font-size: 15px;
+      font-size: 17px;
       font-weight: 700;
       color: var(--text-dark);
     }
@@ -423,7 +442,7 @@
     .summary-row {
       display: flex;
       justify-content: space-between;
-      font-size: 13px;
+      font-size: 15px;
       color: var(--text-muted);
       margin-bottom: 10px;
     }
@@ -441,7 +460,7 @@
       color: var(--green-success);
       padding: 8px 12px;
       border-radius: 6px;
-      font-size: 12px;
+      font-size: 14px;
       font-weight: 600;
       display: flex;
       justify-content: space-between;
@@ -459,13 +478,13 @@
     }
 
     .grand-total span {
-      font-size: 16px;
+      font-size: 18px;
       font-weight: 800;
       color: var(--text-dark);
     }
 
     .grand-total .amount {
-      font-size: 20px;
+      font-size: 22px;
       font-weight: 800;
       color: var(--primary-maroon);
     }
@@ -480,14 +499,14 @@
     .type-pill {
       background: var(--green-light);
       color: var(--green-success);
-      font-size: 11px;
+      font-size: 13px;
       font-weight: 700;
       padding: 3px 10px;
       border-radius: 12px;
     }
 
     .address-text {
-      font-size: 13px;
+      font-size: 15px;
       color: var(--text-muted);
       line-height: 1.5;
       margin-top: 8px;
@@ -501,7 +520,7 @@
 
     /* Payment Card */
     .payment-method-box {
-      font-size: 13px;
+      font-size: 15px;
       color: var(--text-dark);
       font-weight: 600;
       display: flex;
@@ -510,7 +529,7 @@
     }
 
     .payment-status-tag {
-      font-size: 12px;
+      font-size: 14px;
       color: var(--green-success);
       font-weight: 600;
       display: flex;
@@ -529,7 +548,7 @@
       display: flex;
       flex-direction: column;
       gap: 10px;
-      font-size: 13px;
+      font-size: 15px;
     }
 
     .info-item {
@@ -563,11 +582,11 @@
 
     .fresh-banner i {
       color: var(--primary-maroon);
-      font-size: 16px;
+      font-size: 18px;
     }
 
     .fresh-banner p {
-      font-size: 11px;
+      font-size: 13px;
       color: var(--primary-maroon);
       font-weight: 600;
       line-height: 1.3;
@@ -587,7 +606,7 @@
       border: none;
       border-radius: 8px;
       padding: 12px;
-      font-size: 14px;
+      font-size: 16px;
       font-weight: 700;
       cursor: pointer;
       display: flex;
@@ -608,7 +627,7 @@
       border: 1px solid #cbd5e1;
       border-radius: 8px;
       padding: 11px;
-      font-size: 13px;
+      font-size: 15px;
       font-weight: 600;
       cursor: pointer;
       display: flex;
@@ -653,6 +672,16 @@
       opacity: 0.9;
     }
 
+    /* Mobile menu toggle — hidden on desktop */
+    .mobile-menu-toggle {
+      display: none;
+    }
+
+    /* Mobile bottom nav — hidden on desktop */
+    .mobile-bottom-nav {
+      display: none;
+    }
+
     /* --- RESPONSIVE MEDIA QUERIES --- */
     @media (max-width: 850px) {
       .announcement { display: none; }
@@ -670,8 +699,106 @@
       .main-container {
         grid-template-columns: 1fr;
       }
+    }
 
+    @media (max-width: 768px) {
+      .announcement { display: none; }
+
+      /* Navbar mobile */
+      .navbar {
+        padding: 10px 20px;
+        position: relative;
+        justify-content: flex-end;
+      }
+      .mobile-menu-toggle {
+        display: block;
+        position: absolute;
+        left: 14px;
+        top: 50%;
+        transform: translateY(-50%);
+        border: 0;
+        background: transparent;
+        color: var(--text-dark);
+        cursor: pointer;
+        font-size: 24px;
+        line-height: 1;
+        padding: 2px;
+        z-index: 2;
+      }
+      .nav-left {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      .nav-search { display: none; }
+      .user-name, .fa-chevron-down, .arrow { display: none; }
+      .brand-logo { height: 35px; }
+      .notification-icon { font-size: 20px; }
+
+      /* Sub-nav: hidden by default, slide-down when open */
+      .sub-nav { display: none; }
+      .sub-nav.open {
+        display: flex;
+        position: absolute;
+        top: 58px;
+        left: 0;
+        right: 0;
+        z-index: 20;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        padding: 8px 0;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+      }
+      .sub-nav.open .nav-item {
+        justify-content: flex-start;
+        border-radius: 0;
+        padding: 14px 20px;
+        font-size: 16px;
+      }
+
+      /* Footer hidden on mobile — replaced by bottom nav */
       .footer { display: none; }
+      body { padding-bottom: 70px; }
+
+      /* Mobile Bottom Nav */
+      .mobile-bottom-nav {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: var(--primary-maroon);
+        padding: 10px 0;
+        z-index: 1000;
+      }
+      .mobile-bottom-nav a {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+        color: #f8b4c4;
+        font-size: 10px;
+        font-weight: 500;
+        text-decoration: none;
+      }
+      .mobile-bottom-nav a i {
+        font-size: 18px;
+      }
+      .mobile-bottom-nav a.active {
+        color: #ffffff;
+        font-weight: 600;
+      }
+      .mobile-bottom-nav a.active::after {
+        content: '';
+        width: 30px;
+        height: 2px;
+        background: #ffffff;
+        margin-top: 2px;
+        border-radius: 2px;
+      }
     }
   </style>
 </head>
@@ -695,6 +822,7 @@
 
   <!-- TOP NAVBAR -->
   <header class="navbar">
+    <button class="mobile-menu-toggle" id="mobile-menu-toggle" type="button" aria-label="Open menu">☰</button>
     <div class="nav-left">
       <img src="./assets/rasoova_logo_desktop.png" alt="Rasoova Logo" class="brand-logo" />
     </div>
@@ -705,16 +833,36 @@
     </div>
 
     <div class="nav-right">
+      <a href="./cart.html" class="notification-icon" style="text-decoration:none;" aria-label="Cart">
+        <i class="fa-solid fa-cart-shopping"></i>
+      </a>
       <div class="notification-icon">
         <i class="fa-regular fa-bell"></i>
         <span class="notif-badge">2</span>
       </div>
-      <div class="user-dropdown">
-        <div class="avatar-small">
-          <i class="fa-solid fa-user"></i>
+      <div class="user-dropdown-wrapper" id="user-dropdown-wrapper">
+        <div class="user-dropdown" id="user-dropdown-trigger" role="button" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-label="User menu">
+          <div class="avatar-small">
+            <i class="fa-solid fa-user"></i>
+          </div>
+          <span class="user-name" id="header-user-name">Priya</span>
+          <i class="fa-solid fa-chevron-down arrow" id="user-dropdown-arrow"></i>
         </div>
-        <span class="user-name">Priya</span>
-        <i class="fa-solid fa-chevron-down arrow"></i>
+        <div class="user-dropdown-menu" id="user-dropdown-menu" role="menu">
+          <a href="./profile.html" class="dropdown-item" role="menuitem">
+            <i class="fa-solid fa-user"></i>
+            My Profile
+          </a>
+          <a href="./order.html" class="dropdown-item" role="menuitem">
+            <i class="fa-solid fa-box-open"></i>
+            My Orders
+          </a>
+          <hr class="dropdown-divider">
+          <button class="dropdown-item logout-item" id="header-logout-btn" type="button" role="menuitem">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            Logout
+          </button>
+        </div>
       </div>
     </div>
   </header>
@@ -954,7 +1102,7 @@
 
         <!-- Action Buttons -->
         <div class="action-buttons">
-          <a href="./track-order.html" class="btn-track">
+          <a href="./order.html" class="btn-track">
             Track Your Order <i class="fa-solid fa-arrow-right"></i>
           </a>
           <a href="./index.html" class="btn-home">
@@ -967,7 +1115,7 @@
   </main>
 
   <!-- FOOTER -->
-  <footer class="footer">
+  <footer class="footer" style="display: none;">
     <div class="footer-left">
       <img src="./assets/rasoova_logo_desktop.png" alt="Rasoova Logo" class="footer-logo" />
     </div>
@@ -980,5 +1128,64 @@
     </div>
   </footer>
 
+  <!-- MOBILE BOTTOM NAV -->
+  <nav class="mobile-bottom-nav" id="mobile-bottom-nav">
+    <a href="./index.html">
+      <i class="fa-solid fa-house"></i>
+      <span>Home</span>
+    </a>
+    <a href="./order.html" class="active">
+      <i class="fa-solid fa-bag-shopping"></i>
+      <span>My Orders</span>
+    </a>
+    <a href="./menupage.html">
+      <i class="fa-solid fa-utensils"></i>
+      <span>Menu</span>
+    </a>
+    <a href="./profile.html">
+      <i class="fa-regular fa-user"></i>
+      <span>Profile</span>
+    </a>
+    <a href="./cart.html">
+      <i class="fa-solid fa-location-dot"></i>
+      <span>Address</span>
+    </a>
+    <a href="./help-support.html">
+      <i class="fa-solid fa-headset"></i>
+      <span>Help</span>
+    </a>
+  </nav>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+  <script>
+    // Hamburger menu toggle
+    var menuBtn = document.getElementById('mobile-menu-toggle');
+    var subNav = document.querySelector('.sub-nav');
+    if (menuBtn) {
+      menuBtn.addEventListener('click', function () {
+        subNav.classList.toggle('open');
+      });
+    }
+  </script>
+
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const dropdownTrigger = document.getElementById('user-dropdown-trigger');
+    const dropdownMenu    = document.getElementById('user-dropdown-menu');
+    const dropdownArrow   = document.getElementById('user-dropdown-arrow');
+    const headerLogoutBtn = document.getElementById('header-logout-btn');
+    const headerUserName  = document.getElementById('header-user-name');
+    if (headerUserName) { const n = localStorage.getItem('rasoovaUserName'); if (n) headerUserName.textContent = n; }
+    function openDropdown() { dropdownMenu.classList.add('open'); dropdownTrigger.setAttribute('aria-expanded','true'); dropdownArrow.style.transform='rotate(180deg)'; }
+    function closeDropdown() { dropdownMenu.classList.remove('open'); dropdownTrigger.setAttribute('aria-expanded','false'); dropdownArrow.style.transform='rotate(0deg)'; }
+    if (dropdownTrigger && dropdownMenu) {
+      dropdownTrigger.addEventListener('click', (e) => { e.stopPropagation(); dropdownMenu.classList.contains('open') ? closeDropdown() : openDropdown(); });
+      document.addEventListener('click', (e) => { if (!dropdownTrigger.contains(e.target) && !dropdownMenu.contains(e.target)) closeDropdown(); });
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeDropdown(); });
+    }
+    function doLogout() { localStorage.removeItem('rasoovaAuth'); localStorage.removeItem('rasoovaUserName'); closeDropdown(); window.location.href = './login.html'; }
+    if (headerLogoutBtn) headerLogoutBtn.addEventListener('click', doLogout);
+  });
+  </script>
 </body>
 </html>

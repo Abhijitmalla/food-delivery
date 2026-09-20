@@ -170,7 +170,21 @@
     .user-dropdown .arrow {
       font-size: 12px;
       color: #666;
+      transition: transform 0.2s ease;
     }
+
+    /* ── USER DROPDOWN MENU ── */
+    .user-dropdown-wrapper { position: relative; display: flex; align-items: center; }
+    .user-dropdown-menu { display: none; position: absolute; top: calc(100% + 12px); right: 0; background: #ffffff; border: 1px solid #edebeb; border-radius: 12px; min-width: 180px; box-shadow: 0 8px 24px rgba(0,0,0,0.12); z-index: 999; overflow: hidden; animation: dropdownIn 0.18s ease; }
+    @keyframes dropdownIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
+    .user-dropdown-menu.open { display: block; }
+    .dropdown-item { display: flex; align-items: center; gap: 10px; padding: 12px 18px; font-size: 14px; font-weight: 500; color: #333; text-decoration: none; transition: background 0.15s; border: none; background: none; width: 100%; cursor: pointer; font-family: inherit; }
+    .dropdown-item:hover { background: #fdf2f4; color: #8f1738; }
+    .dropdown-item i { width: 16px; text-align: center; color: #8f1738; }
+    .dropdown-divider { border: none; border-top: 1px solid #f0eded; margin: 0; }
+    .dropdown-item.logout-item { color: #dc2626; }
+    .dropdown-item.logout-item i { color: #dc2626; }
+    .dropdown-item.logout-item:hover { background: #fff5f5; color: #dc2626; }
 
     /* --- SUB NAVIGATION BAR --- */
     .sub-nav {
@@ -220,14 +234,14 @@
 
     /* ==================== NEED HELP CARDS ==================== */
     .section-title {
-      font-size: 20px;
+      font-size: 22px;
       color: var(--primary-maroon);
       font-weight: 700;
       margin-bottom: 2px;
     }
 
     .section-subtitle {
-      font-size: 13px;
+      font-size: 15px;
       color: #777;
       margin-bottom: 20px;
     }
@@ -257,7 +271,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 16px;
+      font-size: 18px;
       flex-shrink: 0;
     }
 
@@ -282,21 +296,21 @@
     }
 
     .contact-details h3 {
-      font-size: 14px;
+      font-size: 16px;
       font-weight: 600;
       color: #333;
       margin-bottom: 2px;
     }
 
     .contact-details p {
-      font-size: 12px;
+      font-size: 14px;
       color: #555;
       margin-bottom: 2px;
       word-break: break-word;
     }
 
     .contact-details span {
-      font-size: 11px;
+      font-size: 13px;
       color: #888;
       display: block;
     }
@@ -337,7 +351,7 @@
       background-color: #fde8e8;
       color: var(--primary-maroon);
       font-weight: 600;
-      font-size: 12px;
+      font-size: 14px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -346,14 +360,14 @@
     }
 
     .faq-title {
-      font-size: 13px;
+      font-size: 15px;
       font-weight: 500;
       color: #444;
       flex-grow: 1;
     }
 
     .faq-icon {
-      font-size: 12px;
+      font-size: 14px;
       color: #888;
       transition: transform 0.3s ease;
     }
@@ -364,7 +378,7 @@
       transition: max-height 0.3s ease, padding 0.3s ease;
       background-color: #fff;
       padding: 0 16px;
-      font-size: 12px;
+      font-size: 14px;
       color: #666;
       border-top: 1px solid transparent;
     }
@@ -636,16 +650,36 @@
     </div>
 
     <div class="nav-right">
+      <a href="./cart.html" class="notification-icon" style="text-decoration:none;" aria-label="Cart">
+        <i class="fa-solid fa-cart-shopping"></i>
+      </a>
       <div class="notification-icon">
         <i class="fa-regular fa-bell"></i>
         <span class="badge">3</span>
       </div>
-      <div class="user-dropdown">
-        <div class="avatar-small">
-          <i class="fa-solid fa-user"></i>
+      <div class="user-dropdown-wrapper" id="user-dropdown-wrapper">
+        <div class="user-dropdown" id="user-dropdown-trigger" role="button" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-label="User menu">
+          <div class="avatar-small">
+            <i class="fa-solid fa-user"></i>
+          </div>
+          <span class="user-name" id="header-user-name">Priya</span>
+          <i class="fa-solid fa-chevron-down arrow" id="user-dropdown-arrow"></i>
         </div>
-        <span class="user-name">Priya</span>
-        <i class="fa-solid fa-chevron-down arrow"></i>
+        <div class="user-dropdown-menu" id="user-dropdown-menu" role="menu">
+          <a href="./profile.html" class="dropdown-item" role="menuitem">
+            <i class="fa-solid fa-user"></i>
+            My Profile
+          </a>
+          <a href="./order.html" class="dropdown-item" role="menuitem">
+            <i class="fa-solid fa-box-open"></i>
+            My Orders
+          </a>
+          <hr class="dropdown-divider">
+          <button class="dropdown-item logout-item" id="header-logout-btn" type="button" role="menuitem">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            Logout
+          </button>
+        </div>
       </div>
     </div>
   </header>
@@ -743,7 +777,7 @@
   </main>
 
   <!-- Footer Section -->
-  <footer>
+  <footer style="display: none;">
     <div class="container footer-container">
       <div class="footer-brand">
         <img src="./assets/rasoova_logo_desktop.png" alt="Rasoova" class="footer-logo">
@@ -773,7 +807,7 @@
 
   <!-- ── MOBILE BOTTOM NAV ── -->
   <nav class="mobile-bottom-nav">
-    <a href="#home">
+    <a href="./index.html">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
         stroke-linecap="round" stroke-linejoin="round">
         <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
@@ -781,7 +815,7 @@
       </svg>
       <span>Home</span>
     </a>
-    <a href="#orders">
+    <a href="./order.html">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
         stroke-linecap="round" stroke-linejoin="round">
         <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
@@ -790,7 +824,7 @@
       </svg>
       <span>My Orders</span>
     </a>
-    <a href="#profile">
+    <a href="./profile.html">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
         stroke-linecap="round" stroke-linejoin="round">
         <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
@@ -798,7 +832,7 @@
       </svg>
       <span>Profile</span>
     </a>
-    <a href="#address">
+    <a href="./address.html">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
         stroke-linecap="round" stroke-linejoin="round">
         <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
@@ -806,7 +840,7 @@
       </svg>
       <span>Address</span>
     </a>
-    <a href="#help" class="active">
+    <a href="./help-support.html" class="active">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
         stroke-linecap="round" stroke-linejoin="round">
         <path d="M3 18v-6a9 9 0 0 1 18 0v6"></path>
@@ -872,6 +906,26 @@
         item.classList.toggle('active');
       });
     });
+  </script>
+
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const dropdownTrigger = document.getElementById('user-dropdown-trigger');
+    const dropdownMenu    = document.getElementById('user-dropdown-menu');
+    const dropdownArrow   = document.getElementById('user-dropdown-arrow');
+    const headerLogoutBtn = document.getElementById('header-logout-btn');
+    const headerUserName  = document.getElementById('header-user-name');
+    if (headerUserName) { const n = localStorage.getItem('rasoovaUserName'); if (n) headerUserName.textContent = n; }
+    function openDropdown() { dropdownMenu.classList.add('open'); dropdownTrigger.setAttribute('aria-expanded','true'); dropdownArrow.style.transform='rotate(180deg)'; }
+    function closeDropdown() { dropdownMenu.classList.remove('open'); dropdownTrigger.setAttribute('aria-expanded','false'); dropdownArrow.style.transform='rotate(0deg)'; }
+    if (dropdownTrigger && dropdownMenu) {
+      dropdownTrigger.addEventListener('click', (e) => { e.stopPropagation(); dropdownMenu.classList.contains('open') ? closeDropdown() : openDropdown(); });
+      document.addEventListener('click', (e) => { if (!dropdownTrigger.contains(e.target) && !dropdownMenu.contains(e.target)) closeDropdown(); });
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeDropdown(); });
+    }
+    function doLogout() { localStorage.removeItem('rasoovaAuth'); localStorage.removeItem('rasoovaUserName'); closeDropdown(); window.location.href = './login.html'; }
+    if (headerLogoutBtn) headerLogoutBtn.addEventListener('click', doLogout);
+  });
   </script>
 </body>
 

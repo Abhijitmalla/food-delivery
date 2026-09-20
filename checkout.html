@@ -47,13 +47,21 @@
             font-weight: 600;
             gap: 8px;
         }
-        .ann-left, .ann-right {
+
+        .ann-left,
+        .ann-right {
             display: flex;
             align-items: center;
             gap: 8px;
         }
-        .ann-fire { font-size: 15px; }
-        .ann-sep  { opacity: 0.5; }
+
+        .ann-fire {
+            font-size: 15px;
+        }
+
+        .ann-sep {
+            opacity: 0.5;
+        }
 
         /* --- TOP NAVBAR --- */
         .navbar {
@@ -67,7 +75,6 @@
 
         .brand-logo {
             height: 48px;
-            width: auto;
             object-fit: contain;
         }
 
@@ -88,7 +95,9 @@
             color: #333;
         }
 
-        .nav-search input::placeholder { color: #aaa; }
+        .nav-search input::placeholder {
+            color: #aaa;
+        }
 
         .nav-search .search-btn {
             position: absolute;
@@ -115,18 +124,7 @@
             cursor: pointer;
         }
 
-        .notification-icon svg {
-            display: block;
-            width: 20px;
-            height: 20px;
-            fill: none;
-            stroke: currentColor;
-            stroke-width: 1.8;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-        }
-
-        .notification-icon .notif-badge {
+        .notification-icon .badge {
             position: absolute;
             top: -5px;
             right: -7px;
@@ -152,7 +150,7 @@
         .avatar-small {
             width: 32px;
             height: 32px;
-            background-color: #e8e0e0;
+            background-color: var(--light-pink);
             color: var(--primary-maroon);
             border-radius: 50%;
             display: flex;
@@ -161,22 +159,29 @@
             font-size: 14px;
         }
 
-        .avatar-small svg {
-            width: 16px;
-            height: 16px;
-            fill: none;
-            stroke: currentColor;
-            stroke-width: 1.8;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-        }
-
         .user-name {
             font-weight: 600;
             font-size: 14px;
         }
 
-        .user-dropdown .arrow { font-size: 12px; color: #666; }
+        .user-dropdown .arrow {
+            font-size: 12px;
+            color: #666;
+            transition: transform 0.2s ease;
+        }
+
+        /* ── USER DROPDOWN MENU ── */
+        .user-dropdown-wrapper { position: relative; display: flex; align-items: center; }
+        .user-dropdown-menu { display: none; position: absolute; top: calc(100% + 12px); right: 0; background: #ffffff; border: 1px solid #edebeb; border-radius: 12px; min-width: 180px; box-shadow: 0 8px 24px rgba(0,0,0,0.12); z-index: 999; overflow: hidden; animation: dropdownIn 0.18s ease; }
+        @keyframes dropdownIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
+        .user-dropdown-menu.open { display: block; }
+        .dropdown-item { display: flex; align-items: center; gap: 10px; padding: 12px 18px; font-size: 14px; font-weight: 500; color: #333; text-decoration: none; transition: background 0.15s; border: none; background: none; width: 100%; cursor: pointer; font-family: inherit; }
+        .dropdown-item:hover { background: #fdf2f4; color: #8f1738; }
+        .dropdown-item i { width: 16px; text-align: center; color: #8f1738; }
+        .dropdown-divider { border: none; border-top: 1px solid #f0eded; margin: 0; }
+        .dropdown-item.logout-item { color: #dc2626; }
+        .dropdown-item.logout-item i { color: #dc2626; }
+        .dropdown-item.logout-item:hover { background: #fff5f5; color: #dc2626; }
 
         /* --- SUB NAVIGATION BAR --- */
         .sub-nav {
@@ -239,7 +244,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 13px;
+            font-size: 15px;
             font-weight: 700;
             background-color: #ffffff;
             border: 2px solid #cbd5e1;
@@ -253,7 +258,7 @@
         }
 
         .step-label {
-            font-size: 12px;
+            font-size: 14px;
             font-weight: 700;
             color: var(--text-muted);
         }
@@ -289,7 +294,7 @@
         }
 
         .card-title {
-            font-size: 16px;
+            font-size: 18px;
             font-weight: 700;
             color: var(--text-dark);
             display: flex;
@@ -299,11 +304,11 @@
 
         .card-title i {
             color: var(--primary-maroon);
-            font-size: 18px;
+            font-size: 20px;
         }
 
         .card-subtitle {
-            font-size: 12px;
+            font-size: 14px;
             color: var(--text-muted);
             margin-top: 2px;
             margin-bottom: 16px;
@@ -346,7 +351,7 @@
         }
 
         .address-type {
-            font-size: 14px;
+            font-size: 16px;
             font-weight: 700;
             color: var(--text-dark);
         }
@@ -354,7 +359,7 @@
         .default-tag {
             background-color: #dcfce7;
             color: var(--green-success);
-            font-size: 10px;
+            font-size: 12px;
             font-weight: 700;
             padding: 2px 6px;
             border-radius: 4px;
@@ -363,7 +368,7 @@
         .address-actions {
             display: flex;
             gap: 12px;
-            font-size: 12px;
+            font-size: 14px;
             font-weight: 600;
         }
 
@@ -384,7 +389,7 @@
         }
 
         .address-details {
-            font-size: 12px;
+            font-size: 14px;
             color: var(--text-muted);
             line-height: 1.5;
             padding-left: 24px;
@@ -423,19 +428,19 @@
         }
 
         .add-address-left h5 {
-            font-size: 13px;
+            font-size: 15px;
             font-weight: 700;
             color: var(--text-dark);
         }
 
         .add-address-left p {
-            font-size: 11px;
+            font-size: 13px;
             color: var(--text-muted);
         }
 
         /* Delivery Instructions */
         .section-label {
-            font-size: 13px;
+            font-size: 15px;
             font-weight: 700;
             color: var(--text-dark);
             margin-bottom: 8px;
@@ -447,7 +452,7 @@
             padding: 10px 12px;
             border: 1px solid var(--border-color);
             border-radius: 8px;
-            font-size: 12px;
+            font-size: 14px;
             color: var(--text-dark);
             background-color: #fafafa;
             outline: none;
@@ -467,7 +472,7 @@
         }
 
         .timing-title {
-            font-size: 13px;
+            font-size: 15px;
             font-weight: 700;
             display: flex;
             align-items: center;
@@ -480,7 +485,7 @@
         }
 
         .timing-desc {
-            font-size: 12px;
+            font-size: 14px;
             color: var(--text-dark);
             display: flex;
             align-items: center;
@@ -491,7 +496,7 @@
         .km-badge {
             background-color: #ecfdf5;
             color: #047857;
-            font-size: 10px;
+            font-size: 12px;
             font-weight: 700;
             padding: 2px 8px;
             border-radius: 10px;
@@ -516,25 +521,25 @@
 
         .fresh-banner-left i {
             color: var(--primary-maroon);
-            font-size: 16px;
+            font-size: 18px;
         }
 
         .fresh-banner-left p {
-            font-size: 11px;
+            font-size: 13px;
             color: var(--primary-maroon);
             font-weight: 700;
         }
 
         .fresh-banner-left span {
             display: block;
-            font-size: 10px;
+            font-size: 12px;
             color: var(--primary-maroon);
             font-weight: 400;
             opacity: 0.8;
         }
 
         .bihari-tag {
-            font-size: 10px;
+            font-size: 12px;
             font-weight: 700;
             color: var(--primary-maroon);
             display: flex;
@@ -570,13 +575,13 @@
         }
 
         .payment-title {
-            font-size: 13px;
+            font-size: 15px;
             font-weight: 700;
             color: var(--text-dark);
         }
 
         .payment-sub {
-            font-size: 11px;
+            font-size: 13px;
             color: var(--text-muted);
         }
 
@@ -598,14 +603,14 @@
             border-radius: 4px;
             color: var(--text-muted);
             background: #fff;
-            font-size: 9px;
+            font-size: 11px;
             font-weight: 700;
         }
 
         .cod-badge {
             background-color: #ecfdf5;
             color: var(--green-success);
-            font-size: 10px;
+            font-size: 12px;
             font-weight: 700;
             padding: 2px 8px;
             border-radius: 4px;
@@ -630,7 +635,7 @@
             padding: 8px 12px;
             border: 1px solid var(--border-color);
             border-radius: 6px;
-            font-size: 12px;
+            font-size: 14px;
             outline: none;
         }
 
@@ -640,7 +645,7 @@
             border: none;
             padding: 8px 16px;
             border-radius: 6px;
-            font-size: 12px;
+            font-size: 14px;
             font-weight: 700;
             cursor: pointer;
         }
@@ -654,7 +659,7 @@
         }
 
         .item-count {
-            font-size: 12px;
+            font-size: 14px;
             color: var(--text-muted);
         }
 
@@ -681,25 +686,25 @@
         }
 
         .mini-title {
-            font-size: 12px;
+            font-size: 14px;
             font-weight: 700;
             color: var(--text-dark);
         }
 
         .mini-qty {
-            font-size: 11px;
+            font-size: 13px;
             color: var(--text-muted);
         }
 
         .mini-price {
-            font-size: 13px;
+            font-size: 15px;
             font-weight: 700;
             color: var(--text-dark);
         }
 
         .price-breakdown {
             margin-top: 15px;
-            font-size: 12px;
+            font-size: 14px;
         }
 
         .price-row {
@@ -722,7 +727,7 @@
             color: var(--green-success);
             padding: 8px 10px;
             border-radius: 6px;
-            font-size: 11px;
+            font-size: 13px;
             font-weight: 600;
             display: flex;
             justify-content: space-between;
@@ -740,13 +745,13 @@
         }
 
         .grand-total-row span {
-            font-size: 15px;
+            font-size: 17px;
             font-weight: 800;
             color: var(--text-dark);
         }
 
         .grand-total-row .total-price {
-            font-size: 18px;
+            font-size: 20px;
             font-weight: 800;
             color: var(--primary-maroon);
         }
@@ -758,7 +763,7 @@
             border: none;
             border-radius: 8px;
             padding: 12px;
-            font-size: 14px;
+            font-size: 16px;
             font-weight: 700;
             cursor: pointer;
             display: flex;
@@ -776,7 +781,7 @@
 
         .terms-text {
             text-align: center;
-            font-size: 10px;
+            font-size: 12px;
             color: var(--text-muted);
             margin-top: 12px;
         }
@@ -786,14 +791,17 @@
             text-decoration: underline;
         }
 
-        /* --- FOOTER --- */
+        /* ─────────────────────────────────────────
+           FOOTER
+        ───────────────────────────────────────── */
         .footer {
             background-color: var(--primary-maroon);
             color: #ffffff;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 15px 40px;
+            padding: 20px 40px;
+            margin-top: 40px;
         }
 
         .footer-logo {
@@ -806,30 +814,213 @@
 
         .footer-links {
             display: flex;
+            align-items: center;
             gap: 15px;
-            font-size: 12px;
         }
 
         .footer-links a {
-            color: #fff;
+            color: #ffffff;
             text-decoration: none;
+            font-size: 13px;
             opacity: 0.9;
         }
 
-        /* --- RESPONSIVE MEDIA QUERIES --- */
+        .footer-links .divider {
+            opacity: 0.5;
+            font-size: 12px;
+        }
+
+        .footer-right {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 8px;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-icons a {
+            color: #ffffff;
+            font-size: 14px;
+        }
+
+        .copyright {
+            font-size: 11px;
+            opacity: 0.7;
+        }
+
+        /* Mobile menu toggle — hidden on desktop */
+        .mobile-menu-toggle {
+            display: none;
+        }
+
+        /* Mobile bottom nav — hidden on desktop */
+        .mobile-bottom-nav {
+            display: none;
+        }
+
+        /* ─────────────────────────────────────────
+           RESPONSIVE
+        ───────────────────────────────────────── */
         @media (max-width: 900px) {
-            .announcement { display: none; }
-            .navbar { padding: 10px 16px; gap: 10px; }
-            .nav-search { display: none; }
-            .sub-nav { gap: 6px; padding: 8px 4px; overflow-x: auto; justify-content: flex-start; padding-left: 12px; }
-            .sub-nav .nav-item { padding: 7px 14px; font-size: 12px; white-space: nowrap; }
+            .announcement {
+                display: none;
+            }
+
+            .navbar {
+                padding: 10px 16px;
+                gap: 10px;
+            }
+
+            .nav-search {
+                display: none;
+            }
 
             .checkout-container {
                 grid-template-columns: 1fr;
             }
 
             .footer {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+
+            .footer-right {
+                align-items: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .announcement {
                 display: none;
+            }
+
+            /* Navbar mobile */
+            .navbar {
+                padding: 10px 20px;
+                position: relative;
+                justify-content: flex-end;
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+                position: absolute;
+                left: 14px;
+                top: 50%;
+                transform: translateY(-50%);
+                border: 0;
+                background: transparent;
+                color: var(--text-dark);
+                cursor: pointer;
+                font-size: 24px;
+                line-height: 1;
+                padding: 2px;
+                z-index: 2;
+            }
+
+            .nav-left {
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            .nav-search {
+                display: none;
+            }
+
+            .user-name,
+            .fa-chevron-down,
+            .arrow {
+                display: none;
+            }
+
+            .brand-logo {
+                height: 35px;
+            }
+
+            .notification-icon {
+                font-size: 20px;
+            }
+
+            /* Sub-nav: hidden by default, slide-down when open */
+            .sub-nav {
+                display: none;
+            }
+
+            .sub-nav.open {
+                display: flex;
+                position: absolute;
+                top: 58px;
+                left: 0;
+                right: 0;
+                z-index: 20;
+                flex-direction: column;
+                align-items: stretch;
+                gap: 0;
+                padding: 8px 0;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+            }
+
+            .sub-nav.open .nav-item {
+                justify-content: flex-start;
+                border-radius: 0;
+                padding: 12px 20px;
+            }
+
+            /* Footer hidden on mobile — replaced by bottom nav */
+            .footer {
+                display: none;
+            }
+
+            body {
+                padding-bottom: 70px;
+            }
+
+            /* Mobile Bottom Nav */
+            .mobile-bottom-nav {
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background: var(--primary-maroon);
+                padding: 10px 0;
+                z-index: 1000;
+            }
+
+            .mobile-bottom-nav a {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 5px;
+                color: #f8b4c4;
+                font-size: 10px;
+                font-weight: 500;
+                text-decoration: none;
+            }
+
+            .mobile-bottom-nav a i {
+                font-size: 18px;
+            }
+
+            .mobile-bottom-nav a.active {
+                color: #ffffff;
+                font-weight: 600;
+            }
+
+            .mobile-bottom-nav a.active::after {
+                content: '';
+                width: 30px;
+                height: 2px;
+                background: #ffffff;
+                margin-top: 2px;
+                border-radius: 2px;
             }
         }
     </style>
@@ -837,73 +1028,97 @@
 
 <body>
 
-    <!-- ── ANNOUNCEMENT BAR ── -->
+    <!-- ANNOUNCEMENT BAR -->
     <div class="announcement">
         <div class="ann-left">
-            <span class="ann-fire">🔥</span>
-            <span>First Order 20% OFF</span>
+            <span class="ann-fire">🎁</span>
+            <span>20% OFF on First Order</span>
             <span class="ann-sep">|</span>
-            <span>Every Order 10% OFF (Limited Time)</span>
+            <span class="ann-fire">🔥</span>
+            <span>10% OFF on Every Order (Limited Time)</span>
+            <span class="ann-sep">|</span>
+            <span class="ann-fire">🩷</span>
+            <span>5% OFF on Prepaid Delivery</span>
         </div>
         <div class="ann-right">
-            <span class="ann-fire">🔥</span>
+            <span class="ann-fire">🍽️</span>
             <span>Freshly Cooked</span>
             <span class="ann-sep">|</span>
+            <span class="ann-fire">⭐</span>
             <span>Authentic Bihari Flavours</span>
         </div>
     </div>
 
     <!-- TOP NAVBAR -->
     <header class="navbar">
+        <button class="mobile-menu-toggle" id="mobile-menu-toggle" type="button" aria-label="Open menu">☰</button>
         <div class="nav-left">
             <img src="./assets/rasoova_logo_desktop.png" alt="Rasoova Logo" class="brand-logo" />
         </div>
 
         <div class="nav-search">
-            <input type="text" placeholder="Search for your favorite food..." />
-            <button class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+            <input type="text" id="navbar-search" placeholder="Search for your favourite food..." />
+            <button class="search-btn" aria-label="Search"><i class="fa-solid fa-magnifying-glass"></i></button>
         </div>
 
         <div class="nav-right">
-            <div class="notification-icon">
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"></path>
-                    <path d="M10 21h4"></path>
-                </svg>
-                <span class="notif-badge">2</span>
+            <a href="./cart.html" class="notification-icon" style="text-decoration:none;" aria-label="Cart">
+                <i class="fa-solid fa-cart-shopping"></i>
+            </a>
+            <div class="notification-icon" id="notification-bell">
+                <i class="fa-regular fa-bell"></i>
+                <span class="badge">3</span>
             </div>
-            <div class="user-dropdown">
+            <div class="user-dropdown-wrapper" id="user-dropdown-wrapper">
+              <div class="user-dropdown" id="user-dropdown-trigger" role="button" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-label="User menu">
                 <div class="avatar-small">
-                    <svg viewBox="0 0 24 24" aria-hidden="true">
-                        <circle cx="12" cy="8" r="4"></circle>
-                        <path d="M4 21a8 8 0 0 1 16 0"></path>
-                    </svg>
+                  <i class="fa-solid fa-user"></i>
                 </div>
-                <span class="user-name">Priya</span>
-                <i class="fa-solid fa-chevron-down arrow"></i>
+                <span class="user-name" id="header-user-name">Priya</span>
+                <i class="fa-solid fa-chevron-down arrow" id="user-dropdown-arrow"></i>
+              </div>
+              <div class="user-dropdown-menu" id="user-dropdown-menu" role="menu">
+                <a href="./profile.html" class="dropdown-item" role="menuitem">
+                  <i class="fa-solid fa-user"></i>
+                  My Profile
+                </a>
+                <a href="./order.html" class="dropdown-item" role="menuitem">
+                  <i class="fa-solid fa-box-open"></i>
+                  My Orders
+                </a>
+                <hr class="dropdown-divider">
+                <button class="dropdown-item logout-item" id="header-logout-btn" type="button" role="menuitem">
+                  <i class="fa-solid fa-right-from-bracket"></i>
+                  Logout
+                </button>
+              </div>
             </div>
         </div>
     </header>
 
     <!-- SUB NAVIGATION BAR -->
     <nav class="sub-nav">
-        <a href="./index.html" class="nav-item">
+        <a href="./index.html" class="nav-item" id="nav-home">
             <i class="fa-solid fa-house"></i>
             <span>Home</span>
         </a>
-        <a href="./order.html" class="nav-item">
+        <a href="./order.html" class="nav-item" id="nav-orders">
             <i class="fa-solid fa-box-open"></i>
             <span>My Orders</span>
         </a>
-        <a href="./profile.html" class="nav-item">
-            <i class="fa-solid fa-user"></i>
+        <a href="./menupage.html" class="nav-item" id="nav-menu">
+            <i class="fa-solid fa-utensils"></i>
+            <span>Menu</span>
+        </a>
+        <a href="./profile.html" class="nav-item" id="nav-profile">
+            <i class="fa-regular fa-user"></i>
             <span>Profile</span>
         </a>
-        <a href="./address.html" class="nav-item">
+        <a href="./cart.html" class="nav-item" id="nav-address">
             <i class="fa-solid fa-location-dot"></i>
             <span>Address</span>
         </a>
-        <a href="./help-support.html" class="nav-item">
+        <a href="./help-support.html" class="nav-item" id="nav-help">
             <i class="fa-solid fa-headset"></i>
             <span>Help &amp; Support</span>
         </a>
@@ -1195,19 +1410,97 @@
     </main>
 
     <!-- FOOTER -->
-    <footer class="footer">
+    <footer class="footer" style="display: none;">
         <div class="footer-left">
             <img src="./assets/rasoova_logo_desktop.png" alt="Rasoova Logo" class="footer-logo" />
         </div>
 
         <div class="footer-links">
-            <a href="./index.html">Home</a> |
-            <a href="./menu.html">Menu</a> |
-            <a href="./about.html">About Us</a> |
-            <a href="./contact.html">Contact</a>
+            <a href="./index.html">Home</a>
+            <span class="divider">|</span>
+            <a href="./order.html">My Orders</a>
+            <span class="divider">|</span>
+            <a href="./menupage.html">Menu</a>
+            <span class="divider">|</span>
+            <a href="./profile.html">Profile</a>
+            <span class="divider">|</span>
+            <a href="./cart.html">Address</a>
+            <span class="divider">|</span>
+            <a href="./help-support.html">Help &amp; Support</a>
+        </div>
+
+        <div class="footer-right">
+            <div class="social-icons">
+                <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+            </div>
+            <div class="copyright">
+                &copy; 2025 Rasoova. All rights reserved.
+            </div>
         </div>
     </footer>
 
+    <!-- MOBILE BOTTOM NAV -->
+    <nav class="mobile-bottom-nav" id="mobile-bottom-nav">
+        <a href="./index.html">
+            <i class="fa-solid fa-house"></i>
+            <span>Home</span>
+        </a>
+        <a href="./order.html">
+            <i class="fa-solid fa-bag-shopping"></i>
+            <span>My Orders</span>
+        </a>
+        <a href="./menupage.html">
+            <i class="fa-solid fa-utensils"></i>
+            <span>Menu</span>
+        </a>
+        <a href="./profile.html">
+            <i class="fa-regular fa-user"></i>
+            <span>Profile</span>
+        </a>
+        <a href="./cart.html">
+            <i class="fa-solid fa-location-dot"></i>
+            <span>Address</span>
+        </a>
+        <a href="./help-support.html">
+            <i class="fa-solid fa-headset"></i>
+            <span>Help</span>
+        </a>
+    </nav>
+
+    <!-- Font Awesome Icons -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <script>
+        // Hamburger menu toggle
+        var menuBtn = document.getElementById('mobile-menu-toggle');
+        var subNav = document.querySelector('.sub-nav');
+        if (menuBtn) {
+            menuBtn.addEventListener('click', function () {
+                subNav.classList.toggle('open');
+            });
+        }
+    </script>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const dropdownTrigger = document.getElementById('user-dropdown-trigger');
+      const dropdownMenu    = document.getElementById('user-dropdown-menu');
+      const dropdownArrow   = document.getElementById('user-dropdown-arrow');
+      const headerLogoutBtn = document.getElementById('header-logout-btn');
+      const headerUserName  = document.getElementById('header-user-name');
+      if (headerUserName) { const n = localStorage.getItem('rasoovaUserName'); if (n) headerUserName.textContent = n; }
+      function openDropdown() { dropdownMenu.classList.add('open'); dropdownTrigger.setAttribute('aria-expanded','true'); dropdownArrow.style.transform='rotate(180deg)'; }
+      function closeDropdown() { dropdownMenu.classList.remove('open'); dropdownTrigger.setAttribute('aria-expanded','false'); dropdownArrow.style.transform='rotate(0deg)'; }
+      if (dropdownTrigger && dropdownMenu) {
+        dropdownTrigger.addEventListener('click', (e) => { e.stopPropagation(); dropdownMenu.classList.contains('open') ? closeDropdown() : openDropdown(); });
+        document.addEventListener('click', (e) => { if (!dropdownTrigger.contains(e.target) && !dropdownMenu.contains(e.target)) closeDropdown(); });
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeDropdown(); });
+      }
+      function doLogout() { localStorage.removeItem('rasoovaAuth'); localStorage.removeItem('rasoovaUserName'); closeDropdown(); window.location.href = './login.html'; }
+      if (headerLogoutBtn) headerLogoutBtn.addEventListener('click', doLogout);
+    });
+    </script>
 </body>
 
 </html>

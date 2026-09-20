@@ -107,6 +107,29 @@
       gap: 20px;
     }
 
+    .auth-actions {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .auth-actions a {
+      padding: 9px 16px;
+      border: 1px solid var(--primary-maroon);
+      border-radius: 20px;
+      color: var(--primary-maroon);
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    .auth-actions a:last-child,
+    .auth-actions a:hover {
+      background: var(--primary-maroon);
+      color: #fff;
+    }
+
     .notification-icon {
       position: relative;
       font-size: 18px;
@@ -573,6 +596,8 @@
         display: none;
       }
       .brand-logo { height: 35px; }
+      .auth-actions { gap: 6px; }
+      .auth-actions a { padding: 6px 9px; font-size: 12px; }
 
       .register-section {
         background-size: cover;
@@ -660,16 +685,9 @@
     </div>
 
     <div class="nav-right">
-      <div class="notification-icon">
-        <i class="fa-regular fa-bell"></i>
-        <span class="badge">3</span>
-      </div>
-      <div class="user-dropdown">
-        <div class="avatar-small">
-          <i class="fa-solid fa-user"></i>
-        </div>
-        <span class="user-name">Guest</span>
-        <i class="fa-solid fa-chevron-down arrow"></i>
+      <div class="auth-actions">
+        <a href="./register.html">Register</a>
+        <a href="./login.html">Login</a>
       </div>
     </div>
   </header>
@@ -680,21 +698,17 @@
       <i class="fa-solid fa-house"></i>
       <span>Home</span>
     </a>
-    <a href="./order.html" class="nav-item">
-      <i class="fa-solid fa-box-open"></i>
-      <span>My Orders</span>
+    <a href="./menupage.html" class="nav-item">
+      <i class="fa-solid fa-utensils"></i>
+      <span>Menu</span>
     </a>
-    <a href="./profile.html" class="nav-item">
-      <i class="fa-solid fa-user"></i>
-      <span>Profile</span>
+    <a href="./index.html#about" class="nav-item">
+      <i class="fa-solid fa-circle-info"></i>
+      <span>About Us</span>
     </a>
-    <a href="./address.html" class="nav-item">
-      <i class="fa-solid fa-location-dot"></i>
-      <span>Address</span>
-    </a>
-    <a href="./help-support.html" class="nav-item">
-      <i class="fa-solid fa-headset"></i>
-      <span>Help & Support</span>
+    <a href="./index.html#contact" class="nav-item">
+      <i class="fa-solid fa-phone"></i>
+      <span>Contact Us</span>
     </a>
   </nav>
 
@@ -816,7 +830,7 @@
   </section>
 
   <!-- FOOTER -->
-  <footer class="footer">
+  <footer class="footer" style="display: none;">
     <div class="footer-left">
       <img src="./assets/rasoova_logo_desktop.png" alt="Rasoova Logo" class="footer-logo" />
     </div>
@@ -892,11 +906,13 @@
       if (otp.length === 6) {
         if (timerInterval) clearInterval(timerInterval);
 
-        // Update header username
+        // Persist the signed-in state for the homepage header.
         const name = document.getElementById('fullname').value;
         if(name) {
           document.querySelector('.user-name').innerText = name.split(' ')[0];
+          localStorage.setItem('rasoovaUserName', name.split(' ')[0]);
         }
+        localStorage.setItem('rasoovaAuth', 'true');
 
         // Switch to Success Step
         document.getElementById('step-otp').classList.remove('active-step');

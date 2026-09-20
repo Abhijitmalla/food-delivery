@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
 
   <style>
+    /* Sub-nav visible again */
     :root {
       --primary-maroon: #8f1738;
       --primary-hover: #73122d;
@@ -105,6 +106,29 @@
       display: flex;
       align-items: center;
       gap: 20px;
+    }
+
+    .auth-actions {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .auth-actions a {
+      padding: 9px 16px;
+      border: 1px solid var(--primary-maroon);
+      border-radius: 20px;
+      color: var(--primary-maroon);
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    .auth-actions a:last-child,
+    .auth-actions a:hover {
+      background: var(--primary-maroon);
+      color: #fff;
     }
 
     .notification-icon {
@@ -321,6 +345,33 @@
       background-color: var(--primary-hover);
     }
 
+    .login-snackbar {
+      position: fixed;
+      top: 24px;
+      right: 24px;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      max-width: calc(100% - 32px);
+      padding: 13px 18px;
+      border-radius: 8px;
+      background: #2d7a3c;
+      color: #fff;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+      font-size: 14px;
+      font-weight: 600;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-16px);
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+
+    .login-snackbar.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
     .divider {
       text-align: center;
       position: relative;
@@ -515,6 +566,8 @@
         display: none;
       }
       .brand-logo { height: 35px; }
+      .auth-actions { gap: 6px; }
+      .auth-actions a { padding: 6px 9px; font-size: 12px; }
 
       .login-section {
         background-size: cover;
@@ -602,16 +655,9 @@
     </div>
 
     <div class="nav-right">
-      <div class="notification-icon">
-        <i class="fa-regular fa-bell"></i>
-        <span class="badge">3</span>
-      </div>
-      <div class="user-dropdown">
-        <div class="avatar-small">
-          <i class="fa-solid fa-user"></i>
-        </div>
-        <span class="user-name">Guest</span>
-        <i class="fa-solid fa-chevron-down arrow"></i>
+      <div class="auth-actions">
+        <a href="./register.html">Register</a>
+        <a href="./login.html">Login</a>
       </div>
     </div>
   </header>
@@ -622,33 +668,28 @@
       <i class="fa-solid fa-house"></i>
       <span>Home</span>
     </a>
-    <a href="./order.html" class="nav-item">
-      <i class="fa-solid fa-box-open"></i>
-      <span>My Orders</span>
+    <a href="./menupage.html" class="nav-item">
+      <i class="fa-solid fa-utensils"></i>
+      <span>Menu</span>
     </a>
-    <a href="./profile.html" class="nav-item">
-      <i class="fa-solid fa-user"></i>
-      <span>Profile</span>
+    <a href="./index.html#about" class="nav-item">
+      <i class="fa-solid fa-circle-info"></i>
+      <span>About Us</span>
     </a>
-    <a href="./address.html" class="nav-item">
-      <i class="fa-solid fa-location-dot"></i>
-      <span>Address</span>
-    </a>
-    <a href="./help-support.html" class="nav-item">
-      <i class="fa-solid fa-headset"></i>
-      <span>Help & Support</span>
+    <a href="./index.html#contact" class="nav-item">
+      <i class="fa-solid fa-phone"></i>
+      <span>Contact Us</span>
     </a>
   </nav>
 
   <!-- LOGIN HERO SECTION -->
   <section class="login-section">
     <div class="login-card">
-      
       <!-- STEP 1: LOGIN FORM -->
       <div id="step-login" class="view-step active-step">
         <img src="./assets/rasoova_logo_desktop.png" alt="Rasoova Logo" class="card-brand-logo" />
-        <h2 style="text-align: center;">Login To Your Account</h2>
-        <p class="subtitle" style="text-align: center;">Login with your registered mobile number</p>
+        <h2>Welcome Back</h2>
+        <p class="subtitle">Login to continue your delicious journey</p>
 
         <form id="loginForm" onsubmit="handleGetOTP(event)">
           <div class="form-group">
@@ -711,12 +752,11 @@
           <p>Your details are completely protected.<br>We value your privacy and security.</p>
         </div>
       </div>
-
     </div>
   </section>
 
   <!-- FOOTER -->
-  <footer class="footer">
+  <footer class="footer" style="display: none;">
     <div class="footer-left">
       <img src="./assets/rasoova_logo_desktop.png" alt="Rasoova Logo" class="footer-logo" />
     </div>
@@ -753,6 +793,11 @@
       <span>Help & Support</span>
     </a>
   </nav>
+
+  <div id="login-snackbar" class="login-snackbar" role="status" aria-live="polite" aria-atomic="true">
+    <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+    <span>Login successful!</span>
+  </div>
 
   <!-- JAVASCRIPT FOR PAGE SWITCHING & OTP LOGIC -->
   <script>
@@ -791,9 +836,19 @@
 
       if (otp.length === 6) {
         if (timerInterval) clearInterval(timerInterval);
-        
-        // Redirect straight to index.html upon successful OTP verification
-        window.location.href = './index.html';
+
+        // Persist the signed-in state so the homepage can show member controls.
+        localStorage.setItem('rasoovaAuth', 'true');
+        if (!localStorage.getItem('rasoovaUserName')) {
+          localStorage.setItem('rasoovaUserName', 'User');
+        }
+
+        const snackbar = document.getElementById('login-snackbar');
+        snackbar.classList.add('show');
+
+        setTimeout(() => {
+          window.location.href = './index.html';
+        }, 1200);
       } else {
         alert('Please enter a valid 6-digit OTP.');
       }

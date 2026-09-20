@@ -134,6 +134,160 @@
     .user-dropdown .arrow {
       font-size: 12px;
       color: #666;
+      transition: transform 0.2s ease;
+    }
+
+    /* ── USER DROPDOWN MENU ── */
+    .user-dropdown-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .user-dropdown-menu {
+      display: none;
+      position: absolute;
+      top: calc(100% + 12px);
+      right: 0;
+      background: #ffffff;
+      border: 1px solid #edebeb;
+      border-radius: 12px;
+      min-width: 180px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+      z-index: 999;
+      overflow: hidden;
+      animation: dropdownIn 0.18s ease;
+    }
+
+    @keyframes dropdownIn {
+      from { opacity: 0; transform: translateY(-6px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .user-dropdown-menu.open {
+      display: block;
+    }
+
+    .dropdown-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 18px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #333;
+      text-decoration: none;
+      transition: background 0.15s;
+      border: none;
+      background: none;
+      width: 100%;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .dropdown-item:hover {
+      background: var(--light-pink);
+      color: var(--primary-maroon);
+    }
+
+    .dropdown-item i {
+      width: 16px;
+      text-align: center;
+      color: var(--primary-maroon);
+    }
+
+    .dropdown-divider {
+      border: none;
+      border-top: 1px solid #f0eded;
+      margin: 0;
+    }
+
+    .dropdown-item.logout-item {
+      color: #dc2626;
+    }
+
+    .dropdown-item.logout-item i {
+      color: #dc2626;
+    }
+
+    .dropdown-item.logout-item:hover {
+      background: #fff5f5;
+      color: #dc2626;
+    }
+
+    .auth-actions,
+    .member-actions {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    /* Ensure the active header state is the only one rendered. */
+    .auth-actions[hidden],
+    .member-actions[hidden],
+    .mobile-cart-toggle[hidden] {
+      display: none !important;
+    }
+
+    .auth-actions a {
+      padding: 9px 16px;
+      border: 1px solid var(--primary-maroon);
+      border-radius: 20px;
+      color: var(--primary-maroon);
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background-color .2s ease, color .2s ease;
+    }
+
+    .auth-actions a:last-child,
+    .auth-actions a:hover {
+      background: var(--primary-maroon);
+      color: #fff;
+    }
+
+    @media (max-width: 760px) {
+      .navbar {
+        padding: 10px 15px;
+      }
+      .nav-search {
+        display: none;
+      }
+      .mobile-menu-toggle {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        background: none;
+        font-size: 22px;
+        color: var(--text-dark);
+        padding: 4px;
+        cursor: pointer;
+      }
+      .nav-left {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .brand-logo {
+        position: static !important;
+        transform: none !important;
+        height: 38px !important;
+      }
+      .auth-actions { gap: 6px; }
+      .auth-actions a { padding: 6px 9px; font-size: 12px; }
+      .member-actions { gap: 8px; }
+      .member-actions .user-name { display: none; }
+      .avatar-small { width: 28px; height: 28px; font-size: 12px; }
+      .notification-icon { font-size: 18px; }
+      .user-dropdown-menu {
+        top: calc(100% + 8px);
+        min-width: 160px;
+      }
+      .dropdown-item {
+        padding: 10px 14px;
+        font-size: 13px;
+      }
     }
 
     /* --- SUB NAVIGATION BAR --- */
@@ -193,7 +347,7 @@
   <!-- TOP NAVBAR -->
   <header class="navbar">
     <div class="nav-left">
-      <button class="mobile-menu-toggle" id="hamb-btn" type="button" aria-label="Open menu" aria-expanded="false">☰</button>
+      <button class="mobile-menu-toggle" id="hamb-btn" type="button" aria-label="Open menu" aria-controls="site-navigation" aria-expanded="false">☰</button>
       <img src="./assets/rasoova_logo_desktop.png" alt="Rasoova Logo" class="brand-logo" />
     </div>
 
@@ -204,49 +358,85 @@
 
     <div class="nav-right">
       <button class="mobile-search-toggle" aria-label="Search">⌕</button>
-      <div class="notification-icon">
-        <i class="fa-regular fa-bell"></i>
-        <span class="badge">3</span>
+      <div class="auth-actions" id="guest-actions" hidden>
+        <a href="./register.html">Register</a>
+        <a href="./login.html">Login</a>
       </div>
-      <div class="user-dropdown">
-        <div class="avatar-small">
-          <i class="fa-solid fa-user"></i>
+      <div class="member-actions" id="member-actions" hidden>
+        <a href="./cart.html" class="notification-icon" style="text-decoration:none;" aria-label="Cart">
+          <i class="fa-solid fa-cart-shopping"></i>
+        </a>
+        <div class="notification-icon" aria-label="Notifications">
+          <i class="fa-regular fa-bell"></i>
+          <span class="badge">3</span>
         </div>
-        <span class="user-name">Priya</span>
-        <i class="fa-solid fa-chevron-down arrow"></i>
+        <div class="user-dropdown-wrapper" id="user-dropdown-wrapper">
+          <div class="user-dropdown" id="user-dropdown-trigger" role="button" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-label="User menu">
+            <div class="avatar-small">
+              <i class="fa-solid fa-user"></i>
+            </div>
+            <span class="user-name" id="header-user-name"></span>
+            <i class="fa-solid fa-chevron-down arrow" id="user-dropdown-arrow"></i>
+          </div>
+          <div class="user-dropdown-menu" id="user-dropdown-menu" role="menu">
+            <a href="./profile.html" class="dropdown-item" role="menuitem">
+              <i class="fa-solid fa-user"></i>
+              My Profile
+            </a>
+            <a href="./order.html" class="dropdown-item" role="menuitem">
+              <i class="fa-solid fa-box-open"></i>
+              My Orders
+            </a>
+            <hr class="dropdown-divider">
+            <button class="dropdown-item logout-item" id="header-logout-btn" type="button" role="menuitem">
+              <i class="fa-solid fa-right-from-bracket"></i>
+              Logout
+            </button>
+          </div>
+        </div>
       </div>
-      <a class="mobile-cart-toggle" href="#cart" aria-label="Cart">🛒<span>0</span></a>
+      <a class="mobile-cart-toggle" id="mobile-cart-toggle" href="./cart.html" aria-label="Cart" hidden>🛒<span>0</span></a>
     </div>
   </header>
 
   <!-- SUB NAVIGATION BAR -->
-  <nav class="sub-nav">
-    <a href="./index.html" class="nav-item active">
+  <nav class="sub-nav" id="site-navigation">
+    <!-- Always visible: shown to guests & logged-in users -->
+    <a href="./index.html" class="nav-item active" id="guest-nav-home">
       <i class="fa-solid fa-house"></i>
       <span>Home</span>
     </a>
-    <a href="./order.html" class="nav-item">
+    <a href="./menupage.html" class="nav-item" id="guest-nav-menu">
+      <i class="fa-solid fa-utensils"></i>
+      <span>Menu</span>
+    </a>
+    <a href="#about" class="nav-item guest-nav-item" id="guest-nav-about">
+      <i class="fa-solid fa-circle-info"></i>
+      <span>About Us</span>
+    </a>
+    <a href="#contact" class="nav-item guest-nav-item" id="guest-nav-contact">
+      <i class="fa-solid fa-phone"></i>
+      <span>Contact</span>
+    </a>
+
+    <!-- Only visible when logged in -->
+    <a href="./order.html" class="nav-item member-nav-item">
       <i class="fa-solid fa-box-open"></i>
       <span>My Orders</span>
     </a>
-
-    <a href="./menupage.html" class="nav-item">
-      <i class="fa-solid fa-box-open"></i>
-      <span>Menu</span>
-    </a>
-    <a href="./profile.html" class="nav-item">
+    <a href="./profile.html" class="nav-item member-nav-item">
       <i class="fa-solid fa-user"></i>
       <span>Profile</span>
     </a>
-    <a href="./address.html" class="nav-item">
+    <a href="./address.html" class="nav-item member-nav-item">
       <i class="fa-solid fa-location-dot"></i>
       <span>Address</span>
     </a>
-    <a href="./help-support.html" class="nav-item">
+    <a href="./help-support.html" class="nav-item member-nav-item">
       <i class="fa-solid fa-headset"></i>
-      <span>Help & Support</span>
+      <span>Help &amp; Support</span>
     </a>
-    <button class="logout-btn" type="button" id="logout-btn">
+    <button class="logout-btn member-nav-item" type="button" id="logout-btn">
       <i class="fa-solid fa-right-from-bracket"></i>
       <span>Logout</span>
     </button>
@@ -294,7 +484,7 @@
 
         <div class="dlv-info">
           <span class="dlv-info-icon">📍</span>
-          <p>We deliver within <strong>10–15 km</strong> from Satya Vihar</p>
+          <p>We deliver within <strong>15 km</strong> from Satya Vihar</p>
         </div>
 
       </div>
@@ -370,133 +560,1063 @@
             <p class="menu-subtitle">Delicious meals, made with love</p>
           </div>
         </div>
-        <a class="view-all-link" href="#">View All →</a>
+        <a class="view-all-link" id="view-all-menu" href="#products-grid" aria-expanded="false">View All →</a>
       </div>
 
       <!-- Filter Tabs -->
       <div class="filter-tabs" role="tablist">
-        <button class="tab-btn active" role="tab" aria-selected="true" data-filter="all">All</button>
-        <button class="tab-btn" role="tab" aria-selected="false" data-filter="biryani">Biryani</button>
-        <button class="tab-btn" role="tab" aria-selected="false" data-filter="curries">Curries</button>
-        <button class="tab-btn" role="tab" aria-selected="false" data-filter="tandoor">Tandoor</button>
-        <button class="tab-btn" role="tab" aria-selected="false" data-filter="snacks">Snacks</button>
-        <button class="tab-btn" role="tab" aria-selected="false" data-filter="beverages">Beverages</button>
+        <button class="tab-btn active" role="tab" aria-selected="true" data-filter="Bihari">Bihari Special</button>
+                <button class="tab-btn" role="tab" aria-selected="false" data-filter="Chicken">Chicken Special</button>
+<button class="tab-btn" role="tab" aria-selected="false" data-filter="Mutton">Mutton Special</button>
+                <button class="tab-btn" role="tab" aria-selected="false" data-filter="Rice">Rice</button>
+        <button class="tab-btn" role="tab" aria-selected="false" data-filter="Fish">Fish Special</button>
+                <button class="tab-btn" role="tab" aria-selected="false" data-filter="Chowmein">Chowmein & Hakka Noodles</button>
+        <button class="tab-btn" role="tab" aria-selected="false" data-filter="Veg">Veg Special</button>
+                <button class="tab-btn" role="tab" aria-selected="false" data-filter="Roti">Roti</button>
+        <button class="tab-btn" role="tab" aria-selected="false" data-filter="Mushroom">Mushroom Special</button>
+        <button class="tab-btn" role="tab" aria-selected="false" data-filter="Thali">Thali</button>
+
       </div>
 
       <!-- Products Grid -->
       <div class="products" id="products-grid">
 
-        <article class="product-card" data-category="biryani">
-          <div class="product-img-wrap">
-            <picture>
-              <source media="(max-width: 760px)" srcset="./assets/mobile_menu_chicken_biryani.webp">
-              <img src="./assets/menu_chicken_biryani.webp" alt="Chicken Biryani">
-            </picture>
-            <span class="product-badge bestseller">Bestseller</span>
-          </div>
-          <div class="product-body">
-            <h4>Chicken Biryani</h4>
-            <p>Aromatic rice with tender chicken &amp; special spices</p>
-            <div class="product-meta">
-              <div class="product-rating">
-                <span class="stars">⭐</span>
-                <span class="rating-val">4.8</span>
-                <span class="rating-count">(124)</span>
-              </div>
-              <span class="product-price">₹249</span>
-            </div>
-            <button class="add-to-cart-btn" id="add-chicken-biryani">🛒 Add to Cart</button>
-          </div>
-        </article>
 
-        <article class="product-card" data-category="biryani">
+        <!-- Bihari Special -->
+        <article class="product-card" data-category="Bihari">
           <div class="product-img-wrap">
-            <picture>
-              <source media="(max-width: 760px)" srcset="./assets/mobile_menu_mutton_biryani.webp">
-              <img src="./assets/menu_mutton_biryani.webp" alt="Mutton Biryani">
-            </picture>
-            <span class="product-badge chefs-special">Chef's Special</span>
+            <img src="./assets/bihari-dish/aloo-paratha.png" alt="Aloo Paratha">
           </div>
           <div class="product-body">
-            <h4>Mutton Biryani</h4>
-            <p>Rich &amp; flavorful with authentic Bihari masala</p>
-            <div class="product-meta">
-              <div class="product-rating">
-                <span class="stars">⭐</span>
-                <span class="rating-val">4.7</span>
-                <span class="rating-count">(98)</span>
-              </div>
-              <span class="product-price">₹299</span>
-            </div>
-            <button class="add-to-cart-btn" id="add-mutton-biryani">🛒 Add to Cart</button>
-          </div>
-        </article>
-
-        <article class="product-card" data-category="snacks">
-          <div class="product-img-wrap">
-            <picture>
-              <source media="(max-width: 760px)" srcset="./assets/mobile_menu_litti_chokha.webp">
-              <img src="./assets/menu_litti_chokha.webp" alt="Litti Chokha">
-            </picture>
-            <span class="product-badge local-fav">Local Favourite</span>
-          </div>
-          <div class="product-body">
-            <h4>Litti Chokha</h4>
-            <p>Traditional Bihari dish with desi ghee</p>
+            <h4>Aloo Paratha</h4>
+            <p>Delicious Aloo Paratha served hot</p>
             <div class="product-meta">
               <div class="product-rating">
                 <span class="stars">⭐</span>
                 <span class="rating-val">4.5</span>
-                <span class="rating-count">(156)</span>
+                <span class="rating-count">(50)</span>
               </div>
-              <span class="product-price">₹149</span>
+              <span class="product-price">₹80</span>
             </div>
-            <button class="add-to-cart-btn" id="add-litti-chokha">🛒 Add to Cart</button>
+            <button class="add-to-cart-btn" id="add-aloo-paratha">🛒 Add to Cart</button>
           </div>
         </article>
 
-        <article class="product-card" data-category="curries">
+        <article class="product-card" data-category="Bihari">
           <div class="product-img-wrap">
-            <img src="./assets/menu_veg_thali.webp" alt="Veg Thali">
-            <span class="product-badge"></span>
+            <img src="./assets/bihari-dish/chicken-rice.png" alt="Chicken Rice">
           </div>
           <div class="product-body">
-            <h4>Veg Thali</h4>
-            <p>Complete meal with homemade taste</p>
+            <h4>Chicken Rice</h4>
+            <p>Flavorful chicken with rice</p>
             <div class="product-meta">
               <div class="product-rating">
                 <span class="stars">⭐</span>
                 <span class="rating-val">4.6</span>
-                <span class="rating-count">(87)</span>
+                <span class="rating-count">(80)</span>
+              </div>
+              <span class="product-price">₹180</span>
+            </div>
+            <button class="add-to-cart-btn" id="add-chicken-rice">🛒 Add to Cart</button>
+          </div>
+        </article>
+
+        <article class="product-card" data-category="Bihari">
+          <div class="product-img-wrap">
+            <img src="./assets/bihari-dish/litti-chicken combo.png" alt="Litti Chicken Combo">
+          </div>
+          <div class="product-body">
+            <h4>Litti Chicken Combo</h4>
+            <p>Perfect combination of litti and chicken</p>
+            <div class="product-meta">
+              <div class="product-rating">
+                <span class="stars">⭐</span>
+                <span class="rating-val">4.8</span>
+                <span class="rating-count">(120)</span>
+              </div>
+              <span class="product-price">₹250</span>
+            </div>
+            <button class="add-to-cart-btn" id="add-litti-chicken-combo">🛒 Add to Cart</button>
+          </div>
+        </article>
+
+        <article class="product-card" data-category="Bihari">
+          <div class="product-img-wrap">
+            <img src="./assets/bihari-dish/litti-chokha.png" alt="Litti Chokha">
+          </div>
+          <div class="product-body">
+            <h4>Litti Chokha</h4>
+            <p>Traditional Bihari dish</p>
+            <div class="product-meta">
+              <div class="product-rating">
+                <span class="stars">⭐</span>
+                <span class="rating-val">4.7</span>
+                <span class="rating-count">(150)</span>
+              </div>
+              <span class="product-price">₹120</span>
+            </div>
+            <button class="add-to-cart-btn" id="add-litti-chokha-bihari">🛒 Add to Cart</button>
+          </div>
+        </article>
+
+        <article class="product-card" data-category="Bihari">
+          <div class="product-img-wrap">
+            <img src="./assets/bihari-dish/litti-muttons combo.png" alt="Litti Mutton Combo">
+          </div>
+          <div class="product-body">
+            <h4>Litti Mutton Combo</h4>
+            <p>Authentic litti with spicy mutton</p>
+            <div class="product-meta">
+              <div class="product-rating">
+                <span class="stars">⭐</span>
+                <span class="rating-val">4.9</span>
+                <span class="rating-count">(90)</span>
+              </div>
+              <span class="product-price">₹300</span>
+            </div>
+            <button class="add-to-cart-btn" id="add-litti-mutton-combo">🛒 Add to Cart</button>
+          </div>
+        </article>
+
+        <article class="product-card" data-category="Bihari">
+          <div class="product-img-wrap">
+            <img src="./assets/bihari-dish/mutton-rice.png" alt="Mutton Rice">
+          </div>
+          <div class="product-body">
+            <h4>Mutton Rice</h4>
+            <p>Rich mutton curry with rice</p>
+            <div class="product-meta">
+              <div class="product-rating">
+                <span class="stars">⭐</span>
+                <span class="rating-val">4.7</span>
+                <span class="rating-count">(110)</span>
+              </div>
+              <span class="product-price">₹220</span>
+            </div>
+            <button class="add-to-cart-btn" id="add-mutton-rice">🛒 Add to Cart</button>
+          </div>
+        </article>
+
+        <article class="product-card" data-category="Bihari">
+          <div class="product-img-wrap">
+            <img src="./assets/bihari-dish/sattu psratha.png" alt="Sattu Paratha">
+          </div>
+          <div class="product-body">
+            <h4>Sattu Paratha</h4>
+            <p>Healthy and tasty sattu paratha</p>
+            <div class="product-meta">
+              <div class="product-rating">
+                <span class="stars">⭐</span>
+                <span class="rating-val">4.6</span>
+                <span class="rating-count">(75)</span>
+              </div>
+              <span class="product-price">₹90</span>
+            </div>
+            <button class="add-to-cart-btn" id="add-sattu-paratha">🛒 Add to Cart</button>
+          </div>
+        </article>
+
+        <!-- Chicken Special -->
+        <article class="product-card" data-category="Chicken">
+          <div class="product-img-wrap">
+            <img src="./assets/chicken-special/chicken-65.jpg" alt="Chicken 65">
+          </div>
+          <div class="product-body">
+            <h4>Chicken 65</h4>
+            <p>Spicy, deep-fried chicken starter</p>
+            <div class="product-meta">
+              <div class="product-rating">
+                <span class="stars">⭐</span>
+                <span class="rating-val">4.5</span>
+                <span class="rating-count">(110)</span>
+              </div>
+              <span class="product-price">₹220</span>
+            </div>
+            <button class="add-to-cart-btn" id="add-chicken-65">🛒 Add to Cart</button>
+          </div>
+        </article>
+
+        <article class="product-card" data-category="Chicken">
+          <div class="product-img-wrap">
+            <img src="./assets/chicken-special/chicken-curry.jpg" alt="Chicken Curry">
+          </div>
+          <div class="product-body">
+            <h4>Chicken Curry</h4>
+            <p>Classic home-style chicken curry</p>
+            <div class="product-meta">
+              <div class="product-rating">
+                <span class="stars">⭐</span>
+                <span class="rating-val">4.7</span>
+                <span class="rating-count">(200)</span>
+              </div>
+              <span class="product-price">₹240</span>
+            </div>
+            <button class="add-to-cart-btn" id="add-chicken-curry">🛒 Add to Cart</button>
+          </div>
+        </article>
+
+        <article class="product-card" data-category="Chicken">
+          <div class="product-img-wrap">
+            <img src="./assets/chicken-special/chicken-do-pyaza.jpg" alt="Chicken Do Pyaza">
+          </div>
+          <div class="product-body">
+            <h4>Chicken Do Pyaza</h4>
+            <p>Rich chicken dish with onions</p>
+            <div class="product-meta">
+              <div class="product-rating">
+                <span class="stars">⭐</span>
+                <span class="rating-val">4.6</span>
+                <span class="rating-count">(130)</span>
+              </div>
+              <span class="product-price">₹260</span>
+            </div>
+            <button class="add-to-cart-btn" id="add-chicken-do-pyaza">🛒 Add to Cart</button>
+          </div>
+        </article>
+
+<article class="product-card" data-category="Chicken">
+          <div class="product-img-wrap">
+            <img src="./assets/chicken-special/chicken-handi.jpg" alt="Chicken Handi">
+          </div>
+          <div class="product-body">
+            <h4>Chicken Handi</h4>
+            <p>Rich chicken dish with onions</p>
+            <div class="product-meta">
+              <div class="product-rating">
+                <span class="stars">⭐</span>
+                <span class="rating-val">4.6</span>
+                <span class="rating-count">(130)</span>
+              </div>
+              <span class="product-price">₹300</span>
+            </div>
+            <button class="add-to-cart-btn" id="add-chicken-handi">🛒 Add to Cart</button>
+          </div>
+        </article>
+
+        <article class="product-card" data-category="Chicken">
+          <div class="product-img-wrap">
+            <img src="./assets/chicken-special/chicken-kassa.jpg" alt="Chicken Kassa">
+          </div>
+          <div class="product-body">
+            <h4>Chicken Kassa</h4>
+            <p>Rich chicken dish with onions</p>
+            <div class="product-meta">
+              <div class="product-rating">
+                <span class="stars">⭐</span>
+                <span class="rating-val">4.6</span>
+                <span class="rating-count">(130)</span>
+              </div>
+              <span class="product-price">₹270</span>
+            </div>
+            <button class="add-to-cart-btn" id="add-chicken-kassa">🛒 Add to Cart</button>
+          </div>
+        </article>
+
+        <article class="product-card" data-category="Chicken">
+          <div class="product-img-wrap">
+            <img src="./assets/chicken-special/chicken-manchurian.jpg" alt="Chicken Manchurian">
+          </div>
+          <div class="product-body">
+            <h4>Chicken Manchurian</h4>
+            <p>Rich chicken dish with onions</p>
+            <div class="product-meta">
+              <div class="product-rating">
+                <span class="stars">⭐</span>
+                <span class="rating-val">4.6</span>
+                <span class="rating-count">(130)</span>
+              </div>
+              <span class="product-price">₹250</span>
+            </div>
+            <button class="add-to-cart-btn" id="add-chicken-manchurian">🛒 Add to Cart</button>
+          </div>
+        </article>
+
+        <article class="product-card" data-category="Chicken">
+          <div class="product-img-wrap">
+            <img src="./assets/chicken-special/chicken-masala.jpg" alt="Chicken Masala">
+          </div>
+          <div class="product-body">
+            <h4>Chicken Masala</h4>
+            <p>Rich chicken dish with onions</p>
+            <div class="product-meta">
+              <div class="product-rating">
+                <span class="stars">⭐</span>
+                <span class="rating-val">4.6</span>
+                <span class="rating-count">(130)</span>
+              </div>
+              <span class="product-price">₹210</span>
+            </div>
+            <button class="add-to-cart-btn" id="add-chicken-masala">🛒 Add to Cart</button>
+          </div>
+        </article>
+        <article class="product-card" data-category="Chicken">
+          <div class="product-img-wrap">
+            <img src="./assets/chicken-special/chicken-pakoda.jpg" alt="Chicken Pakoda">
+          </div>
+          <div class="product-body">
+            <h4>Chicken Pakoda</h4>
+            <p>Rich chicken dish with onions</p>
+            <div class="product-meta">
+              <div class="product-rating">
+                <span class="stars">⭐</span>
+                <span class="rating-val">4.6</span>
+                <span class="rating-count">(130)</span>
+              </div>
+              <span class="product-price">₹200</span>
+            </div>
+            <button class="add-to-cart-btn" id="add-chicken-pakoda">🛒 Add to Cart</button>
+          </div>
+        </article>
+        <article class="product-card" data-category="Chicken">
+          <div class="product-img-wrap">
+            <img src="./assets/chicken-special/chilli-chicken.jpg" alt="Chicken Do Pyaza">
+          </div>
+          <div class="product-body">
+            <h4>Chilli Chicken</h4>
+            <p>Rich chicken dish with onions</p>
+            <div class="product-meta">
+              <div class="product-rating">
+                <span class="stars">⭐</span>
+                <span class="rating-val">4.6</span>
+                <span class="rating-count">(130)</span>
+              </div>
+              <span class="product-price">₹180</span>
+            </div>
+            <button class="add-to-cart-btn" id="add-chilli-chicken">🛒 Add to Cart</button>
+          </div>
+        </article>
+
+
+ <!-- Mutton Special -->
+        <article class="product-card" data-category="Mutton">
+          <div class="product-img-wrap">
+            <img src="./assets/mutton-special/mutton-curry.jpg" alt="Mutton Curry">
+          </div>
+          <div class="product-body">
+            <h4>Mutton Curry</h4>
+            <p>Spicy, deep-fried chicken starter</p>
+            <div class="product-meta">
+              <div class="product-rating">
+                <span class="stars">⭐</span>
+                <span class="rating-val">4.5</span>
+                <span class="rating-count">(110)</span>
+              </div>
+              <span class="product-price">₹349</span>
+            </div>
+            <button class="add-to-cart-btn" id="add-mutton-curry">🛒 Add to Cart</button>
+          </div>
+        </article>
+
+        <article class="product-card" data-category="Mutton">
+          <div class="product-img-wrap">
+            <img src="./assets/mutton-special/mutton-kassa.jpg" alt="Mutton kassa">
+          </div>
+          <div class="product-body">
+            <h4>Mutton Kassa</h4>
+            <p>Classic home-style mutton kassa</p>
+            <div class="product-meta">
+              <div class="product-rating">
+                <span class="stars">⭐</span>
+                <span class="rating-val">4.7</span>
+                <span class="rating-count">(200)</span>
+              </div>
+              <span class="product-price">₹369</span>
+            </div>
+            <button class="add-to-cart-btn" id="add-mutton-kassa">🛒 Add to Cart</button>
+          </div>
+        </article>
+
+        <article class="product-card" data-category="Mutton">
+          <div class="product-img-wrap">
+            <img src="./assets/mutton-special/mutton-rogan-josh.jpg" alt="Chicken Do Pyaza">
+          </div>
+          <div class="product-body">
+            <h4>Mutton Rogan Josh</h4>
+            <p>Rich mutton dish with onions</p>
+            <div class="product-meta">
+              <div class="product-rating">
+                <span class="stars">⭐</span>
+                <span class="rating-val">4.6</span>
+                <span class="rating-count">(130)</span>
+              </div>
+              <span class="product-price">₹379</span>
+            </div>
+            <button class="add-to-cart-btn" id="add-mutton-rogan-josh">🛒 Add to Cart</button>
+          </div>
+        </article>
+
+<!--Chowmein & Hakka noodles -->
+        <article class="product-card" data-category="Chowmein">
+          <div class="product-img-wrap">
+            <img src="./assets/chowmein/veg-chowmein.jpg" alt="Chowmein">
+          </div>
+          <div class="product-body">
+            <h4>Veg Chowmein</h4>
+            <p>Spicy, Veg chowmein starter</p>
+            <div class="product-meta">
+              <div class="product-rating">
+                <span class="stars">⭐</span>
+                <span class="rating-val">4.5</span>
+                <span class="rating-count">(110)</span>
+              </div>
+              <span class="product-price">₹109</span>
+            </div>
+            <button class="add-to-cart-btn" id="add-veg-chowmein">🛒 Add to Cart</button>
+          </div>
+        </article>
+
+        <article class="product-card" data-category="Chowmein">
+          <div class="product-img-wrap">
+            <img src="./assets/chowmein/egg-chowmein.jpg" alt="Chowmein">
+          </div>
+          <div class="product-body">
+            <h4>Egg Chowmein</h4>
+            <p>Classic home-style Egg Chowmein</p>
+            <div class="product-meta">
+              <div class="product-rating">
+                <span class="stars">⭐</span>
+                <span class="rating-val">4.7</span>
+                <span class="rating-count">(200)</span>
+              </div>
+              <span class="product-price">₹369</span>
+            </div>
+            <button class="add-to-cart-btn" id="add-egg-chowmein">🛒 Add to Cart</button>
+          </div>
+        </article>
+
+        <article class="product-card" data-category="Chowmein">
+          <div class="product-img-wrap">
+            <img src="./assets/chowmein/chicken-chowmein.jpg" alt="Chowmein">
+          </div>
+          <div class="product-body">
+            <h4>Chicken Chowmein</h4>
+            <p>Rich Chicken Chowmein</p>
+            <div class="product-meta">
+              <div class="product-rating">
+                <span class="stars">⭐</span>
+                <span class="rating-val">4.6</span>
+                <span class="rating-count">(130)</span>
+              </div>
+              <span class="product-price">₹159</span>
+            </div>
+            <button class="add-to-cart-btn" id="add-chicken-chowmein">🛒 Add to Cart</button>
+          </div>
+        </article>
+        <!-- Rice -->
+        <article class="product-card" data-category="Rice">
+          <div class="product-img-wrap">
+            <img src="./assets/rice/steamed-rice.jpg" alt="Rice">
+          </div>
+          <div class="product-body">
+            <h4>Steamed Rice</h4>
+            <p>steamed rice starter</p>
+            <div class="product-meta">
+              <div class="product-rating">
+                <span class="stars">⭐</span>
+                <span class="rating-val">4.5</span>
+                <span class="rating-count">(110)</span>
+              </div>
+              <span class="product-price">₹89</span>
+            </div>
+            <button class="add-to-cart-btn" id="add-mutton-curry">🛒 Add to Cart</button>
+          </div>
+        </article>
+
+        <article class="product-card" data-category="Rice">
+          <div class="product-img-wrap">
+            <img src="./assets/rice/jeera-rice.jpg" alt="Rice">
+          </div>
+          <div class="product-body">
+            <h4>Jeera Rice</h4>
+            <p>Classic home-style Jeera Rice</p>
+            <div class="product-meta">
+              <div class="product-rating">
+                <span class="stars">⭐</span>
+                <span class="rating-val">4.7</span>
+                <span class="rating-count">(200)</span>
+              </div>
+              <span class="product-price">₹109</span>
+            </div>
+            <button class="add-to-cart-btn" id="add-jeera-rice">🛒 Add to Cart</button>
+          </div>
+        </article>
+
+        <article class="product-card" data-category="Rice">
+          <div class="product-img-wrap">
+            <img src="./assets/rice/veg-fried-rice.jpg" alt="veg-fried-rice">
+          </div>
+          <div class="product-body">
+            <h4>Veg Fried Rice</h4>
+            <p>Rich veg fried rice</p>
+            <div class="product-meta">
+              <div class="product-rating">
+                <span class="stars">⭐</span>
+                <span class="rating-val">4.6</span>
+                <span class="rating-count">(130)</span>
               </div>
               <span class="product-price">₹129</span>
+            </div>
+            <button class="add-to-cart-btn" id="add-veg-fried-rice">🛒 Add to Cart</button>
+          </div>
+        </article>
+           <article class="product-card" data-category="Rice">
+          <div class="product-img-wrap">
+            <img src="./assets/rice/egg-fried-rice.jpg" alt="egg-fried-rice">
+          </div>
+          <div class="product-body">
+            <h4>Egg Fried Rice</h4>
+            <p>Rich egg fried rice</p>
+            <div class="product-meta">
+              <div class="product-rating">
+                <span class="stars">⭐</span>
+                <span class="rating-val">4.6</span>
+                <span class="rating-count">(130)</span>
+              </div>
+              <span class="product-price">₹139</span>
+            </div>
+            <button class="add-to-cart-btn" id="add-egg-fried-rice">🛒 Add to Cart</button>
+          </div>
+        </article>
+
+
+         <article class="product-card" data-category="Rice">
+          <div class="product-img-wrap">
+            <img src="./assets/rice/chicken-fried-rice.jpg" alt="chicken-fried-rice">
+          </div>
+          <div class="product-body">
+            <h4>Chicken Fried Rice</h4>
+            <p>Rich chicken fried rice</p>
+            <div class="product-meta">
+              <div class="product-rating">
+                <span class="stars">⭐</span>
+                <span class="rating-val">4.6</span>
+                <span class="rating-count">(130)</span>
+              </div>
+              <span class="product-price">₹169</span>
+            </div>
+            <button class="add-to-cart-btn" id="add-chicken-fried-rice">🛒 Add to Cart</button>
+          </div>
+        </article>
+
+         <!-- Roti -->
+        <article class="product-card" data-category="Roti">
+          <div class="product-img-wrap">
+            <img src="./assets/roti/roti.jpg" alt="Roti">
+          </div>
+          <div class="product-body">
+            <h4>Roti</h4>
+            <p>steamed roti</p>
+            <div class="product-meta">
+              <div class="product-rating">
+                <span class="stars">⭐</span>
+                <span class="rating-val">4.5</span>
+                <span class="rating-count">(110)</span>
+              </div>
+              <span class="product-price">₹20</span>
+            </div>
+            <button class="add-to-cart-btn" id="add-roti">🛒 Add to Cart</button>
+          </div>
+        </article>
+
+        <article class="product-card" data-category="Roti">
+          <div class="product-img-wrap">
+            <img src="./assets/roti/butter-roti.jpg" alt="Roti-butter">
+          </div>
+          <div class="product-body">
+            <h4>Butter Roti</h4>
+            <p>Classic home-style Butter roti</p>
+            <div class="product-meta">
+              <div class="product-rating">
+                <span class="stars">⭐</span>
+                <span class="rating-val">4.7</span>
+                <span class="rating-count">(200)</span>
+              </div>
+              <span class="product-price">₹25</span>
+            </div>
+            <button class="add-to-cart-btn" id="add-butter-roti">🛒 Add to Cart</button>
+          </div>
+        </article>
+
+        <article class="product-card" data-category="Roti">
+          <div class="product-img-wrap">
+            <img src="./assets/roti/desi-ghee-roti.jpg" alt="desi-ghee-roti">
+          </div>
+          <div class="product-body">
+            <h4>Desi Ghee roti</h4>
+            <p>Rich desi ghee roti</p>
+            <div class="product-meta">
+              <div class="product-rating">
+                <span class="stars">⭐</span>
+                <span class="rating-val">4.6</span>
+                <span class="rating-count">(130)</span>
+              </div>
+              <span class="product-price">₹30</span>
+            </div>
+            <button class="add-to-cart-btn" id="add-desi-ghee-roti">🛒 Add to Cart</button>
+          </div>
+        </article>
+      
+         <!-- fish -->
+        <article class="product-card" data-category="Fish">
+          <div class="product-img-wrap">
+            <img src="./assets/katla-fish/katla-fish-curry.jpg" alt="fish">
+          </div>
+          <div class="product-body">
+            <h4>Katla Fish Curry</h4>
+            <p>Katla Fish Curry</p>
+            <div class="product-meta">
+              <div class="product-rating">
+                <span class="stars">⭐</span>
+                <span class="rating-val">4.5</span>
+                <span class="rating-count">(110)</span>
+              </div>
+              <span class="product-price">₹299</span>
+            </div>
+            <button class="add-to-cart-btn" id="add-katla-fish-curry">🛒 Add to Cart</button>
+          </div>
+        </article>
+
+  <article class="product-card" data-category="Fish">
+          <div class="product-img-wrap">
+            <img src="./assets/katla-fish/katla-fish-head.jpg" alt="fish">
+          </div>
+          <div class="product-body">
+            <h4>Katla Fish Curry(Small head)</h4>
+            <p>Katla Fish Curry</p>
+            <div class="product-meta">
+              <div class="product-rating">
+                <span class="stars">⭐</span>
+                <span class="rating-val">4.5</span>
+                <span class="rating-count">(110)</span>
+              </div>
+              <span class="product-price">₹329</span>
+            </div>
+            <button class="add-to-cart-btn" id="add-katla-fish-curry">🛒 Add to Cart</button>
+          </div>
+        </article>
+        
+
+ 
+    <!-- mushroom special -->
+        <article class="product-card" data-category="Mushroom">
+          <div class="product-img-wrap">
+            <img src="./assets/mushroom-special/mashroom-chlli.jpg" alt="Mushroom-chilli">
+          </div>
+          <div class="product-body">
+            <h4>Mushroom Chilli</h4>
+            <p>Mushroom Chilli</p>
+            <div class="product-meta">
+              <div class="product-rating">
+                <span class="stars">⭐</span>
+                <span class="rating-val">4.5</span>
+                <span class="rating-count">(110)</span>
+              </div>
+              <span class="product-price">₹199</span>
+            </div>
+            <button class="add-to-cart-btn" id="add-mushroom-chilli">🛒 Add to Cart</button>
+          </div>
+        </article>
+
+        <article class="product-card" data-category="Mushroom">
+          <div class="product-img-wrap">
+            <img src="./assets/mushroom-special/mashroom-masala.jpg" alt="Mushroom">
+          </div>
+          <div class="product-body">
+            <h4>Mushroom Masala</h4>
+            <p>Classic home-style Mushroom Masala</p>
+            <div class="product-meta">
+              <div class="product-rating">
+                <span class="stars">⭐</span>
+                <span class="rating-val">4.7</span>
+                <span class="rating-count">(200)</span>
+              </div>
+              <span class="product-price">₹199</span>
+            </div>
+            <button class="add-to-cart-btn" id="add-mushroom-masala">🛒 Add to Cart</button>
+          </div>
+        </article>
+
+ 
+
+
+        <article class="product-card" data-category="Mushroom">
+          <div class="product-img-wrap">
+            <img src="./assets/mushroom-special/mashroom-do-pyaza.jpg" alt="desi-mushroom-do-pyaza">
+          </div>
+          <div class="product-body">
+            <h4>Mushroom Do Pyaza</h4>
+            <p>Rich desi ghee Mushroom Do Pyaza</p>
+            <div class="product-meta">
+              <div class="product-rating">
+                <span class="stars">⭐</span>
+                <span class="rating-val">4.6</span>
+                <span class="rating-count">(130)</span>
+              </div>
+              <span class="product-price">₹199</span>
+            </div>
+            <button class="add-to-cart-btn" id="add-desi-mushroom-do-pyaza">🛒 Add to Cart</button>
+          </div>
+        </article>
+       
+
+
+  <!-- Veg special -->
+        <article class="product-card" data-category="Veg">
+          <div class="product-img-wrap">
+            <img src="./assets/veg-special/yellow-dal-fry.jpg" alt="Veg">
+          </div>
+          <div class="product-body">
+            <h4>Yellow Dal Fry</h4>
+            <p>Yellow Dal Fry</p>
+            <div class="product-meta">
+              <div class="product-rating">
+                <span class="stars">⭐</span>
+                <span class="rating-val">4.5</span>
+                <span class="rating-count">(110)</span>
+              </div>
+              <span class="product-price">₹109</span>
+            </div>
+            <button class="add-to-cart-btn" id="add-yellow-dal-fry">🛒 Add to Cart</button>
+          </div>
+        </article>
+
+    <article class="product-card" data-category="Veg">
+          <div class="product-img-wrap">
+            <img src="./assets/veg-special/yellow-dal-tadka.jpg" alt="Veg">
+          </div>
+          <div class="product-body">
+            <h4>Yellow Dal Tadka</h4>
+            <p>Yellow Dal Tadka</p>
+            <div class="product-meta">
+              <div class="product-rating">
+                <span class="stars">⭐</span>
+                <span class="rating-val">4.5</span>
+                <span class="rating-count">(110)</span>
+              </div>
+              <span class="product-price">₹119</span>
+            </div>
+            <button class="add-to-cart-btn" id="add-yellow-dal-tadka">🛒 Add to Cart</button>
+          </div>
+        </article>
+        
+        <article class="product-card" data-category="Veg">
+          <div class="product-img-wrap">
+            <img src="./assets/veg-special/kashmiri-aloo-dum.jpg" alt="Veg">
+          </div>
+          <div class="product-body">
+            <h4>Kashmiri Aloo Dum</h4>
+            <p>Kashmiri Aloo Dum</p>
+            <div class="product-meta">
+              <div class="product-rating">
+                <span class="stars">⭐</span>
+                <span class="rating-val">4.5</span>
+                <span class="rating-count">(110)</span>
+              </div>
+              <span class="product-price">₹129</span>
+            </div>
+            <button class="add-to-cart-btn" id="add-kashmiri-aloo-dum">🛒 Add to Cart</button>
+          </div>
+        </article>
+
+        <article class="product-card" data-category="Veg">
+          <div class="product-img-wrap">
+            <img src="./assets/veg-special/aloo-matar-sabji.jpg" alt="Veg">
+          </div>
+          <div class="product-body">
+            <h4>Aloo Matar Sabji</h4>
+            <p>Aloo Matar Sabji</p>
+            <div class="product-meta">
+              <div class="product-rating">
+                <span class="stars">⭐</span>
+                <span class="rating-val">4.5</span>
+                <span class="rating-count">(110)</span>
+              </div>
+              <span class="product-price">₹139</span>
+            </div>
+            <button class="add-to-cart-btn" id="add-aloo-matar-sabji">🛒 Add to Cart</button>
+          </div>
+        </article>
+
+        <article class="product-card" data-category="Veg">
+          <div class="product-img-wrap">
+            <img src="./assets/veg-special/mix-veg.jpg" alt="Veg">
+          </div>
+          <div class="product-body">
+            <h4>Mix Veg</h4>
+            <p>Mix Veg</p>
+            <div class="product-meta">
+              <div class="product-rating">
+                <span class="stars">⭐</span>
+                <span class="rating-val">4.5</span>
+                <span class="rating-count">(110)</span>
+              </div>
+              <span class="product-price">₹139</span>
+            </div>
+            <button class="add-to-cart-btn" id="add-mix-veg">🛒 Add to Cart</button>
+          </div>
+        </article>
+ <article class="product-card" data-category="Veg">
+          <div class="product-img-wrap">
+            <img src="./assets/veg-special/chana-masala.jpg" alt="Veg">
+          </div>
+          <div class="product-body">
+            <h4>Chana Masala</h4>
+            <p>Chana Masala</p>
+            <div class="product-meta">
+              <div class="product-rating">
+                <span class="stars">⭐</span>
+                <span class="rating-val">4.5</span>
+                <span class="rating-count">(110)</span>
+              </div>
+              <span class="product-price">₹139</span>
+            </div>
+            <button class="add-to-cart-btn" id="add-chana-masala">🛒 Add to Cart</button>
+          </div>
+        </article>
+         <article class="product-card" data-category="Veg">
+          <div class="product-img-wrap">
+            <img src="./assets/veg-special/paneer-butter-masala.jpg" alt="Veg">
+          </div>
+          <div class="product-body">
+            <h4>Paneer Butter Masala</h4>
+            <p>Paneer Butter Masala</p>
+            <div class="product-meta">
+              <div class="product-rating">
+                <span class="stars">⭐</span>
+                <span class="rating-val">4.5</span>
+                <span class="rating-count">(110)</span>
+              </div>
+              <span class="product-price">₹199</span>
+            </div>
+            <button class="add-to-cart-btn" id="add-paneer-butter-masala">🛒 Add to Cart</button>
+          </div>
+        </article>
+         <article class="product-card" data-category="Veg">
+          <div class="product-img-wrap">
+            <img src="./assets/veg-special/kadhai-paneer.avif" alt="Veg">
+          </div>
+          <div class="product-body">
+            <h4>Kadai Paneer</h4>
+            <p>Kadai Paneer</p>
+            <div class="product-meta">
+              <div class="product-rating">
+                <span class="stars">⭐</span>
+                <span class="rating-val">4.5</span>
+                <span class="rating-count">(110)</span>
+              </div>
+              <span class="product-price">₹209</span>
+            </div>
+            <button class="add-to-cart-btn" id="add-kadhai-paneer">🛒 Add to Cart</button>
+          </div>
+        </article>
+         <article class="product-card" data-category="Veg">
+          <div class="product-img-wrap">
+            <img src="./assets/veg-special/matar-paneer.jpg" alt="Veg">
+          </div>
+          <div class="product-body">
+            <h4>Matar Paneer</h4>
+            <p>Matar Paneer</p>
+            <div class="product-meta">
+              <div class="product-rating">
+                <span class="stars">⭐</span>
+                <span class="rating-val">4.5</span>
+                <span class="rating-count">(110)</span>
+              </div>
+              <span class="product-price">₹199</span>
+            </div>
+            <button class="add-to-cart-btn" id="add-matar-paneer">🛒 Add to Cart</button>
+          </div>
+        </article>
+         <article class="product-card" data-category="Veg">
+          <div class="product-img-wrap">
+            <img src="./assets/veg-special/chilli-paneer.jpg" alt="Veg">
+          </div>
+          <div class="product-body">
+            <h4>Chilli Paneer</h4>
+            <pChilli Paneer</p>
+            <div class="product-meta">
+              <div class="product-rating">
+                <span class="stars">⭐</span>
+                <span class="rating-val">4.5</span>
+                <span class="rating-count">(110)</span>
+              </div>
+              <span class="product-price">₹209</span>
+            </div>
+            <button class="add-to-cart-btn" id="add-chilli-paneer">🛒 Add to Cart</button>
+          </div>
+        </article>
+
+
+
+  <!-- Thali special -->
+        <article class="product-card" data-category="Thali">
+          <div class="product-img-wrap">
+            <img src="./assets/thali/veg-thali.avif" alt="Thali">
+          </div>
+          <div class="product-body">
+            <h4>Veg Thali</h4>
+            <p>Veg Thali</p>
+            <div class="product-meta">
+              <div class="product-rating">
+                <span class="stars">⭐</span>
+                <span class="rating-val">4.5</span>
+                <span class="rating-count">(110)</span>
+              </div>
+              <span class="product-price">₹179</span>
             </div>
             <button class="add-to-cart-btn" id="add-veg-thali">🛒 Add to Cart</button>
           </div>
         </article>
 
-        <article class="product-card" data-category="tandoor">
+    <article class="product-card" data-category="Thali">
           <div class="product-img-wrap">
-            <picture>
-              <source media="(max-width: 760px)" srcset="./assets/mobile_menu_paneer_tikka.webp">
-              <img src="./assets/menu_paneer_tikka.webp" alt="Paneer Tikka">
-            </picture>
-            <span class="product-badge"></span>
+            <img src="./assets/thali/special-veg-thali.jpg" alt="Thali">
           </div>
           <div class="product-body">
-            <h4>Paneer Tikka</h4>
-            <p>Smoky and delicious tandoor style</p>
+            <h4>Special Veg Thali</h4>
+            <p>Special Veg Thali</p>
             <div class="product-meta">
               <div class="product-rating">
                 <span class="stars">⭐</span>
-                <span class="rating-val">4.4</span>
-                <span class="rating-count">(63)</span>
+                <span class="rating-val">4.5</span>
+                <span class="rating-count">(110)</span>
               </div>
-              <span class="product-price">₹179</span>
+              <span class="product-price">₹219</span>
             </div>
-            <button class="add-to-cart-btn" id="add-paneer-tikka">🛒 Add to Cart</button>
+            <button class="add-to-cart-btn" id="add-special-veg-thali">🛒 Add to Cart</button>
           </div>
         </article>
+        
+        <article class="product-card" data-category="Thali">
+          <div class="product-img-wrap">
+            <img src="./assets/thali/paneer-thali.avif" alt="Thali">
+          </div>
+          <div class="product-body">
+            <h4>Paneer Thali</h4>
+            <p>Paneer Thali</p>
+            <div class="product-meta">
+              <div class="product-rating">
+                <span class="stars">⭐</span>
+                <span class="rating-val">4.5</span>
+                <span class="rating-count">(110)</span>
+              </div>
+              <span class="product-price">₹229</span>
+            </div>
+            <button class="add-to-cart-btn" id="add-paneer-thali">🛒 Add to Cart</button>
+          </div>
+        </article>
+
+        <article class="product-card" data-category="Thali">
+          <div class="product-img-wrap">
+            <img src="./assets/Thali/egg-thali.jpg" alt="Thali">
+          </div>
+          <div class="product-body">
+            <h4>Egg Thali</h4>
+            <p>Egg Thali</p>
+            <div class="product-meta">
+              <div class="product-rating">
+                <span class="stars">⭐</span>
+                <span class="rating-val">4.5</span>
+                <span class="rating-count">(110)</span>
+              </div>
+              <span class="product-price">₹199</span>
+            </div>
+            <button class="add-to-cart-btn" id="add-egg-thali">🛒 Add to Cart</button>
+          </div>
+        </article>
+
+        <article class="product-card" data-category="Thali">
+          <div class="product-img-wrap">
+            <img src="./assets/Thali/chicken-thali.jpg" alt="Thali">
+          </div>
+          <div class="product-body">
+            <h4>Chicken Thali</h4>
+            <p>Chicken Thali</p>
+            <div class="product-meta">
+              <div class="product-rating">
+                <span class="stars">⭐</span>
+                <span class="rating-val">4.5</span>
+                <span class="rating-count">(110)</span>
+              </div>
+              <span class="product-price">₹269</span>
+            </div>
+            <button class="add-to-cart-btn" id="add-chicken-thali">🛒 Add to Cart</button>
+          </div>
+        </article>
+ <article class="product-card" data-category="Thali">
+          <div class="product-img-wrap">
+            <img src="./assets/Thali/special-chicken-thali.jpg" alt="Thali">
+          </div>
+          <div class="product-body">
+            <h4>Special Chicken Thali</h4>
+            <p>Special Chicken Thali</p>
+            <div class="product-meta">
+              <div class="product-rating">
+                <span class="stars">⭐</span>
+                <span class="rating-val">4.5</span>
+                <span class="rating-count">(110)</span>
+              </div>
+              <span class="product-price">₹299</span>
+            </div>
+            <button class="add-to-cart-btn" id="add-special-chicken-thali">🛒 Add to Cart</button>
+          </div>
+        </article>
+         <article class="product-card" data-category="Thali">
+          <div class="product-img-wrap">
+            <img src="./assets/Thali/fish-thali.jpg" alt="Thali">
+          </div>
+          <div class="product-body">
+            <h4>Fish Thali</h4>
+            <p>Fish Thali</p>
+            <div class="product-meta">
+              <div class="product-rating">
+                <span class="stars">⭐</span>
+                <span class="rating-val">4.5</span>
+                <span class="rating-count">(110)</span>
+              </div>
+              <span class="product-price">₹299</span>
+            </div>
+            <button class="add-to-cart-btn" id="add-fish-thali">🛒 Add to Cart</button>
+          </div>
+        </article>
+         <article class="product-card" data-category="Thali">
+          <div class="product-img-wrap">
+            <img src="./assets/Thali/mutton-thali.jpg" alt="Thali">
+          </div>
+          <div class="product-body">
+            <h4>Mutton Thali</h4>
+            <p>Mutton Thali</p>
+            <div class="product-meta">
+              <div class="product-rating">
+                <span class="stars">⭐</span>
+                <span class="rating-val">4.5</span>
+                <span class="rating-count">(110)</span>
+              </div>
+              <span class="product-price">₹379</span>
+            </div>
+            <button class="add-to-cart-btn" id="add-mutton-thali">🛒 Add to Cart</button>
+          </div>
+        </article>
+         <article class="product-card" data-category="Thali">
+          <div class="product-img-wrap">
+            <img src="./assets/Thali/non-veg-thali.jpg" alt="Thali">
+          </div>
+          <div class="product-body">
+            <h4>Non-Veg Thali</h4>
+            <p>Non-Veg Thali</p>
+            <div class="product-meta">
+              <div class="product-rating">
+                <span class="stars">⭐</span>
+                <span class="rating-val">4.5</span>
+                <span class="rating-count">(110)</span>
+              </div>
+              <span class="product-price">₹199</span>
+            </div>
+            <button class="add-to-cart-btn" id="add-non-veg-thali">🛒 Add to Cart</button>
+          </div>
+        </article>
+
+
 
       </div>
     </section>
@@ -535,15 +1655,15 @@
   </main>
 
   <!-- ── FOOTER ── -->
-  <footer id="contact">
+  <footer id="contact" style="display: none;">
     <div class="footer-inner">
       <div class="footer-brand">
         <img src="./assets/rasoova_logo_desktop.png" alt="Rasoova" class="footer-logo">
         <p>Fresh Food · Happy Moments</p>
       </div>
       <nav class="footer-nav" aria-label="Footer navigation">
-        <a href="#home">Home</a>
-        <a href="#menu">Menu</a>
+        <a href="./index.html">Home</a>
+        <a href="./menupage.html">Menu</a>
         <a href="#about">About Us</a>
         <a href="#contact">Contact</a>
       </nav>
@@ -577,20 +1697,20 @@
 
   <!-- ── MOBILE BOTTOM NAV ── -->
   <nav class="mobile-bottom-nav">
-    <a href="#home" class="active">
+    <a href="./index.html" class="active">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
         <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
       </svg>
       <span>Home</span>
     </a>
-    <a href="#menu">
+    <a href="./index.html">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
         stroke-linecap="round" stroke-linejoin="round">
         <path d="M3 12h18M3 6h18M3 18h18" />
       </svg>
       <span>Menu</span>
     </a>
-    <a href="#cart" class="nav-cart">
+    <a href="./cart.html" class="nav-cart">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
         stroke-linecap="round" stroke-linejoin="round">
         <circle cx="9" cy="21" r="1" />
@@ -600,7 +1720,7 @@
       <i class="cart-badge">0</i>
       <span>Cart</span>
     </a>
-    <a href="#orders">
+    <a href="./order.html">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
         stroke-linecap="round" stroke-linejoin="round">
         <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
@@ -611,7 +1731,7 @@
       </svg>
       <span>Orders</span>
     </a>
-    <a href="#profile">
+    <a href="./profile.html">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
         stroke-linecap="round" stroke-linejoin="round">
         <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
@@ -622,20 +1742,59 @@
   </nav>
 
   <script>
-    // Filter tabs
+    // Menu filters and the expandable "View All" list
     const tabs = document.querySelectorAll('.tab-btn');
     const cards = document.querySelectorAll('.product-card');
+    const productsGrid = document.getElementById('products-grid');
+    const viewAllMenu = document.getElementById('view-all-menu');
+    let activeFilter = 'Bihari';
+    let isMenuExpanded = false;
+
+    function updateMenuVisibility() {
+      cards.forEach(card => {
+        const matchesFilter = activeFilter.toLowerCase() === 'all'
+          || card.dataset.category.trim().toLowerCase() === activeFilter.trim().toLowerCase();
+        const isExtraCard = card.classList.contains('extra-menu-card');
+        if (!matchesFilter || (isExtraCard && !isMenuExpanded)) {
+          card.style.display = 'none';
+        } else {
+          card.style.display = '';
+        }
+      });
+    }
+
     tabs.forEach(tab => {
       tab.addEventListener('click', () => {
         tabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
         tab.classList.add('active');
         tab.setAttribute('aria-selected', 'true');
-        const filter = tab.dataset.filter;
-        cards.forEach(card => {
-          card.style.display = (filter === 'all' || card.dataset.category === filter) ? '' : 'none';
-        });
+        activeFilter = tab.dataset.filter;
+        if (activeFilter !== 'all') isMenuExpanded = true;
+        productsGrid.classList.toggle('is-expanded', isMenuExpanded);
+        viewAllMenu.textContent = isMenuExpanded ? 'Show Less ↑' : 'View All →';
+        viewAllMenu.setAttribute('aria-expanded', String(isMenuExpanded));
+        updateMenuVisibility();
       });
     });
+
+    viewAllMenu.addEventListener('click', event => {
+      event.preventDefault();
+      isMenuExpanded = !isMenuExpanded;
+      if (!isMenuExpanded) {
+        activeFilter = 'all';
+        tabs.forEach(tab => {
+          const isAllTab = tab.dataset.filter === 'all';
+          tab.classList.toggle('active', isAllTab);
+          tab.setAttribute('aria-selected', String(isAllTab));
+        });
+      }
+      productsGrid.classList.toggle('is-expanded', isMenuExpanded);
+      viewAllMenu.textContent = isMenuExpanded ? 'Show Less ↑' : 'View All →';
+      viewAllMenu.setAttribute('aria-expanded', String(isMenuExpanded));
+      updateMenuVisibility();
+    });
+
+    updateMenuVisibility();
 
     // Add to cart feedback
     document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
@@ -643,6 +1802,25 @@
         this.textContent = '✔ Added!';
         this.style.background = '#2d7a3c';
         setTimeout(() => { this.textContent = '🛒 Add to Cart'; this.style.background = ''; }, 1500);
+      });
+    });
+
+    // Open product details when a product card is selected.
+    cards.forEach(card => {
+      card.setAttribute('role', 'link');
+      card.setAttribute('tabindex', '0');
+
+      function openProductDetails(event) {
+        if (event.target.closest('button, a')) return;
+        window.location.href = './product-details.html';
+      }
+
+      card.addEventListener('click', openProductDetails);
+      card.addEventListener('keydown', event => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          openProductDetails(event);
+        }
       });
     });
 
@@ -654,7 +1832,6 @@
         const isOpen = !subNavigation.classList.contains('open');
         subNavigation.classList.toggle('open', isOpen);
         subNavigation.hidden = !isOpen;
-        subNavigation.style.display = isOpen ? 'flex' : 'none';
         menuButton.setAttribute('aria-expanded', String(isOpen));
         menuButton.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
       });
@@ -663,16 +1840,100 @@
         navItem.addEventListener('click', () => {
           subNavigation.classList.remove('open');
           subNavigation.hidden = true;
-          subNavigation.style.display = 'none';
           menuButton.setAttribute('aria-expanded', 'false');
           menuButton.setAttribute('aria-label', 'Open menu');
         });
       });
     }
 
-    document.getElementById('logout-btn')?.addEventListener('click', () => {
-      alert('You have been logged out.');
-    });
+    const authStorageKey = 'rasoovaAuth';
+    const userStorageKey = 'rasoovaUserName';
+    const guestActions = document.getElementById('guest-actions');
+    const memberActions = document.getElementById('member-actions');
+    const mobileCartToggle = document.getElementById('mobile-cart-toggle');
+    const headerUserName = document.getElementById('header-user-name');
+    const logoutButton = document.getElementById('logout-btn');
+
+    // ── User dropdown menu ──
+    const dropdownTrigger = document.getElementById('user-dropdown-trigger');
+    const dropdownMenu    = document.getElementById('user-dropdown-menu');
+    const dropdownArrow   = document.getElementById('user-dropdown-arrow');
+    const headerLogoutBtn = document.getElementById('header-logout-btn');
+
+    function openDropdown() {
+      dropdownMenu.classList.add('open');
+      dropdownTrigger.setAttribute('aria-expanded', 'true');
+      dropdownArrow.style.transform = 'rotate(180deg)';
+    }
+
+    function closeDropdown() {
+      dropdownMenu.classList.remove('open');
+      dropdownTrigger.setAttribute('aria-expanded', 'false');
+      dropdownArrow.style.transform = 'rotate(0deg)';
+    }
+
+    if (dropdownTrigger && dropdownMenu) {
+      dropdownTrigger.addEventListener('click', (e) => {
+        e.stopPropagation();
+        dropdownMenu.classList.contains('open') ? closeDropdown() : openDropdown();
+      });
+
+      // Close when clicking outside
+      document.addEventListener('click', (e) => {
+        if (!dropdownTrigger.contains(e.target) && !dropdownMenu.contains(e.target)) {
+          closeDropdown();
+        }
+      });
+
+      // Close on Escape key
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeDropdown();
+      });
+    }
+
+    function doLogout() {
+      localStorage.removeItem(authStorageKey);
+      localStorage.removeItem(userStorageKey);
+      closeDropdown();
+      updateHeaderForAuthState();
+      window.location.href = './login.html';
+    }
+
+    // Logout from header dropdown
+    headerLogoutBtn?.addEventListener('click', doLogout);
+    // Logout from sub-nav (mobile)
+    logoutButton?.addEventListener('click', doLogout);
+
+    function updateHeaderForAuthState() {
+      const isLoggedIn = localStorage.getItem(authStorageKey) === 'true';
+      const userName = localStorage.getItem(userStorageKey) || 'User';
+
+      guestActions.hidden = isLoggedIn;
+      memberActions.hidden = !isLoggedIn;
+      mobileCartToggle.hidden = !isLoggedIn;
+
+      // Always show the sub-nav (has guest-visible links)
+      const siteNavigation = document.getElementById('site-navigation');
+      if (siteNavigation) {
+        siteNavigation.style.display = '';
+        siteNavigation.hidden = false;
+      }
+
+      // Show/hide member-only nav items
+      document.querySelectorAll('.member-nav-item').forEach(el => {
+        el.style.display = isLoggedIn ? '' : 'none';
+      });
+
+      // Hide guest-only nav items after login
+      document.querySelectorAll('.guest-nav-item').forEach(el => {
+        el.style.display = isLoggedIn ? 'none' : '';
+      });
+
+      if (logoutButton) logoutButton.hidden = !isLoggedIn;
+      headerUserName.textContent = userName;
+    }
+
+    updateHeaderForAuthState();
   </script>
 
 </body>

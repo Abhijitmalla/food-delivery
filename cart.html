@@ -1,0 +1,1388 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rasoova - Delivery Address</title>
+  <meta name="description"
+    content="Add your delivery address to continue with your Rasoova order. Fast, fresh, authentic Bihari food delivered to your doorstep." />
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <style>
+    /* ─────────────────────────────────────────
+       ANNOUNCEMENT BAR
+    ───────────────────────────────────────── */
+    .announcement {
+      height: 38px;
+      background: #8f1738;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 4%;
+      font-size: 12px;
+      font-weight: 600;
+      gap: 8px;
+    }
+
+    .ann-left,
+    .ann-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .ann-fire {
+      font-size: 15px;
+    }
+
+    .ann-sep {
+      opacity: 0.5;
+    }
+
+    /* --- GLOBAL & COLOR VARIABLES --- */
+    :root {
+      --primary-maroon: #8f1738;
+      --primary-hover: #73122d;
+      --light-pink: #fbf0f3;
+      --bg-page: #faf8f8;
+      --card-bg: #f8fafc;
+      --border-color: #edebeb;
+      --text-dark: #222222;
+      --text-muted: #666666;
+      --text-light: #888888;
+      --green-badge: #16a34a;
+      --green-bg: #eefdf4;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-page);
+      color: var(--text-dark);
+    }
+
+    /* --- TOP NAVBAR --- */
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 40px;
+      background-color: #ffffff;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .brand-logo {
+      height: 48px;
+      object-fit: contain;
+    }
+
+    .nav-search {
+      position: relative;
+      width: 45%;
+      max-width: 550px;
+    }
+
+    .nav-search input {
+      width: 100%;
+      padding: 10px 45px 10px 20px;
+      border-radius: 25px;
+      border: 1px solid #e0e0e0;
+      background-color: #fafafa;
+      outline: none;
+      font-size: 14px;
+      color: #333;
+    }
+
+    .nav-search input::placeholder {
+      color: #aaa;
+    }
+
+    .nav-search .search-btn {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: #888;
+      cursor: pointer;
+      font-size: 15px;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .notification-icon {
+      position: relative;
+      font-size: 18px;
+      color: var(--primary-maroon);
+      cursor: pointer;
+    }
+
+    .notification-icon .badge {
+      position: absolute;
+      top: -5px;
+      right: -7px;
+      background-color: #e53e3e;
+      color: #fff;
+      font-size: 10px;
+      font-weight: bold;
+      border-radius: 50%;
+      width: 15px;
+      height: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .user-dropdown {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+
+    .avatar-small {
+      width: 32px;
+      height: 32px;
+      background-color: var(--light-pink);
+      color: var(--primary-maroon);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+    }
+
+    .user-name {
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .user-dropdown .arrow {
+      font-size: 12px;
+      color: #666;
+      transition: transform 0.2s ease;
+    }
+
+    /* ── USER DROPDOWN MENU ── */
+    .user-dropdown-wrapper { position: relative; display: flex; align-items: center; }
+    .user-dropdown-menu { display: none; position: absolute; top: calc(100% + 12px); right: 0; background: #ffffff; border: 1px solid #edebeb; border-radius: 12px; min-width: 180px; box-shadow: 0 8px 24px rgba(0,0,0,0.12); z-index: 999; overflow: hidden; animation: dropdownIn 0.18s ease; }
+    @keyframes dropdownIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
+    .user-dropdown-menu.open { display: block; }
+    .dropdown-item { display: flex; align-items: center; gap: 10px; padding: 12px 18px; font-size: 14px; font-weight: 500; color: #333; text-decoration: none; transition: background 0.15s; border: none; background: none; width: 100%; cursor: pointer; font-family: inherit; }
+    .dropdown-item:hover { background: var(--light-pink); color: var(--primary-maroon); }
+    .dropdown-item i { width: 16px; text-align: center; color: var(--primary-maroon); }
+    .dropdown-divider { border: none; border-top: 1px solid #f0eded; margin: 0; }
+    .dropdown-item.logout-item { color: #dc2626; }
+    .dropdown-item.logout-item i { color: #dc2626; }
+    .dropdown-item.logout-item:hover { background: #fff5f5; color: #dc2626; }
+
+    /* --- SUB NAVIGATION BAR --- */
+    .sub-nav {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 25px;
+      padding: 12px 0;
+      background-color: #ffffff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+    }
+
+    .sub-nav .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 24px;
+      border-radius: 20px;
+      text-decoration: none;
+      color: #444;
+      font-weight: 600;
+      font-size: 14px;
+      transition: all 0.2s ease;
+    }
+
+    .sub-nav .nav-item.active {
+      background-color: var(--primary-maroon);
+      color: #ffffff;
+    }
+
+    .sub-nav .nav-item:hover:not(.active) {
+      background-color: var(--light-pink);
+      color: var(--primary-maroon);
+    }
+
+    /* ─────────────────────────────────────────
+       BANNER HERO
+    ───────────────────────────────────────── */
+    .cart-banner {
+      width: 100%;
+      height: auto;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cart-banner img.banner-bg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .cart-banner-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, rgba(0, 0, 0, 0.60) 45%, rgba(0, 0, 0, 0.10) 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0 48px;
+    }
+
+    .cart-banner-overlay .brand-tag img {
+      height: 34px;
+      object-fit: contain;
+      filter: brightness(0) invert(1);
+      opacity: 0.9;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .cart-banner-overlay h1 {
+      font-size: 44px;
+      font-weight: 800;
+      color: #ffffff;
+      line-height: 1.1;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+      font-style: italic;
+      letter-spacing: -0.5px;
+    }
+
+    .cart-banner-overlay p {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.88);
+      margin-top: 8px;
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    /* ─────────────────────────────────────────
+       MAIN LAYOUT
+    ───────────────────────────────────────── */
+    .main-container {
+      max-width: 100%;
+      margin: 28px auto;
+      display: flex;
+      gap: 24px;
+      padding: 0 32px;
+    }
+
+    /* ─── LEFT: CART ITEMS ─── */
+    .cart-items-card {
+      flex: 1;
+      background: #ffffff;
+      border-radius: 14px;
+      padding: 30px 28px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .cart-item {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding: 15px;
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      margin-bottom: 15px;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    
+    .cart-item:hover {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      transform: translateY(-2px);
+    }
+
+    .cart-item-img {
+      width: 70px;
+      height: 70px;
+      border-radius: 8px;
+      object-fit: cover;
+      background-color: var(--light-pink);
+      cursor: pointer;
+    }
+
+    .cart-item-details {
+      flex: 1;
+      cursor: pointer;
+    }
+
+    .cart-item-details h4 {
+      font-size: 16px;
+      color: var(--text-dark);
+      margin-bottom: 5px;
+    }
+
+    .cart-item-details .price {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--primary-maroon);
+    }
+
+    .cart-item-qty {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: #fafafa;
+      border: 1.5px solid var(--border-color);
+      border-radius: 8px;
+      padding: 4px 8px;
+    }
+
+    .qty-btn {
+      background: none;
+      border: none;
+      font-size: 20px;
+      font-weight: bold;
+      color: var(--primary-maroon);
+      cursor: pointer;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 6px;
+      transition: background-color 0.2s;
+    }
+    
+    .qty-btn:hover {
+      background-color: var(--light-pink);
+    }
+
+    .cart-item-qty span {
+      font-size: 16px;
+      font-weight: 600;
+      min-width: 24px;
+      text-align: center;
+    }
+
+    /* ─── LEFT: ADDRESS FORM ─── */
+    .address-form-card {
+      flex: 1;
+      background: #ffffff;
+      border-radius: 14px;
+      padding: 30px 28px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .form-card-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+
+    .form-card-icon {
+      width: 42px;
+      height: 42px;
+      background-color: var(--light-pink);
+      color: var(--primary-maroon);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .form-card-header h2 {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 3px;
+    }
+
+    .form-card-header p {
+      font-size: 13px;
+      color: var(--text-light);
+    }
+
+    /* Form Grid */
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .form-row.single {
+      grid-template-columns: 1fr;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-group label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+
+    .form-group label .required {
+      color: var(--primary-maroon);
+      margin-left: 2px;
+    }
+
+    .input-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border: 1.5px solid var(--border-color);
+      border-radius: 8px;
+      padding: 10px 14px;
+      background-color: #ffffff;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .input-wrapper:focus-within {
+      border-color: var(--primary-maroon);
+      box-shadow: 0 0 0 3px rgba(143, 23, 56, 0.08);
+    }
+
+    .input-wrapper i {
+      color: #aaa;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    .input-wrapper input {
+      border: none;
+      outline: none;
+      font-size: 13px;
+      color: var(--text-dark);
+      background: transparent;
+      width: 100%;
+    }
+
+    .input-wrapper input::placeholder {
+      color: #bbb;
+    }
+
+    /* Address Type */
+    .address-type-group {
+      margin-bottom: 16px;
+    }
+
+    .address-type-group>label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-dark);
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .address-type-group>label .required {
+      color: var(--primary-maroon);
+    }
+
+    .address-type-options {
+      display: flex;
+      gap: 10px;
+    }
+
+    .type-btn {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 9px 20px;
+      border-radius: 8px;
+      border: 1.5px solid var(--border-color);
+      background: #fff;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-dark);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .type-btn.active {
+      background-color: var(--primary-maroon);
+      border-color: var(--primary-maroon);
+      color: #ffffff;
+    }
+
+    .type-btn:hover:not(.active) {
+      border-color: var(--primary-maroon);
+      color: var(--primary-maroon);
+    }
+
+    /* Default address checkbox */
+    .default-addr-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 22px;
+    }
+
+    .default-addr-row input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      accent-color: var(--primary-maroon);
+      cursor: pointer;
+    }
+
+    .default-addr-row label {
+      font-size: 13px;
+      color: var(--text-dark);
+      cursor: pointer;
+      font-weight: 500;
+    }
+
+    /* Save Button */
+    .save-btn {
+      width: 100%;
+      padding: 14px;
+      background-color: var(--primary-maroon);
+      color: #ffffff;
+      border: none;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: background-color 0.2s, transform 0.15s;
+      letter-spacing: 0.3px;
+    }
+
+    .save-btn:hover {
+      background-color: var(--primary-hover);
+      transform: translateY(-1px);
+    }
+
+    .save-btn:active {
+      transform: translateY(0);
+    }
+
+    /* ─── RIGHT: SIDEBAR ─── */
+    .address-sidebar {
+      width: 290px;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    /* Why Address Card */
+    .why-card {
+      background: #ffffff;
+      border-radius: 14px;
+      padding: 24px 20px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      text-align: center;
+    }
+
+    .why-card-svg {
+      width: 100px;
+      height: 80px;
+      margin: 0 auto 14px;
+      display: block;
+    }
+
+    .why-card h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 16px;
+    }
+
+    .why-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      text-align: left;
+    }
+
+    .why-list li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      color: var(--text-dark);
+    }
+
+    .why-list li .why-icon {
+      width: 34px;
+      height: 34px;
+      background-color: var(--light-pink);
+      color: var(--primary-maroon);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    /* Delivery badge inside why-card */
+    .delivery-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background-color: var(--light-pink);
+      border-radius: 8px;
+      padding: 10px 14px;
+      margin-top: 16px;
+    }
+
+    .delivery-badge .badge-icon {
+      width: 28px;
+      height: 28px;
+      background-color: var(--primary-maroon);
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      flex-shrink: 0;
+    }
+
+    .delivery-badge p {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--primary-maroon);
+      line-height: 1.4;
+    }
+
+    /* Bottom food image */
+    .bottom-food-img {
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.07);
+      flex-shrink: 0;
+    }
+
+    .bottom-food-img img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* ─────────────────────────────────────────
+       FOOTER
+    ───────────────────────────────────────── */
+    .footer {
+      background-color: var(--primary-maroon);
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 40px;
+      margin-top: 40px;
+    }
+
+    .footer-logo {
+      height: 52px;
+      object-fit: contain;
+      filter: invert(1);
+      mix-blend-mode: screen;
+      opacity: 0.95;
+    }
+
+    .footer-links {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .footer-links a {
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 13px;
+      opacity: 0.9;
+    }
+
+    .footer-links .divider {
+      opacity: 0.5;
+      font-size: 12px;
+    }
+
+    .footer-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 8px;
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 15px;
+    }
+
+    .social-icons a {
+      color: #ffffff;
+      font-size: 14px;
+    }
+
+    .copyright {
+      font-size: 11px;
+      opacity: 0.7;
+    }
+
+    /* Mobile menu toggle — hidden on desktop */
+    .mobile-menu-toggle {
+      display: none;
+    }
+
+    /* Mobile bottom nav — hidden on desktop */
+    .mobile-bottom-nav {
+      display: none;
+    }
+
+    /* ─────────────────────────────────────────
+       RESPONSIVE
+    ───────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .main-container {
+        flex-direction: column;
+        padding: 0 16px;
+      }
+
+      .address-sidebar {
+        width: 100%;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .announcement {
+        display: none;
+      }
+
+      /* Navbar mobile */
+      .navbar {
+        padding: 10px 20px;
+        position: relative;
+        justify-content: flex-end;
+      }
+
+      .mobile-menu-toggle {
+        display: block;
+        position: absolute;
+        left: 14px;
+        top: 50%;
+        transform: translateY(-50%);
+        border: 0;
+        background: transparent;
+        color: var(--text-dark);
+        cursor: pointer;
+        font-size: 24px;
+        line-height: 1;
+        padding: 2px;
+        z-index: 2;
+      }
+
+      .nav-left {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      .nav-search {
+        display: none;
+      }
+
+      .user-name,
+      .fa-chevron-down {
+        display: none;
+      }
+
+      .brand-logo {
+        height: 35px;
+      }
+
+      .notification-icon {
+        font-size: 20px;
+      }
+
+      /* Sub-nav: hidden by default, slide-down when open */
+      .sub-nav {
+        display: none;
+      }
+
+      .sub-nav.open {
+        display: flex;
+        position: absolute;
+        top: 58px;
+        left: 0;
+        right: 0;
+        z-index: 20;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        padding: 8px 0;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+      }
+
+      .sub-nav.open .nav-item {
+        justify-content: flex-start;
+        border-radius: 0;
+        padding: 12px 20px;
+      }
+
+      /* Footer hidden on mobile — replaced by bottom nav */
+      .footer {
+        display: none;
+      }
+
+      body {
+        padding-bottom: 70px;
+      }
+
+      /* Banner */
+      .cart-banner {
+        height: auto;
+      }
+
+      .cart-banner-overlay h1 {
+        font-size: 28px;
+      }
+
+      .cart-banner-overlay {
+        padding: 0 20px;
+      }
+
+      /* Mobile Bottom Nav */
+      .mobile-bottom-nav {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: var(--primary-maroon);
+        padding: 10px 0;
+        z-index: 1000;
+      }
+
+      .mobile-bottom-nav a {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+        color: #f8b4c4;
+        font-size: 10px;
+        font-weight: 500;
+        text-decoration: none;
+      }
+
+      .mobile-bottom-nav a i {
+        font-size: 18px;
+      }
+
+      .mobile-bottom-nav a.active {
+        color: #ffffff;
+        font-weight: 600;
+      }
+
+      .mobile-bottom-nav a.active::after {
+        content: '';
+        width: 30px;
+        height: 2px;
+        background: #ffffff;
+        margin-top: 2px;
+        border-radius: 2px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ANNOUNCEMENT BAR -->
+  <div class="announcement">
+    <div class="ann-left">
+      <span class="ann-fire">🎁</span>
+      <span>20% OFF on First Order</span>
+      <span class="ann-sep">|</span>
+      <span class="ann-fire">🔥</span>
+      <span>10% OFF on Every Order (Limited Time)</span>
+      <span class="ann-sep">|</span>
+      <span class="ann-fire">🩷</span>
+      <span>5% OFF on Prepaid Delivery</span>
+    </div>
+    <div class="ann-right">
+      <span class="ann-fire">🍽️</span>
+      <span>Freshly Cooked</span>
+      <span class="ann-sep">|</span>
+      <span class="ann-fire">⭐</span>
+      <span>Authentic Bihari Flavours</span>
+    </div>
+  </div>
+
+  <!-- TOP NAVBAR -->
+  <header class="navbar">
+    <button class="mobile-menu-toggle" id="mobile-menu-toggle" type="button" aria-label="Open menu">☰</button>
+    <div class="nav-left">
+      <img src="./assets/rasoova_logo_desktop.png" alt="Rasoova Logo" class="brand-logo" />
+    </div>
+
+    <div class="nav-search">
+      <input type="text" id="navbar-search" placeholder="Search for your favourite food..." />
+      <button class="search-btn" aria-label="Search"><i class="fa-solid fa-magnifying-glass"></i></button>
+    </div>
+
+    <div class="nav-right">
+      <div class="notification-icon" id="notification-bell">
+        <i class="fa-regular fa-bell"></i>
+        <span class="badge">3</span>
+      </div>
+      <div class="user-dropdown-wrapper" id="user-dropdown-wrapper">
+        <div class="user-dropdown" id="user-dropdown-trigger" role="button" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-label="User menu">
+          <div class="avatar-small">
+            <i class="fa-solid fa-user"></i>
+          </div>
+          <span class="user-name" id="header-user-name">Priya</span>
+          <i class="fa-solid fa-chevron-down arrow" id="user-dropdown-arrow"></i>
+        </div>
+        <div class="user-dropdown-menu" id="user-dropdown-menu" role="menu">
+          <a href="./profile.html" class="dropdown-item" role="menuitem">
+            <i class="fa-solid fa-user"></i>
+            My Profile
+          </a>
+          <a href="./order.html" class="dropdown-item" role="menuitem">
+            <i class="fa-solid fa-box-open"></i>
+            My Orders
+          </a>
+          <hr class="dropdown-divider">
+          <button class="dropdown-item logout-item" id="header-logout-btn" type="button" role="menuitem">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            Logout
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- SUB NAVIGATION BAR -->
+  <nav class="sub-nav">
+    <a href="./index.html" class="nav-item" id="nav-home">
+      <i class="fa-solid fa-house"></i>
+      <span>Home</span>
+    </a>
+    <a href="./order.html" class="nav-item" id="nav-orders">
+      <i class="fa-solid fa-box-open"></i>
+      <span>My Orders</span>
+    </a>
+    <a href="./menupage.html" class="nav-item" id="nav-menu">
+      <i class="fa-solid fa-utensils"></i>
+      <span>Menu</span>
+    </a>
+    <a href="./profile.html" class="nav-item" id="nav-profile">
+      <i class="fa-solid fa-user"></i>
+      <span>Profile</span>
+    </a>
+    <a href="./cart.html" class="nav-item active" id="nav-address">
+      <i class="fa-solid fa-location-dot"></i>
+      <span>Address</span>
+    </a>
+    <a href="./help-support.html" class="nav-item" id="nav-help">
+      <i class="fa-solid fa-headset"></i>
+      <span>Help &amp; Support</span>
+    </a>
+  </nav>
+
+  <!-- BANNER -->
+  <section class="cart-banner">
+    <img class="banner-bg" src="./assets/cart-banner-image.png"
+      alt="Delivery Address Banner - Freshly Cooked Authentic Bihari Flavours" />
+    <div class="cart-banner-overlay">
+
+
+    </div>
+  </section>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-container">
+
+    <!-- LEFT: CART ITEMS -->
+    <div class="cart-items-card" id="cart-items-section">
+      <div class="form-card-header">
+        <div class="form-card-icon">
+          <i class="fa-solid fa-cart-shopping"></i>
+        </div>
+        <div>
+          <h2>Your Cart</h2>
+          <p>Review your items before proceeding.</p>
+        </div>
+      </div>
+
+      <!-- Cart Item 1 -->
+      <div class="cart-item" onclick="window.location.href='./product-details.html'">
+        <img src="./assets/menu_litti_chokha.webp" alt="Litti Chokha" class="cart-item-img">
+        <div class="cart-item-details">
+          <h4>Bihari Litti Chokha</h4>
+          <p class="price" data-unit-price="150">₹150</p>
+        </div>
+        <div class="cart-item-qty" onclick="event.stopPropagation();">
+          <button class="qty-btn" type="button" onclick="updateQty(this, -1)">-</button>
+          <span class="qty-val">1</span>
+          <button class="qty-btn" type="button" onclick="updateQty(this, 1)">+</button>
+        </div>
+      </div>
+
+      <!-- Cart Item 2 -->
+      <div class="cart-item" onclick="window.location.href='./product-details.html'">
+        <img src="./assets/menu_chicken_biryani.webp" alt="Chicken Biryani" class="cart-item-img">
+        <div class="cart-item-details">
+          <h4>Chicken Biryani</h4>
+          <p class="price" data-unit-price="250">₹250</p>
+        </div>
+        <div class="cart-item-qty" onclick="event.stopPropagation();">
+          <button class="qty-btn" type="button" onclick="updateQty(this, -1)">-</button>
+          <span class="qty-val">1</span>
+          <button class="qty-btn" type="button" onclick="updateQty(this, 1)">+</button>
+        </div>
+      </div>
+
+      <!-- Total Section -->
+      <div class="cart-total-section" style="display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-top: 1.5px dashed var(--border-color); margin-top: 20px;">
+        <h3 style="font-size: 18px; color: var(--text-dark);">Total Amount</h3>
+        <h3 id="cart-grand-total" style="font-size: 22px; font-weight: 800; color: var(--primary-maroon);">₹400</h3>
+      </div>
+
+      <button type="button" class="save-btn" id="proceed-to-address-btn" style="margin-top: 15px;">
+        Save &amp; Continue <i class="fa-solid fa-arrow-right"></i>
+      </button>
+    </div>
+
+    <!-- LEFT: ADD ADDRESS FORM -->
+    <div class="address-form-card" id="address-section" style="display: none;">
+      <div class="form-card-header">
+        <div class="form-card-icon">
+          <i class="fa-solid fa-location-dot"></i>
+        </div>
+        <div>
+          <h2>Add New Delivery Address</h2>
+          <p>Enter your complete address for smooth and timely delivery.</p>
+        </div>
+      </div>
+
+      <form id="delivery-address-form">
+
+        <!-- Row 1: Full Name + Mobile -->
+        <div class="form-row">
+          <div class="form-group">
+            <label for="full-name">Full Name <span class="required">*</span></label>
+            <div class="input-wrapper">
+              <i class="fa-regular fa-user"></i>
+              <input type="text" id="full-name" placeholder="Enter your full name" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="mobile-number">Mobile Number <span class="required">*</span></label>
+            <div class="input-wrapper">
+              <i class="fa-solid fa-mobile-screen-button"></i>
+              <input type="tel" id="mobile-number" placeholder="Enter 10 digit mobile number" maxlength="10" required />
+            </div>
+          </div>
+        </div>
+
+        <!-- Row 2: Address Line 1 -->
+        <div class="form-row single">
+          <div class="form-group">
+            <label for="address-line1">Address Line 1 <span class="required">*</span></label>
+            <div class="input-wrapper">
+              <i class="fa-solid fa-house"></i>
+              <input type="text" id="address-line1" placeholder="House No. / Building / Street" required />
+            </div>
+          </div>
+        </div>
+
+        <!-- Row 3: Address Line 2 -->
+        <div class="form-row single">
+          <div class="form-group">
+            <label for="address-line2">Address Line 2 <span
+                style="font-size:12px;color:#aaa;font-weight:400">(Optional)</span></label>
+            <div class="input-wrapper">
+              <i class="fa-solid fa-location-dot"></i>
+              <input type="text" id="address-line2" placeholder="Landmark / Area / Nearby" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Row 4: City + Pincode -->
+        <div class="form-row">
+          <div class="form-group">
+            <label for="city">City <span class="required">*</span></label>
+            <div class="input-wrapper">
+              <i class="fa-solid fa-building"></i>
+              <input type="text" id="city" placeholder="Bhubaneswar" value="Bhubaneswar" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="pincode">Pincode <span class="required">*</span></label>
+            <div class="input-wrapper">
+              <i class="fa-solid fa-location-dot"></i>
+              <input type="text" id="pincode" placeholder="Enter pincode" maxlength="6" required />
+            </div>
+          </div>
+        </div>
+
+        <!-- Address Type -->
+        <div class="address-type-group">
+          <label>Address Type <span class="required">*</span></label>
+          <div class="address-type-options">
+            <button type="button" class="type-btn active" id="type-home" onclick="selectType('home')">
+              <i class="fa-solid fa-house"></i> Home
+            </button>
+            <button type="button" class="type-btn" id="type-office" onclick="selectType('office')">
+              <i class="fa-regular fa-building"></i> Office
+            </button>
+            <button type="button" class="type-btn" id="type-other" onclick="selectType('other')">
+              <i class="fa-solid fa-ellipsis"></i> Other
+            </button>
+          </div>
+        </div>
+
+        <!-- Default Address -->
+        <div class="default-addr-row">
+          <input type="checkbox" id="set-default" checked />
+          <label for="set-default">Set as default address</label>
+        </div>
+
+        <!-- Save Button -->
+        <button type="submit" class="save-btn" id="save-continue-btn">
+          Save &amp; Continue <i class="fa-solid fa-arrow-right"></i>
+        </button>
+
+      </form>
+    </div>
+
+    <!-- RIGHT: SIDEBAR -->
+    <aside class="address-sidebar">
+
+      <!-- Why Add Address Card -->
+      <div class="why-card">
+        <!-- Inline SVG map+pin illustration -->
+        <svg class="why-card-svg" viewBox="0 0 110 88" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="5" y="33" width="78" height="50" rx="7" fill="#e8f4fd" stroke="#c5ddf0" stroke-width="1.5" />
+          <line x1="15" y1="49" x2="70" y2="49" stroke="#b0cce8" stroke-width="1.5" stroke-dasharray="4 3" />
+          <line x1="15" y1="59" x2="60" y2="59" stroke="#b0cce8" stroke-width="1.5" stroke-dasharray="4 3" />
+          <line x1="15" y1="69" x2="65" y2="69" stroke="#b0cce8" stroke-width="1.5" stroke-dasharray="4 3" />
+          <rect x="58" y="46" width="32" height="24" rx="3" fill="#f97316" />
+          <polygon points="58,46 74,30 90,46" fill="#ea580c" />
+          <rect x="67" y="55" width="9" height="15" rx="1.5" fill="#fff" />
+          <rect x="78" y="52" width="7" height="8" rx="1" fill="#fef3c7" />
+          <circle cx="38" cy="28" r="12" fill="#8f1738" />
+          <circle cx="38" cy="26" r="5.5" fill="#fff" />
+          <path d="M38 38 L38 46" stroke="#8f1738" stroke-width="2.5" stroke-linecap="round" />
+        </svg>
+
+        <h3>Why add your address?</h3>
+
+        <ul class="why-list">
+          <li>
+            <span class="why-icon"><i class="fa-solid fa-cart-shopping"></i></span>
+            Get your favourite food delivered at your doorstep
+          </li>
+          <li>
+            <span class="why-icon"><i class="fa-solid fa-route"></i></span>
+            Track your order in real-time
+          </li>
+          <li>
+            <span class="why-icon"><i class="fa-solid fa-shield-halved"></i></span>
+            Safe &amp; secure delivery
+          </li>
+        </ul>
+
+        <div class="delivery-badge">
+          <div class="badge-icon">
+            <i class="fa-solid fa-location-dot"></i>
+          </div>
+          <p>We deliver within<br />15 km from Satya Vihar</p>
+        </div>
+      </div>
+
+      <!-- Bottom Food Image -->
+      <div class="bottom-food-img">
+        <img src="./assets/cart-page image.png" alt="Good Food Brings People Together" />
+      </div>
+
+    </aside>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer" style="display: none;">
+    <div class="footer-left">
+      <img src="./assets/rasoova_logo_desktop.png" alt="Rasoova Logo" class="footer-logo" />
+    </div>
+
+    <div class="footer-links">
+      <a href="./index.html">Home</a>
+      <span class="divider">|</span>
+      <a href="./order.html">My Orders</a>
+      <span class="divider">|</span>
+      <a href="./profile.html">Profile</a>
+      <span class="divider">|</span>
+      <a href="./cart.html">Address</a>
+      <span class="divider">|</span>
+      <a href="./help-support.html">Help &amp; Support</a>
+    </div>
+
+    <div class="footer-right">
+      <div class="social-icons">
+        <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+      </div>
+      <div class="copyright">
+        &copy; 2025 Rasoova. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <!-- MOBILE BOTTOM NAV -->
+  <nav class="mobile-bottom-nav" id="mobile-bottom-nav">
+    <a href="./index.html">
+      <i class="fa-solid fa-house"></i>
+      <span>Home</span>
+    </a>
+    <a href="./order.html">
+      <i class="fa-solid fa-bag-shopping"></i>
+      <span>My Orders</span>
+    </a>
+    <a href="./menupage.html">
+      <i class="fa-solid fa-utensils"></i>
+      <span>Menu</span>
+    </a>
+    <a href="./profile.html">
+      <i class="fa-regular fa-user"></i>
+      <span>Profile</span>
+    </a>
+    <a href="./cart.html" class="active">
+      <i class="fa-solid fa-location-dot"></i>
+      <span>Address</span>
+    </a>
+    <a href="./help-support.html">
+      <i class="fa-solid fa-headset"></i>
+      <span>Help</span>
+    </a>
+  </nav>
+
+  <script>
+    // Address Type Toggle
+    function selectType(type) {
+      document.querySelectorAll('.type-btn').forEach(function (btn) {
+        btn.classList.remove('active');
+      });
+      document.getElementById('type-' + type).classList.add('active');
+    }
+
+    // Proceed to address section from cart items
+    document.getElementById('proceed-to-address-btn').addEventListener('click', function () {
+      document.getElementById('cart-items-section').style.display = 'none';
+      document.getElementById('address-section').style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Quantity functionality
+    function updateQty(btn, change) {
+      const span = btn.parentElement.querySelector('.qty-val');
+      let currentQty = parseInt(span.innerText);
+      currentQty += change;
+      if (currentQty < 1) currentQty = 1;
+      span.innerText = currentQty;
+
+      // Update price
+      const cartItem = btn.closest('.cart-item');
+      const priceElem = cartItem.querySelector('.price');
+      const unitPrice = parseInt(priceElem.getAttribute('data-unit-price'));
+      priceElem.innerText = '₹' + (unitPrice * currentQty);
+
+      updateGrandTotal();
+    }
+
+    function updateGrandTotal() {
+      let total = 0;
+      document.querySelectorAll('.cart-item').forEach(function(item) {
+        const priceElem = item.querySelector('.price');
+        const unitPrice = parseInt(priceElem.getAttribute('data-unit-price'));
+        const qty = parseInt(item.querySelector('.qty-val').innerText);
+        total += unitPrice * qty;
+      });
+      document.getElementById('cart-grand-total').innerText = '₹' + total;
+    }
+
+    // Initialize total on load
+    updateGrandTotal();
+
+    // Continue to checkout after the address form passes validation
+    document.getElementById('delivery-address-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      window.location.href = './checkout.html';
+    });
+
+    // Only digits in mobile & pincode
+    document.getElementById('mobile-number').addEventListener('input', function () {
+      this.value = this.value.replace(/\D/g, '');
+    });
+    document.getElementById('pincode').addEventListener('input', function () {
+      this.value = this.value.replace(/\D/g, '');
+    });
+
+    // Hamburger menu toggle
+    var menuBtn = document.getElementById('mobile-menu-toggle');
+    var subNav = document.querySelector('.sub-nav');
+    if (menuBtn) {
+      menuBtn.addEventListener('click', function () {
+        subNav.classList.toggle('open');
+      });
+    }
+  </script>
+
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const dropdownTrigger = document.getElementById('user-dropdown-trigger');
+    const dropdownMenu    = document.getElementById('user-dropdown-menu');
+    const dropdownArrow   = document.getElementById('user-dropdown-arrow');
+    const headerLogoutBtn = document.getElementById('header-logout-btn');
+    const headerUserName  = document.getElementById('header-user-name');
+    if (headerUserName) { const n = localStorage.getItem('rasoovaUserName'); if (n) headerUserName.textContent = n; }
+    function openDropdown() { dropdownMenu.classList.add('open'); dropdownTrigger.setAttribute('aria-expanded','true'); dropdownArrow.style.transform='rotate(180deg)'; }
+    function closeDropdown() { dropdownMenu.classList.remove('open'); dropdownTrigger.setAttribute('aria-expanded','false'); dropdownArrow.style.transform='rotate(0deg)'; }
+    if (dropdownTrigger && dropdownMenu) {
+      dropdownTrigger.addEventListener('click', (e) => { e.stopPropagation(); dropdownMenu.classList.contains('open') ? closeDropdown() : openDropdown(); });
+      document.addEventListener('click', (e) => { if (!dropdownTrigger.contains(e.target) && !dropdownMenu.contains(e.target)) closeDropdown(); });
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeDropdown(); });
+    }
+    function doLogout() { localStorage.removeItem('rasoovaAuth'); localStorage.removeItem('rasoovaUserName'); closeDropdown(); window.location.href = './login.html'; }
+    if (headerLogoutBtn) headerLogoutBtn.addEventListener('click', doLogout);
+  });
+  </script>
+
+</body>
+
+</html>

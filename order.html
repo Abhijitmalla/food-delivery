@@ -148,6 +148,85 @@
     .user-dropdown .arrow {
       font-size: 12px;
       color: #666;
+      transition: transform 0.2s ease;
+    }
+
+    /* ── USER DROPDOWN MENU ── */
+    .user-dropdown-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .user-dropdown-menu {
+      display: none;
+      position: absolute;
+      top: calc(100% + 12px);
+      right: 0;
+      background: #ffffff;
+      border: 1px solid #edebeb;
+      border-radius: 12px;
+      min-width: 180px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+      z-index: 999;
+      overflow: hidden;
+      animation: dropdownIn 0.18s ease;
+    }
+
+    @keyframes dropdownIn {
+      from { opacity: 0; transform: translateY(-6px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .user-dropdown-menu.open {
+      display: block;
+    }
+
+    .dropdown-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 18px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #333;
+      text-decoration: none;
+      transition: background 0.15s;
+      border: none;
+      background: none;
+      width: 100%;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .dropdown-item:hover {
+      background: var(--light-pink);
+      color: var(--primary-maroon);
+    }
+
+    .dropdown-item i {
+      width: 16px;
+      text-align: center;
+      color: var(--primary-maroon);
+    }
+
+    .dropdown-divider {
+      border: none;
+      border-top: 1px solid #f0eded;
+      margin: 0;
+    }
+
+    .dropdown-item.logout-item {
+      color: #dc2626;
+    }
+
+    .dropdown-item.logout-item i {
+      color: #dc2626;
+    }
+
+    .dropdown-item.logout-item:hover {
+      background: #fff5f5;
+      color: #dc2626;
     }
 
     /* --- SUB NAVIGATION BAR --- */
@@ -215,7 +294,7 @@
       border: 1px solid var(--border-color);
       background-color: #ffffff;
       color: var(--text-dark);
-      font-size: 13px;
+      font-size: 15px;
       font-weight: 600;
       cursor: pointer;
       transition: all 0.2s ease;
@@ -231,17 +310,29 @@
     .order-card {
       background: #ffffff;
       border-radius: 12px;
-      padding: 20px;
+      padding: 0;
       margin-bottom: 18px;
       border: 1px solid var(--border-color);
-      box-shadow: 0 1px 4px rgba(0,0,0,0.02);
+      border-left: 4px solid var(--primary-maroon);
+      box-shadow: 0 3px 12px rgba(48, 27, 32, 0.04);
+      overflow: hidden;
       display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
+      flex-direction: column;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
+    .order-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(48, 27, 32, 0.09);
+    }
+
+    .order-card[data-status="processing"] { border-left-color: #f59e0b; }
+    .order-card[data-status="out-for-delivery"] { border-left-color: #2563eb; }
+    .order-card[data-status="delivered"] { border-left-color: #16a34a; }
+
     .order-main-info {
-      flex-grow: 1;
+      width: 100%;
+      padding: 18px 24px 16px;
     }
 
     .order-header {
@@ -252,12 +343,12 @@
     }
 
     .order-id {
-      font-size: 15px;
+      font-size: 17px;
       font-weight: 700;
     }
 
     .badge-status {
-      font-size: 11px;
+      font-size: 13px;
       font-weight: 600;
       padding: 3px 10px;
       border-radius: 12px;
@@ -279,12 +370,12 @@
     }
 
     .order-date {
-      font-size: 12px;
+      font-size: 14px;
       color: var(--text-light);
-      margin-bottom: 15px;
       display: flex;
       align-items: center;
       gap: 5px;
+      margin-bottom: 14px;
     }
 
     /* ORDER ITEMS LIST */
@@ -298,6 +389,7 @@
       display: flex;
       align-items: center;
       gap: 10px;
+      cursor: pointer;
     }
 
     .item-thumb {
@@ -308,29 +400,31 @@
     }
 
     .item-title {
-      font-size: 13px;
+      font-size: 15px;
       font-weight: 600;
     }
 
     .item-price {
-      font-size: 13px;
+      font-size: 15px;
       font-weight: 700;
       margin-top: 2px;
     }
 
     .item-count {
-      font-size: 11px;
+      font-size: 13px;
       color: var(--text-light);
     }
 
     /* ORDER RIGHT SIDE */
     .order-action-col {
       display: flex;
-      flex-direction: column;
-      align-items: flex-end;
+      flex-direction: row;
+      align-items: center;
       justify-content: space-between;
-      min-height: 90px;
-      padding-left: 20px;
+      width: 100%;
+      padding: 13px 24px;
+      background: #fdf8f9;
+      border-top: 1px solid #f0e2e5;
     }
 
     .view-details-btn {
@@ -340,9 +434,9 @@
       padding: 7px 16px;
       border-radius: 18px;
       border: 1px solid var(--primary-maroon);
-      color: var(--primary-maroon);
-      background: transparent;
-      font-size: 12px;
+      color: #ffffff;
+      background: var(--primary-maroon);
+      font-size: 14px;
       font-weight: 600;
       cursor: pointer;
       text-decoration: none;
@@ -350,21 +444,21 @@
     }
 
     .view-details-btn:hover {
-      background-color: var(--primary-maroon);
-      color: #ffffff;
+      background-color: #74112e;
     }
 
     .total-price-block {
-      text-align: right;
+      order: -1;
+      text-align: left;
     }
 
     .total-price-block .label {
-      font-size: 11px;
+      font-size: 13px;
       color: var(--text-light);
     }
 
     .total-price-block .price {
-      font-size: 16px;
+      font-size: 18px;
       font-weight: 800;
       color: var(--text-dark);
     }
@@ -406,13 +500,13 @@
       background: linear-gradient(to bottom, #fdf4f6, #faf8f8);
     }
     .mobile-page-header h1 {
-      font-size: 22px;
+      font-size: 24px;
       font-weight: 800;
       color: var(--primary-maroon);
       margin-bottom: 4px;
     }
     .mobile-page-header p {
-      font-size: 13px;
+      font-size: 15px;
       color: var(--text-muted);
     }
 
@@ -478,6 +572,14 @@
       }
       .brand-logo { height: 35px; }
       .notification-icon { font-size: 20px; }
+      .user-dropdown-menu {
+        top: calc(100% + 8px);
+        min-width: 160px;
+      }
+      .dropdown-item {
+        padding: 10px 14px;
+        font-size: 13px;
+      }
 
       /* Hero Banner / Page Header */
       .hero-banner { display: none; }
@@ -497,6 +599,13 @@
         flex-direction: column;
         gap: 15px;
         padding: 15px;
+        display: flex;
+      }
+
+      .order-main-info {
+        display: block;
+        width: 100%;
+        padding: 0;
       }
       
       .order-items-list {
@@ -511,8 +620,9 @@
         align-items: center;
         width: 100%;
         min-height: auto;
-        padding-left: 0;
+        padding: 15px 0 0;
         margin-top: 10px;
+        border-left: none;
         border-top: 1px dashed var(--border-color);
         padding-top: 15px;
       }
@@ -623,16 +733,36 @@
     </div>
 
     <div class="nav-right">
+      <a href="./cart.html" class="notification-icon" style="text-decoration:none;" aria-label="Cart">
+        <i class="fa-solid fa-cart-shopping"></i>
+      </a>
       <div class="notification-icon">
         <i class="fa-regular fa-bell"></i>
         <span class="badge">3</span>
       </div>
-      <div class="user-dropdown">
-        <div class="avatar-small">
-          <i class="fa-solid fa-user"></i>
+      <div class="user-dropdown-wrapper" id="user-dropdown-wrapper">
+        <div class="user-dropdown" id="user-dropdown-trigger" role="button" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-label="User menu">
+          <div class="avatar-small">
+            <i class="fa-solid fa-user"></i>
+          </div>
+          <span class="user-name" id="header-user-name">Priya</span>
+          <i class="fa-solid fa-chevron-down arrow" id="user-dropdown-arrow"></i>
         </div>
-        <span class="user-name">Priya</span>
-        <i class="fa-solid fa-chevron-down arrow"></i>
+        <div class="user-dropdown-menu" id="user-dropdown-menu" role="menu">
+          <a href="./profile.html" class="dropdown-item" role="menuitem">
+            <i class="fa-solid fa-user"></i>
+            My Profile
+          </a>
+          <a href="./order.html" class="dropdown-item" role="menuitem">
+            <i class="fa-solid fa-box-open"></i>
+            My Orders
+          </a>
+          <hr class="dropdown-divider">
+          <button class="dropdown-item logout-item" id="header-logout-btn" type="button" role="menuitem">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            Logout
+          </button>
+        </div>
       </div>
     </div>
   </header>
@@ -643,13 +773,14 @@
       <i class="fa-solid fa-house"></i>
       <span>Home</span>
     </a>
-    <a href="./order.html" class="nav-item active">
-      <i class="fa-solid fa-box-open"></i>
-      <span>My Orders</span>
-    </a>
+ 
       <a href="./menupage.html" class="nav-item">
       <i class="fa-solid fa-box-open"></i>
       <span>Menu</span>
+    </a>
+       <a href="./order.html" class="nav-item active">
+      <i class="fa-solid fa-box-open"></i>
+      <span>My Orders</span>
     </a>
     <a href="./profile.html" class="nav-item">
       <i class="fa-solid fa-user"></i>
@@ -846,17 +977,17 @@
   </main>
 
   <!-- FOOTER -->
-  <footer class="footer">
+  <footer class="footer" style="display: none;">
     <div class="footer-left">
       <img src="./assets/rasoova_logo_desktop.png" alt="Rasoova Logo" class="footer-logo" />
     </div>
 
     <div class="footer-links">
-      <a href="#"><i class="fa-solid fa-house"></i> Home</a> |
-      <a href="#"><i class="fa-solid fa-box-open"></i> My Orders</a> |
-      <a href="#"><i class="fa-solid fa-user"></i> Profile</a> |
-      <a href="#"><i class="fa-solid fa-location-dot"></i> Address</a> |
-      <a href="#"><i class="fa-solid fa-headset"></i> Help & Support</a>
+      <a href="./index.html"><i class="fa-solid fa-house"></i> Home</a> |
+      <a href="./order.html"><i class="fa-solid fa-box-open"></i> My Orders</a> |
+      <a href="./profile.html"><i class="fa-solid fa-user"></i> Profile</a> |
+      <a href="./address.html"><i class="fa-solid fa-location-dot"></i> Address</a> |
+      <a href="./help-support.html"><i class="fa-solid fa-headset"></i> Help & Support</a>
     </div>
   </footer>
 
@@ -893,6 +1024,24 @@
     document.addEventListener("DOMContentLoaded", () => {
       const tabs = document.querySelectorAll(".tab-btn");
       const orderCards = document.querySelectorAll(".order-card");
+      const productItems = document.querySelectorAll(".item-box");
+
+      productItems.forEach((productItem) => {
+        productItem.setAttribute("role", "link");
+        productItem.setAttribute("tabindex", "0");
+
+        function openProductDetails(event) {
+          event.preventDefault();
+          window.location.href = "./product-details.html";
+        }
+
+        productItem.addEventListener("click", openProductDetails);
+        productItem.addEventListener("keydown", (event) => {
+          if (event.key === "Enter" || event.key === " ") {
+            openProductDetails(event);
+          }
+        });
+      });
 
       tabs.forEach((tab) => {
         tab.addEventListener("click", () => {
@@ -915,6 +1064,61 @@
       const menuButton = document.getElementById("mobile-menu-toggle");
       const subNavigation = document.querySelector(".sub-nav");
       menuButton?.addEventListener("click", () => subNavigation?.classList.toggle("open"));
+
+      // ── User dropdown menu ──
+      const dropdownTrigger = document.getElementById('user-dropdown-trigger');
+      const dropdownMenu    = document.getElementById('user-dropdown-menu');
+      const dropdownArrow   = document.getElementById('user-dropdown-arrow');
+      const headerLogoutBtn = document.getElementById('header-logout-btn');
+      const headerUserName  = document.getElementById('header-user-name');
+
+      if (headerUserName) {
+        const storedName = localStorage.getItem('rasoovaUserName');
+        if (storedName) {
+          headerUserName.textContent = storedName;
+        }
+      }
+
+      function openDropdown() {
+        dropdownMenu.classList.add('open');
+        dropdownTrigger.setAttribute('aria-expanded', 'true');
+        dropdownArrow.style.transform = 'rotate(180deg)';
+      }
+
+      function closeDropdown() {
+        dropdownMenu.classList.remove('open');
+        dropdownTrigger.setAttribute('aria-expanded', 'false');
+        dropdownArrow.style.transform = 'rotate(0deg)';
+      }
+
+      if (dropdownTrigger && dropdownMenu) {
+        dropdownTrigger.addEventListener('click', (e) => {
+          e.stopPropagation();
+          dropdownMenu.classList.contains('open') ? closeDropdown() : openDropdown();
+        });
+
+        // Close when clicking outside
+        document.addEventListener('click', (e) => {
+          if (!dropdownTrigger.contains(e.target) && !dropdownMenu.contains(e.target)) {
+            closeDropdown();
+          }
+        });
+
+        // Close on Escape key
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') closeDropdown();
+        });
+      }
+
+      function doLogout() {
+        localStorage.removeItem('rasoovaAuth');
+        localStorage.removeItem('rasoovaUserName');
+        closeDropdown();
+        window.location.href = './login.html';
+      }
+
+      // Logout from header dropdown
+      headerLogoutBtn?.addEventListener('click', doLogout);
     });
   </script>
 </body>
