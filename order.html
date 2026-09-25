@@ -521,7 +521,10 @@
       /* Header Mobile */
       .navbar {
         padding: 10px 20px;
-        position: relative;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        background: #ffffff;
         justify-content: flex-end;
       }
       .mobile-menu-toggle {
@@ -543,7 +546,7 @@
       .sub-nav { display: none; }
       .sub-nav.open {
         display: flex;
-        position: absolute;
+        position: fixed;
         top: 58px;
         left: 0;
         right: 0;
@@ -552,12 +555,13 @@
         align-items: stretch;
         gap: 0;
         padding: 8px 0;
+        background: #fff;
         box-shadow: 0 4px 12px rgba(0,0,0,0.12);
       }
       .sub-nav.open .nav-item {
         justify-content: flex-start;
         border-radius: 0;
-        padding: 12px 20px;
+        padding: 8px 20px;
       }
       .footer { display: none; }
       body { padding-bottom: 70px; } /* Space for bottom nav */

@@ -1032,7 +1032,7 @@ footer {
 
   .sub-nav {
     display: none !important;
-    position: absolute;
+    position: fixed;
     top: 54px;
     left: 0;
     right: 0;
@@ -1051,7 +1051,7 @@ footer {
   }
 
   .sub-nav .nav-item {
-    padding: 12px 20px;
+    padding: 8px 20px;
     width: 100%;
     font-size: 14px;
   }
@@ -1061,7 +1061,7 @@ footer {
     align-items: center;
     gap: 8px;
     width: 100%;
-    padding: 12px 20px;
+    padding: 8px 20px;
     border: 0;
     border-top: 1px solid #eadfe1;
     background: #fff;

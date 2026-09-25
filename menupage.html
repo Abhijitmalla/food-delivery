@@ -1340,12 +1340,34 @@
       }
 
       .navbar .nav-right {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
         gap: 8px;
+        min-width: 118px;
+        margin-left: auto;
+      }
+
+      .auth-actions {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 6px;
+        width: auto;
+      }
+
+      .auth-actions a {
+        padding: 7px 10px;
+        font-size: 11px;
+        line-height: 1.2;
+        border-radius: 18px;
+        white-space: nowrap;
+        min-width: 0;
       }
 
       .sub-nav {
         display: none;
-        position: absolute;
+        position: fixed;
         top: 54px;
         left: 0;
         right: 0;
@@ -1364,7 +1386,7 @@
       }
 
       .sub-nav .nav-item {
-        padding: 12px 20px;
+        padding: 8px 20px;
         width: 100%;
         font-size: 14px;
       }
@@ -1374,7 +1396,7 @@
         align-items: center;
         gap: 8px;
         width: 100%;
-        padding: 12px 20px;
+        padding: 8px 20px;
         border: 0;
         border-top: 1px solid #eadfe1;
         background: #fff;

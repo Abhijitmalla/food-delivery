@@ -10,29 +10,36 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
   <style>
-
-   /* ─────────────────────────────────────────
+    /* ─────────────────────────────────────────
    ANNOUNCEMENT BAR
 ───────────────────────────────────────── */
-.announcement {
-  height: 38px;
-  background: #8f1738;
-  color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 4%;
-  font-size: 12px;
-  font-weight: 600;
-  gap: 8px;
-}
-.ann-left, .ann-right {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.ann-fire { font-size: 15px; }
-.ann-sep  { opacity: 0.5; }
+    .announcement {
+      height: 38px;
+      background: #8f1738;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 4%;
+      font-size: 12px;
+      font-weight: 600;
+      gap: 8px;
+    }
+
+    .ann-left,
+    .ann-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .ann-fire {
+      font-size: 15px;
+    }
+
+    .ann-sep {
+      opacity: 0.5;
+    }
 
 
     /* --- GLOBAL & COLOR VARIABLES --- */
@@ -57,7 +64,8 @@
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     }
 
-    html, body {
+    html,
+    body {
       overflow-x: hidden;
       width: 100%;
     }
@@ -175,17 +183,89 @@
     }
 
     /* ── USER DROPDOWN MENU ── */
-    .user-dropdown-wrapper { position: relative; display: flex; align-items: center; }
-    .user-dropdown-menu { display: none; position: absolute; top: calc(100% + 12px); right: 0; background: #ffffff; border: 1px solid #edebeb; border-radius: 12px; min-width: 180px; box-shadow: 0 8px 24px rgba(0,0,0,0.12); z-index: 999; overflow: hidden; animation: dropdownIn 0.18s ease; }
-    @keyframes dropdownIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
-    .user-dropdown-menu.open { display: block; }
-    .dropdown-item { display: flex; align-items: center; gap: 10px; padding: 12px 18px; font-size: 14px; font-weight: 500; color: #333; text-decoration: none; transition: background 0.15s; border: none; background: none; width: 100%; cursor: pointer; font-family: inherit; }
-    .dropdown-item:hover { background: var(--light-pink); color: var(--primary-maroon); }
-    .dropdown-item i { width: 16px; text-align: center; color: var(--primary-maroon); }
-    .dropdown-divider { border: none; border-top: 1px solid #f0eded; margin: 0; }
-    .dropdown-item.logout-item { color: #dc2626; }
-    .dropdown-item.logout-item i { color: #dc2626; }
-    .dropdown-item.logout-item:hover { background: #fff5f5; color: #dc2626; }
+    .user-dropdown-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .user-dropdown-menu {
+      display: none;
+      position: absolute;
+      top: calc(100% + 12px);
+      right: 0;
+      background: #ffffff;
+      border: 1px solid #edebeb;
+      border-radius: 12px;
+      min-width: 180px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+      z-index: 999;
+      overflow: hidden;
+      animation: dropdownIn 0.18s ease;
+    }
+
+    @keyframes dropdownIn {
+      from {
+        opacity: 0;
+        transform: translateY(-6px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .user-dropdown-menu.open {
+      display: block;
+    }
+
+    .dropdown-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 18px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #333;
+      text-decoration: none;
+      transition: background 0.15s;
+      border: none;
+      background: none;
+      width: 100%;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .dropdown-item:hover {
+      background: var(--light-pink);
+      color: var(--primary-maroon);
+    }
+
+    .dropdown-item i {
+      width: 16px;
+      text-align: center;
+      color: var(--primary-maroon);
+    }
+
+    .dropdown-divider {
+      border: none;
+      border-top: 1px solid #f0eded;
+      margin: 0;
+    }
+
+    .dropdown-item.logout-item {
+      color: #dc2626;
+    }
+
+    .dropdown-item.logout-item i {
+      color: #dc2626;
+    }
+
+    .dropdown-item.logout-item:hover {
+      background: #fff5f5;
+      color: #dc2626;
+    }
 
     /* --- SUB NAVIGATION BAR --- */
     .sub-nav {
@@ -238,9 +318,15 @@
       position: relative;
       height: calc(100vh - 193px);
       overflow-y: auto;
-      scrollbar-width: none;        /* Firefox */
+      scrollbar-width: none;
+      /* Firefox */
     }
-    .sidebar::-webkit-scrollbar { display: none; } /* Chrome/Safari */
+
+    .sidebar::-webkit-scrollbar {
+      display: none;
+    }
+
+    /* Chrome/Safari */
 
     .profile-card {
       background: #ffffff;
@@ -377,15 +463,15 @@
       overflow-y: auto;
     }
 
-    .content-area > .section-block {
+    .content-area>.section-block {
       display: none;
     }
 
-    .content-area[data-active-tab="personal-information"] > #personal-information-section,
-    .content-area[data-active-tab="personal-information"] > .security-section,
-    .content-area[data-active-tab="order-history"] > #order-history-section,
-    .content-area[data-active-tab="saved-addresses"] > #saved-addresses-section,
-    .content-area[data-active-tab="help-support"] > #help-support-section {
+    .content-area[data-active-tab="personal-information"]>#personal-information-section,
+    .content-area[data-active-tab="personal-information"]>.security-section,
+    .content-area[data-active-tab="order-history"]>#order-history-section,
+    .content-area[data-active-tab="saved-addresses"]>#saved-addresses-section,
+    .content-area[data-active-tab="help-support"]>#help-support-section {
       display: block;
     }
 
@@ -528,12 +614,14 @@
       padding-top: 10px;
       border-top: 1px solid var(--border-color);
     }
+
     .oh-filter-tabs {
       display: flex;
       gap: 10px;
       margin-bottom: 20px;
       flex-wrap: wrap;
     }
+
     .oh-tab-btn {
       padding: 7px 16px;
       border-radius: 20px;
@@ -545,65 +633,171 @@
       cursor: pointer;
       transition: all 0.2s ease;
     }
+
     .oh-tab-btn.active {
       background: var(--primary-maroon);
       color: #ffffff;
       border-color: var(--primary-maroon);
     }
+
     .oh-tab-btn:hover:not(.active) {
       border-color: var(--primary-maroon);
       color: var(--primary-maroon);
     }
+
     .oh-order-card {
       background: #ffffff;
       border-radius: 12px;
       margin-bottom: 16px;
       border: 1px solid var(--border-color);
       border-left: 4px solid var(--primary-maroon);
-      box-shadow: 0 2px 8px rgba(48,27,32,0.04);
+      box-shadow: 0 2px 8px rgba(48, 27, 32, 0.04);
       overflow: hidden;
       transition: box-shadow 0.2s, transform 0.2s;
     }
+
     .oh-order-card:hover {
       transform: translateY(-2px);
-      box-shadow: 0 6px 18px rgba(48,27,32,0.09);
+      box-shadow: 0 6px 18px rgba(48, 27, 32, 0.09);
     }
-    .oh-order-card[data-status="processing"]    { border-left-color: #f59e0b; }
-    .oh-order-card[data-status="out-for-delivery"] { border-left-color: #2563eb; }
-    .oh-order-card[data-status="delivered"]    { border-left-color: #16a34a; }
-    .oh-order-card[style*="display: none"]     { display: none !important; }
-    .oh-main-info   { padding: 16px 20px 14px; }
-    .oh-order-header{ display: flex; align-items: center; gap: 10px; margin-bottom: 4px; }
-    .oh-order-id    { font-size: 15px; font-weight: 700; }
+
+    .oh-order-card[data-status="processing"] {
+      border-left-color: #f59e0b;
+    }
+
+    .oh-order-card[data-status="out-for-delivery"] {
+      border-left-color: #2563eb;
+    }
+
+    .oh-order-card[data-status="delivered"] {
+      border-left-color: #16a34a;
+    }
+
+    .oh-order-card[style*="display: none"] {
+      display: none !important;
+    }
+
+    .oh-main-info {
+      padding: 16px 20px 14px;
+    }
+
+    .oh-order-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 4px;
+    }
+
+    .oh-order-id {
+      font-size: 15px;
+      font-weight: 700;
+    }
+
     .oh-badge {
-      font-size: 12px; font-weight: 600;
-      padding: 3px 9px; border-radius: 12px;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 3px 9px;
+      border-radius: 12px;
     }
-    .oh-badge.processing      { background: #fffbeb; color: #d97706; }
-    .oh-badge.out-for-delivery{ background: #eff6ff; color: #2563eb; }
-    .oh-badge.delivered       { background: #f0fdf4; color: #16a34a; }
-    .oh-order-date  { font-size: 13px; color: var(--text-light); margin-bottom: 12px; display: flex; align-items: center; gap: 5px; }
-    .oh-items-list  { display: flex; gap: 18px; flex-wrap: wrap; }
-    .oh-item-box    { display: flex; align-items: center; gap: 10px; }
-    .oh-item-thumb  { width: 50px; height: 50px; border-radius: 8px; object-fit: cover; }
-    .oh-item-title  { font-size: 14px; font-weight: 600; }
-    .oh-item-price  { font-size: 14px; font-weight: 700; margin-top: 2px; }
-    .oh-item-count  { font-size: 12px; color: var(--text-light); }
-    .oh-action-col  {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 12px 20px; background: #fdf8f9; border-top: 1px solid #f0e2e5;
+
+    .oh-badge.processing {
+      background: #fffbeb;
+      color: #d97706;
     }
-    .oh-total-block .oh-label { font-size: 12px; color: var(--text-light); }
-    .oh-total-block .oh-price { font-size: 17px; font-weight: 800; color: var(--text-dark); }
+
+    .oh-badge.out-for-delivery {
+      background: #eff6ff;
+      color: #2563eb;
+    }
+
+    .oh-badge.delivered {
+      background: #f0fdf4;
+      color: #16a34a;
+    }
+
+    .oh-order-date {
+      font-size: 13px;
+      color: var(--text-light);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .oh-items-list {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .oh-item-box {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .oh-item-thumb {
+      width: 50px;
+      height: 50px;
+      border-radius: 8px;
+      object-fit: cover;
+    }
+
+    .oh-item-title {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .oh-item-price {
+      font-size: 14px;
+      font-weight: 700;
+      margin-top: 2px;
+    }
+
+    .oh-item-count {
+      font-size: 12px;
+      color: var(--text-light);
+    }
+
+    .oh-action-col {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 20px;
+      background: #fdf8f9;
+      border-top: 1px solid #f0e2e5;
+    }
+
+    .oh-total-block .oh-label {
+      font-size: 12px;
+      color: var(--text-light);
+    }
+
+    .oh-total-block .oh-price {
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text-dark);
+    }
+
     .oh-view-btn {
-      display: inline-flex; align-items: center; gap: 6px;
-      padding: 6px 14px; border-radius: 18px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 18px;
       border: 1px solid var(--primary-maroon);
-      background: var(--primary-maroon); color: #fff;
-      font-size: 13px; font-weight: 600; cursor: pointer;
-      text-decoration: none; transition: background 0.2s;
+      background: var(--primary-maroon);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s;
     }
-    .oh-view-btn:hover { background: #73122d; }
+
+    .oh-view-btn:hover {
+      background: #73122d;
+    }
 
     .shield-icon {
       width: 34px;
@@ -623,11 +817,13 @@
       padding-top: 10px;
       border-top: 1px solid var(--border-color);
     }
+
     .address-list {
       display: flex;
       flex-direction: column;
       gap: 18px;
     }
+
     .address-card {
       background: var(--card-bg);
       border-radius: 12px;
@@ -639,13 +835,16 @@
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
       position: relative;
     }
+
     .address-card.default-border {
       border: 1px solid #c8e6c9;
     }
+
     .address-card-left {
       display: flex;
       gap: 16px;
     }
+
     .address-icon {
       width: 44px;
       height: 44px;
@@ -658,14 +857,17 @@
       font-size: 18px;
       flex-shrink: 0;
     }
+
     .address-info {
       display: flex;
       flex-direction: column;
       gap: 4px;
     }
+
     .tag-container {
       margin-bottom: 4px;
     }
+
     .badge-default-tag {
       background-color: #e8f5e9;
       color: #2e7d32;
@@ -675,22 +877,26 @@
       font-weight: 500;
       display: inline-block;
     }
+
     .address-title {
       font-size: 17px;
       font-weight: 700;
       color: #222;
     }
+
     .address-name {
       font-size: 15px;
       font-weight: 500;
       color: #555;
     }
+
     .address-text {
       font-size: 14px;
       color: #777;
       max-width: 420px;
       line-height: 1.4;
     }
+
     .phone-number {
       font-size: 14px;
       color: #555;
@@ -699,12 +905,14 @@
       gap: 6px;
       margin-top: 4px;
     }
+
     .address-card-right {
       display: flex;
       flex-direction: column;
       align-items: flex-end;
       gap: 15px;
     }
+
     .badge-default-top {
       background-color: #e8f5e9;
       color: #2e7d32;
@@ -713,11 +921,13 @@
       border-radius: 12px;
       font-weight: 500;
     }
+
     .address-actions {
       display: flex;
       gap: 15px;
       margin-top: 15px;
     }
+
     .action-btn {
       background: none;
       border: none;
@@ -730,12 +940,15 @@
       gap: 4px;
       transition: color 0.2s;
     }
+
     .action-btn i {
       font-size: 16px;
     }
+
     .action-btn:hover {
       color: var(--primary-maroon);
     }
+
     .add-address-box {
       background: #fff6f6;
       border: 1px dashed #f0c5c5;
@@ -748,6 +961,7 @@
       justify-content: center;
       margin-top: 20px;
     }
+
     .add-icon-circle {
       width: 48px;
       height: 48px;
@@ -760,18 +974,21 @@
       font-size: 20px;
       margin-bottom: 12px;
     }
+
     .add-address-title {
       font-size: 18px;
       font-weight: 700;
       color: var(--primary-maroon);
       margin-bottom: 6px;
     }
+
     .add-address-sub {
       font-size: 14px;
       color: #777;
       margin-bottom: 20px;
       line-height: 1.4;
     }
+
     .btn-add-address {
       background-color: var(--primary-maroon);
       color: white;
@@ -783,6 +1000,7 @@
       cursor: pointer;
       transition: background-color 0.2s;
     }
+
     .btn-add-address:hover {
       background-color: var(--primary-hover);
     }
@@ -793,12 +1011,14 @@
       padding-top: 10px;
       border-top: 1px solid var(--border-color);
     }
+
     .contact-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 15px;
       margin-bottom: 40px;
     }
+
     .contact-card {
       background: var(--card-bg);
       border-radius: 10px;
@@ -809,6 +1029,7 @@
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
       border: 1px solid var(--border-color);
     }
+
     .contact-icon {
       width: 36px;
       height: 36px;
@@ -819,22 +1040,41 @@
       font-size: 18px;
       flex-shrink: 0;
     }
-    .contact-icon.call { background-color: #fde8e8; color: var(--primary-maroon); }
-    .contact-icon.email { background-color: #fde8e8; color: var(--primary-maroon); }
-    .contact-icon.whatsapp { background-color: #e6f9ed; color: #25D366; }
-    .contact-icon.location { background-color: #fde8e8; color: var(--primary-maroon); }
+
+    .contact-icon.call {
+      background-color: #fde8e8;
+      color: var(--primary-maroon);
+    }
+
+    .contact-icon.email {
+      background-color: #fde8e8;
+      color: var(--primary-maroon);
+    }
+
+    .contact-icon.whatsapp {
+      background-color: #e6f9ed;
+      color: #25D366;
+    }
+
+    .contact-icon.location {
+      background-color: #fde8e8;
+      color: var(--primary-maroon);
+    }
+
     .contact-details h3 {
       font-size: 16px;
       font-weight: 600;
       color: #333;
       margin-bottom: 2px;
     }
+
     .contact-details p {
       font-size: 14px;
       color: #555;
       margin-bottom: 2px;
       word-break: break-word;
     }
+
     .contact-details span {
       font-size: 13px;
       color: #888;
@@ -848,6 +1088,7 @@
       gap: 12px;
       margin-bottom: 50px;
     }
+
     .faq-item {
       background-color: var(--card-bg);
       border-radius: 8px;
@@ -855,6 +1096,7 @@
       overflow: hidden;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.01);
     }
+
     .faq-header {
       padding: 12px 16px;
       display: flex;
@@ -863,9 +1105,11 @@
       user-select: none;
       transition: background-color 0.2s;
     }
+
     .faq-header:hover {
       background-color: #fffaf8;
     }
+
     .faq-number {
       width: 24px;
       height: 24px;
@@ -880,17 +1124,20 @@
       margin-right: 12px;
       flex-shrink: 0;
     }
+
     .faq-title {
       font-size: 15px;
       font-weight: 500;
       color: #444;
       flex-grow: 1;
     }
+
     .faq-icon {
       font-size: 14px;
       color: #888;
       transition: transform 0.3s ease;
     }
+
     .faq-answer {
       max-height: 0;
       overflow: hidden;
@@ -901,9 +1148,11 @@
       color: #666;
       border-top: 1px solid transparent;
     }
+
     .faq-item.active .faq-icon {
       transform: rotate(180deg);
     }
+
     .faq-item.active .faq-answer {
       max-height: 200px;
       padding: 10px 16px 14px 52px;
@@ -985,7 +1234,9 @@
     /* Desktop app layout: the navigation and footer stay visible while
        the profile sidebar and content panel scroll independently. */
     @media (min-width: 901px) {
-      html, body {
+
+      html,
+      body {
         height: 100%;
       }
 
@@ -1032,6 +1283,7 @@
       .main-container {
         flex-direction: column;
       }
+
       /* On mobile, sidebar is no longer sticky */
       .sidebar {
         width: 100%;
@@ -1042,7 +1294,9 @@
     }
 
     @media (max-width: 768px) {
-      .announcement { display: none; }
+      .announcement {
+        display: none;
+      }
 
       /* Navbar mobile */
       .navbar {
@@ -1050,6 +1304,7 @@
         position: relative;
         justify-content: flex-end;
       }
+
       .mobile-menu-toggle {
         display: block;
         position: absolute;
@@ -1065,18 +1320,35 @@
         padding: 2px;
         z-index: 2;
       }
+
       .nav-left {
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
       }
-      .nav-search { display: none; }
-      .user-name, .fa-chevron-down { display: none; }
-      .brand-logo { height: 35px; }
-      .notification-icon { font-size: 20px; }
+
+      .nav-search {
+        display: none;
+      }
+
+      .user-name,
+      .fa-chevron-down {
+        display: none;
+      }
+
+      .brand-logo {
+        height: 35px;
+      }
+
+      .notification-icon {
+        font-size: 20px;
+      }
 
       /* Sub-nav: hidden by default, slide-down when open */
-      .sub-nav { display: none; }
+      .sub-nav {
+        display: none;
+      }
+
       .sub-nav.open {
         display: flex;
         position: absolute;
@@ -1088,8 +1360,9 @@
         align-items: stretch;
         gap: 0;
         padding: 8px 0;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
       }
+
       .sub-nav.open .nav-item {
         justify-content: flex-start;
         border-radius: 0;
@@ -1097,8 +1370,13 @@
       }
 
       /* Footer hidden on mobile — replaced by bottom nav */
-      .footer { display: none; }
-      body { padding-bottom: 70px; }
+      .footer {
+        display: none;
+      }
+
+      body {
+        padding-bottom: 70px;
+      }
 
       /* Stack sidebar and content */
       .main-container {
@@ -1106,9 +1384,16 @@
         padding: 0 12px;
         margin: 16px auto;
       }
-      .sidebar { width: 100%; }
+
+      .sidebar {
+        width: 100%;
+      }
 
       /* Mobile Bottom Nav */
+      body {
+        padding-bottom: 60px;
+      }
+
       .mobile-bottom-nav {
         display: flex;
         justify-content: space-around;
@@ -1117,60 +1402,75 @@
         bottom: 0;
         left: 0;
         right: 0;
-        background: var(--primary-maroon);
-        padding: 10px 0;
+        background: #fff;
+        box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+        padding: 10px 0 8px;
         z-index: 1000;
       }
+
       .mobile-bottom-nav a {
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 5px;
-        color: #f8b4c4;
+        gap: 4px;
+        color: #55606e;
         font-size: 10px;
-        font-weight: 500;
+        font-weight: 600;
+        position: relative;
         text-decoration: none;
       }
-      .mobile-bottom-nav a i {
-        font-size: 18px;
-      }
+
       .mobile-bottom-nav a.active {
-        color: #ffffff;
-        font-weight: 600;
+        color: #c02844;
       }
-      .mobile-bottom-nav a.active::after {
-        content: '';
-        width: 30px;
-        height: 2px;
-        background: #ffffff;
-        margin-top: 2px;
-        border-radius: 2px;
+
+      .nav-cart .cart-badge {
+        position: absolute;
+        top: -4px;
+        right: 6px;
+        background: #f12525;
+        color: #fff;
+        font-size: 9px;
+        font-weight: 700;
+        font-style: normal;
+        border-radius: 50%;
+        width: 15px;
+        height: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
 
       /* Inner content mobile tweaks */
       .content-area {
         padding: 20px 15px;
       }
+
       .security-banner {
         flex-direction: column;
         align-items: flex-start;
         text-align: left;
       }
+
       .address-card {
         flex-direction: column;
       }
+
       .address-card-right {
         align-items: flex-start;
         margin-top: 15px;
         width: 100%;
       }
+
       .contact-grid {
         grid-template-columns: 1fr;
       }
+
       .oh-order-header {
         flex-direction: column;
         align-items: flex-start;
       }
+
       .oh-action-col {
         flex-direction: column;
         align-items: flex-start;
@@ -1183,7 +1483,7 @@
 <body>
 
 
-     <!-- ── ANNOUNCEMENT BAR ── -->
+  <!-- ── ANNOUNCEMENT BAR ── -->
   <div class="announcement">
     <div class="ann-left">
       <span class="ann-fire">🔥</span>
@@ -1221,7 +1521,8 @@
         <span class="badge">3</span>
       </div>
       <div class="user-dropdown-wrapper" id="user-dropdown-wrapper">
-        <div class="user-dropdown" id="user-dropdown-trigger" role="button" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-label="User menu">
+        <div class="user-dropdown" id="user-dropdown-trigger" role="button" aria-haspopup="true" aria-expanded="false"
+          tabindex="0" aria-label="User menu">
           <div class="avatar-small">
             <i class="fa-solid fa-user"></i>
           </div>
@@ -1253,13 +1554,13 @@
       <i class="fa-solid fa-house"></i>
       <span>Home</span>
     </a>
-   
 
-       <a href="./menupage.html" class="nav-item">
-     <i class="fa-solid fa-utensils"></i>
+
+    <a href="./menupage.html" class="nav-item">
+      <i class="fa-solid fa-utensils"></i>
       <span>Menu</span>
     </a>
-     <a href="./order.html" class="nav-item">
+    <a href="./order.html" class="nav-item">
       <i class="fa-solid fa-box-open"></i>
       <span>My Orders</span>
     </a>
@@ -1473,7 +1774,8 @@
             <div class="oh-order-date"><i class="fa-regular fa-calendar"></i> 12 Apr 2025, 02:15 PM</div>
             <div class="oh-items-list">
               <div class="oh-item-box">
-                <img src="https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=120" class="oh-item-thumb" alt="Chicken Biryani">
+                <img src="https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=120" class="oh-item-thumb"
+                  alt="Chicken Biryani">
                 <div>
                   <div class="oh-item-title">Chicken Biryani</div>
                   <div class="oh-item-price">₹249</div>
@@ -1481,7 +1783,8 @@
                 </div>
               </div>
               <div class="oh-item-box">
-                <img src="https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=120" class="oh-item-thumb" alt="Raita">
+                <img src="https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=120" class="oh-item-thumb"
+                  alt="Raita">
                 <div>
                   <div class="oh-item-title">Raita</div>
                   <div class="oh-item-price">₹50</div>
@@ -1509,7 +1812,8 @@
             <div class="oh-order-date"><i class="fa-regular fa-calendar"></i> 11 Apr 2025, 07:32 PM</div>
             <div class="oh-items-list">
               <div class="oh-item-box">
-                <img src="https://images.unsplash.com/photo-1610192244261-3f33de3f55e4?w=120" class="oh-item-thumb" alt="Veg Thali">
+                <img src="https://images.unsplash.com/photo-1610192244261-3f33de3f55e4?w=120" class="oh-item-thumb"
+                  alt="Veg Thali">
                 <div>
                   <div class="oh-item-title">Veg Thali</div>
                   <div class="oh-item-price">₹179</div>
@@ -1517,7 +1821,8 @@
                 </div>
               </div>
               <div class="oh-item-box">
-                <img src="https://images.unsplash.com/photo-1668236543090-82eba5ee5976?w=120" class="oh-item-thumb" alt="Masala Dosa">
+                <img src="https://images.unsplash.com/photo-1668236543090-82eba5ee5976?w=120" class="oh-item-thumb"
+                  alt="Masala Dosa">
                 <div>
                   <div class="oh-item-title">Masala Dosa</div>
                   <div class="oh-item-price">₹159</div>
@@ -1545,7 +1850,8 @@
             <div class="oh-order-date"><i class="fa-regular fa-calendar"></i> 10 Apr 2025, 01:20 PM</div>
             <div class="oh-items-list">
               <div class="oh-item-box">
-                <img src="https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=120" class="oh-item-thumb" alt="Paneer Butter Masala">
+                <img src="https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=120" class="oh-item-thumb"
+                  alt="Paneer Butter Masala">
                 <div>
                   <div class="oh-item-title">Paneer Butter Masala</div>
                   <div class="oh-item-price">₹299</div>
@@ -1553,7 +1859,8 @@
                 </div>
               </div>
               <div class="oh-item-box">
-                <img src="https://images.unsplash.com/photo-1601050690597-df0568f70950?w=120" class="oh-item-thumb" alt="Naan">
+                <img src="https://images.unsplash.com/photo-1601050690597-df0568f70950?w=120" class="oh-item-thumb"
+                  alt="Naan">
                 <div>
                   <div class="oh-item-title">Naan</div>
                   <div class="oh-item-price">₹49</div>
@@ -1581,7 +1888,8 @@
             <div class="oh-order-date"><i class="fa-regular fa-calendar"></i> 08 Apr 2025, 11:45 AM</div>
             <div class="oh-items-list">
               <div class="oh-item-box">
-                <img src="https://images.unsplash.com/photo-1668236543090-82eba5ee5976?w=120" class="oh-item-thumb" alt="Masala Dosa">
+                <img src="https://images.unsplash.com/photo-1668236543090-82eba5ee5976?w=120" class="oh-item-thumb"
+                  alt="Masala Dosa">
                 <div>
                   <div class="oh-item-title">Masala Dosa</div>
                   <div class="oh-item-price">₹159</div>
@@ -1589,7 +1897,8 @@
                 </div>
               </div>
               <div class="oh-item-box">
-                <img src="https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=120" class="oh-item-thumb" alt="Idli">
+                <img src="https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=120" class="oh-item-thumb"
+                  alt="Idli">
                 <div>
                   <div class="oh-item-title">Idli</div>
                   <div class="oh-item-price">₹99</div>
@@ -1678,35 +1987,53 @@
 
   </main>
 
-        </div>
-    </div>
+  </div>
+  </div>
   </footer>
 
   <!-- MOBILE BOTTOM NAV -->
-  <nav class="mobile-bottom-nav" id="mobile-bottom-nav">
-    <a href="./index.html">
-      <i class="fa-solid fa-house"></i>
+  <nav class="mobile-bottom-nav">
+    <a href="./index.html" class="active">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+      </svg>
       <span>Home</span>
     </a>
-    <a href="./order.html">
-      <i class="fa-solid fa-bag-shopping"></i>
-      <span>My Orders</span>
-    </a>
     <a href="./menupage.html">
-      <i class="fa-solid fa-utensils"></i>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 12h18M3 6h18M3 18h18" />
+      </svg>
       <span>Menu</span>
     </a>
-    <a href="./profile.html" class="active">
-      <i class="fa-regular fa-user"></i>
+    <a href="./cart.html" class="nav-cart">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="9" cy="21" r="1" />
+        <circle cx="20" cy="21" r="1" />
+        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+      </svg>
+      <i class="cart-badge">0</i>
+      <span>Cart</span>
+    </a>
+    <a href="./order.html">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+        <polyline points="14 2 14 8 20 8" />
+        <line x1="16" y1="13" x2="8" y2="13" />
+        <line x1="16" y1="17" x2="8" y2="17" />
+        <polyline points="10 9 9 9 8 9" />
+      </svg>
+      <span>Orders</span>
+    </a>
+    <a href="./profile.html">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+        <circle cx="12" cy="7" r="4" />
+      </svg>
       <span>Profile</span>
-    </a>
-    <a href="./cart.html">
-      <i class="fa-solid fa-location-dot"></i>
-      <span>Address</span>
-    </a>
-    <a href="./help-support.html">
-      <i class="fa-solid fa-headset"></i>
-      <span>Help</span>
     </a>
   </nav>
 
@@ -1761,7 +2088,7 @@
       });
 
       // ── ORDER HISTORY FILTER TABS ──
-      const ohTabs  = document.querySelectorAll('.oh-tab-btn');
+      const ohTabs = document.querySelectorAll('.oh-tab-btn');
       const ohCards = document.querySelectorAll('.oh-order-card');
 
       ohTabs.forEach(tab => {
@@ -1777,10 +2104,10 @@
       });
 
       // ── SAVED ADDRESSES: scroll to section & highlight sidebar item ──
-      const savedAddressesLink    = document.getElementById('saved-addresses-link');
+      const savedAddressesLink = document.getElementById('saved-addresses-link');
       const savedAddressesSection = document.getElementById('saved-addresses-section');
-      const savedAddressesMenuItem= document.getElementById('saved-addresses-menu-item');
-      const savedAddressesArrow   = document.getElementById('saved-addresses-arrow');
+      const savedAddressesMenuItem = document.getElementById('saved-addresses-menu-item');
+      const savedAddressesArrow = document.getElementById('saved-addresses-arrow');
 
       if (savedAddressesLink && savedAddressesSection) {
         savedAddressesLink.addEventListener('click', (e) => {
@@ -1829,7 +2156,7 @@
       function renderAddresses() {
         if (!addressListEl) return;
         addressListEl.innerHTML = '';
-        
+
         addresses.forEach(addr => {
           const card = document.createElement('div');
           card.className = `address-card ${addr.isDefault ? 'default-border' : ''}`;
@@ -1870,11 +2197,11 @@
         });
       }
 
-      window.editAddress = function(id) {
+      window.editAddress = function (id) {
         alert(`Edit address with ID: ${id}`);
       };
 
-      window.deleteAddress = function(id) {
+      window.deleteAddress = function (id) {
         if (confirm("Are you sure you want to delete this address?")) {
           const index = addresses.findIndex(a => a.id === id);
           if (index !== -1) {
@@ -1894,10 +2221,10 @@
       renderAddresses();
 
       // ── HELP & SUPPORT: scroll to section & highlight sidebar item ──
-      const helpSupportLink    = document.getElementById('help-support-link');
+      const helpSupportLink = document.getElementById('help-support-link');
       const helpSupportSection = document.getElementById('help-support-section');
-      const helpSupportMenuItem= document.getElementById('help-support-menu-item');
-      const helpSupportArrow   = document.getElementById('help-support-arrow');
+      const helpSupportMenuItem = document.getElementById('help-support-menu-item');
+      const helpSupportArrow = document.getElementById('help-support-arrow');
 
       if (helpSupportLink && helpSupportSection) {
         helpSupportLink.addEventListener('click', (e) => {
@@ -1929,7 +2256,7 @@
       ];
 
       const faqGrid = document.getElementById('faqGrid');
-      
+
       if (faqGrid) {
         faqs.forEach(faq => {
           const item = document.createElement('div');
@@ -1969,23 +2296,23 @@
   </script>
 
   <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const dropdownTrigger = document.getElementById('user-dropdown-trigger');
-    const dropdownMenu    = document.getElementById('user-dropdown-menu');
-    const dropdownArrow   = document.getElementById('user-dropdown-arrow');
-    const headerLogoutBtn = document.getElementById('header-logout-btn');
-    const headerUserName  = document.getElementById('header-user-name');
-    if (headerUserName) { const n = localStorage.getItem('rasoovaUserName'); if (n) headerUserName.textContent = n; }
-    function openDropdown() { dropdownMenu.classList.add('open'); dropdownTrigger.setAttribute('aria-expanded','true'); dropdownArrow.style.transform='rotate(180deg)'; }
-    function closeDropdown() { dropdownMenu.classList.remove('open'); dropdownTrigger.setAttribute('aria-expanded','false'); dropdownArrow.style.transform='rotate(0deg)'; }
-    if (dropdownTrigger && dropdownMenu) {
-      dropdownTrigger.addEventListener('click', (e) => { e.stopPropagation(); dropdownMenu.classList.contains('open') ? closeDropdown() : openDropdown(); });
-      document.addEventListener('click', (e) => { if (!dropdownTrigger.contains(e.target) && !dropdownMenu.contains(e.target)) closeDropdown(); });
-      document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeDropdown(); });
-    }
-    function doLogout() { localStorage.removeItem('rasoovaAuth'); localStorage.removeItem('rasoovaUserName'); closeDropdown(); window.location.href = './login.html'; }
-    if (headerLogoutBtn) headerLogoutBtn.addEventListener('click', doLogout);
-  });
+    document.addEventListener('DOMContentLoaded', () => {
+      const dropdownTrigger = document.getElementById('user-dropdown-trigger');
+      const dropdownMenu = document.getElementById('user-dropdown-menu');
+      const dropdownArrow = document.getElementById('user-dropdown-arrow');
+      const headerLogoutBtn = document.getElementById('header-logout-btn');
+      const headerUserName = document.getElementById('header-user-name');
+      if (headerUserName) { const n = localStorage.getItem('rasoovaUserName'); if (n) headerUserName.textContent = n; }
+      function openDropdown() { dropdownMenu.classList.add('open'); dropdownTrigger.setAttribute('aria-expanded', 'true'); dropdownArrow.style.transform = 'rotate(180deg)'; }
+      function closeDropdown() { dropdownMenu.classList.remove('open'); dropdownTrigger.setAttribute('aria-expanded', 'false'); dropdownArrow.style.transform = 'rotate(0deg)'; }
+      if (dropdownTrigger && dropdownMenu) {
+        dropdownTrigger.addEventListener('click', (e) => { e.stopPropagation(); dropdownMenu.classList.contains('open') ? closeDropdown() : openDropdown(); });
+        document.addEventListener('click', (e) => { if (!dropdownTrigger.contains(e.target) && !dropdownMenu.contains(e.target)) closeDropdown(); });
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeDropdown(); });
+      }
+      function doLogout() { localStorage.removeItem('rasoovaAuth'); localStorage.removeItem('rasoovaUserName'); closeDropdown(); window.location.href = './login.html'; }
+      if (headerLogoutBtn) headerLogoutBtn.addEventListener('click', doLogout);
+    });
   </script>
 
 </body>

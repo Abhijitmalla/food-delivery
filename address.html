@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,29 +10,36 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
-
-   /* ─────────────────────────────────────────
+    /* ─────────────────────────────────────────
    ANNOUNCEMENT BAR
 ───────────────────────────────────────── */
-.announcement {
-  height: 38px;
-  background: #8f1738;
-  color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 4%;
-  font-size: 12px;
-  font-weight: 600;
-  gap: 8px;
-}
-.ann-left, .ann-right {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.ann-fire { font-size: 15px; }
-.ann-sep  { opacity: 0.5; }
+    .announcement {
+      height: 38px;
+      background: #8f1738;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 4%;
+      font-size: 12px;
+      font-weight: 600;
+      gap: 8px;
+    }
+
+    .ann-left,
+    .ann-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .ann-fire {
+      font-size: 15px;
+    }
+
+    .ann-sep {
+      opacity: 0.5;
+    }
 
     /* ==================== GLOBAL STYLES ==================== */
     :root {
@@ -175,17 +183,89 @@
     }
 
     /* ── USER DROPDOWN MENU ── */
-    .user-dropdown-wrapper { position: relative; display: flex; align-items: center; }
-    .user-dropdown-menu { display: none; position: absolute; top: calc(100% + 12px); right: 0; background: #ffffff; border: 1px solid #edebeb; border-radius: 12px; min-width: 180px; box-shadow: 0 8px 24px rgba(0,0,0,0.12); z-index: 999; overflow: hidden; animation: dropdownIn 0.18s ease; }
-    @keyframes dropdownIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
-    .user-dropdown-menu.open { display: block; }
-    .dropdown-item { display: flex; align-items: center; gap: 10px; padding: 12px 18px; font-size: 14px; font-weight: 500; color: #333; text-decoration: none; transition: background 0.15s; border: none; background: none; width: 100%; cursor: pointer; font-family: inherit; }
-    .dropdown-item:hover { background: var(--light-pink); color: var(--primary-maroon); }
-    .dropdown-item i { width: 16px; text-align: center; color: var(--primary-maroon); }
-    .dropdown-divider { border: none; border-top: 1px solid #f0eded; margin: 0; }
-    .dropdown-item.logout-item { color: #dc2626; }
-    .dropdown-item.logout-item i { color: #dc2626; }
-    .dropdown-item.logout-item:hover { background: #fff5f5; color: #dc2626; }
+    .user-dropdown-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .user-dropdown-menu {
+      display: none;
+      position: absolute;
+      top: calc(100% + 12px);
+      right: 0;
+      background: #ffffff;
+      border: 1px solid #edebeb;
+      border-radius: 12px;
+      min-width: 180px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+      z-index: 999;
+      overflow: hidden;
+      animation: dropdownIn 0.18s ease;
+    }
+
+    @keyframes dropdownIn {
+      from {
+        opacity: 0;
+        transform: translateY(-6px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .user-dropdown-menu.open {
+      display: block;
+    }
+
+    .dropdown-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 18px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #333;
+      text-decoration: none;
+      transition: background 0.15s;
+      border: none;
+      background: none;
+      width: 100%;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .dropdown-item:hover {
+      background: var(--light-pink);
+      color: var(--primary-maroon);
+    }
+
+    .dropdown-item i {
+      width: 16px;
+      text-align: center;
+      color: var(--primary-maroon);
+    }
+
+    .dropdown-divider {
+      border: none;
+      border-top: 1px solid #f0eded;
+      margin: 0;
+    }
+
+    .dropdown-item.logout-item {
+      color: #dc2626;
+    }
+
+    .dropdown-item.logout-item i {
+      color: #dc2626;
+    }
+
+    .dropdown-item.logout-item:hover {
+      background: #fff5f5;
+      color: #dc2626;
+    }
 
     /* --- SUB NAVIGATION BAR --- */
     .sub-nav {
@@ -227,6 +307,7 @@
       aspect-ratio: 1920 / 275;
       overflow: hidden;
     }
+
     .hero-banner img {
       width: 100%;
       height: 100%;
@@ -498,45 +579,215 @@
     }
 
     /* Mobile-only elements */
-    .hamb { display: none; }
-    .mobile-bottom-nav { display: none; }
+    .mobile-menu-toggle {
+      display: none;
+    }
+
+    .mobile-bottom-nav {
+      display: none;
+    }
+
+    /* Mobile page header (shown instead of banner on mobile) */
+    .mobile-page-header {
+      display: none;
+      padding: 20px 20px 5px;
+      background: linear-gradient(to bottom, #fdf4f6, #faf8f8);
+    }
+
+    .mobile-page-header h1 {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--primary-maroon);
+      margin-bottom: 4px;
+    }
+
+    .mobile-page-header p {
+      font-size: 14px;
+      color: var(--text-muted);
+    }
 
     /* Responsive Design */
     @media (max-width: 992px) {
-      .page-layout { grid-template-columns: 1fr; }
-      .search-box { width: 280px; }
+      .page-layout {
+        grid-template-columns: 1fr;
+      }
     }
 
     @media (max-width: 768px) {
-      /* Header Mobile */
-      .header-container {
-        flex-direction: row;
-        gap: 10px;
-      }
-      .hamb {
-        display: block;
-        background: transparent;
-        border: none;
-        font-size: 20px;
-        color: var(--primary-maroon);
-        cursor: pointer;
-      }
-      .brand-logo { height: 40px; }
-      .search-box { display: none; }
-      .user-profile { display: none; }
-      .icon-badge { font-size: 22px; color: #3a2a2d; }
-      .badge {
-        font-size: 10px; width: 16px; height: 16px;
-        display: flex; align-items: center; justify-content: center;
-        top: -5px; right: -8px; background: #e74c3c;
+
+      /* Hide announcement on mobile */
+      .announcement {
+        display: none;
       }
 
-      /* Hide Desktop Nav */
-      nav { display: none; }
+      /* Navbar mobile layout */
+      .navbar {
+        padding: 10px 20px;
+        position: relative;
+        justify-content: flex-end;
+      }
+
+      .mobile-menu-toggle {
+        display: block;
+        position: absolute;
+        left: 14px;
+        top: 50%;
+        transform: translateY(-50%);
+        border: 0;
+        background: transparent;
+        color: var(--text-dark);
+        cursor: pointer;
+        font-size: 24px;
+        line-height: 1;
+        padding: 2px;
+        z-index: 2;
+      }
+
+      .nav-left {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      .brand-logo {
+        height: 35px;
+      }
+
+      .nav-search {
+        display: none;
+      }
+
+      .user-name,
+      .fa-chevron-down {
+        display: none;
+      }
+
+      .notification-icon {
+        font-size: 20px;
+      }
+
+      .user-dropdown-menu {
+        top: calc(100% + 8px);
+        min-width: 160px;
+      }
+
+      .dropdown-item {
+        padding: 10px 14px;
+        font-size: 13px;
+      }
+
+      /* Sub-nav: hidden by default, dropdown when opened */
+      .sub-nav {
+        display: none;
+      }
+
+      .sub-nav.open {
+        display: flex;
+        position: absolute;
+        top: 58px;
+        left: 0;
+        right: 0;
+        z-index: 20;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        padding: 8px 0;
+        background: #fff;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+      }
+
+      .sub-nav.open .nav-item {
+        justify-content: flex-start;
+        border-radius: 0;
+        padding: 12px 20px;
+      }
+
+      /* Swap hero banner for mobile text header */
+      .hero-banner {
+        display: none;
+      }
+
+      .mobile-page-header {
+        display: block;
+      }
 
       /* Footer hidden on mobile */
-      footer { display: none; }
-      body { padding-bottom: 60px; }
+      footer {
+        display: none;
+      }
+
+      body {
+        padding-bottom: 70px;
+      }
+
+      /* Page layout: single column */
+      .page-layout {
+        grid-template-columns: 1fr;
+        gap: 16px;
+        padding: 16px 16px 20px;
+        margin-bottom: 20px;
+      }
+
+      /* Address card mobile — stack left/right sections */
+      .address-card {
+        flex-direction: column;
+        gap: 12px;
+        padding: 16px;
+      }
+
+      .address-card-left {
+        gap: 12px;
+      }
+
+      .address-icon {
+        width: 38px;
+        height: 38px;
+        font-size: 16px;
+      }
+
+      .address-title {
+        font-size: 15px;
+      }
+
+      .address-text {
+        max-width: 100%;
+        font-size: 13px;
+      }
+
+      /* Move actions row below, aligned left */
+      .address-card-right {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        margin-top: 4px;
+        padding-top: 12px;
+        border-top: 1px dashed #f0e6e0;
+      }
+
+      .address-actions {
+        margin-top: 0;
+        gap: 20px;
+      }
+
+      .badge-default-top {
+        font-size: 12px;
+        padding: 2px 10px;
+      }
+
+      /* Add-address box: compact on mobile */
+      .add-address-box {
+        padding: 20px 16px;
+      }
+
+      .add-address-title {
+        font-size: 16px;
+      }
+
+      .add-address-sub {
+        font-size: 13px;
+        margin-bottom: 14px;
+      }
 
       /* Mobile Bottom Nav */
       .mobile-bottom-nav {
@@ -548,10 +799,11 @@
         left: 0;
         right: 0;
         background: #fff;
-        box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+        box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
         padding: 10px 0 8px;
         z-index: 1000;
       }
+
       .mobile-bottom-nav a {
         display: flex;
         flex-direction: column;
@@ -560,15 +812,43 @@
         color: #55606e;
         font-size: 10px;
         font-weight: 600;
+        text-decoration: none;
+        position: relative;
       }
-      .mobile-bottom-nav a.active { color: #c02844; }
+
+      .mobile-bottom-nav a.active {
+        color: #c02844;
+      }
+
+      .nav-cart {
+        position: relative;
+      }
+
+      .nav-cart .cart-badge {
+        position: absolute;
+        top: -4px;
+        right: 2px;
+        background: #f12525;
+        color: #fff;
+        font-size: 9px;
+        font-weight: 700;
+        font-style: normal;
+        border-radius: 50%;
+        width: 15px;
+        height: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        line-height: 1;
+      }
     }
   </style>
 </head>
+
 <body>
 
 
-     <!-- ── ANNOUNCEMENT BAR ── -->
+  <!-- ── ANNOUNCEMENT BAR ── -->
   <div class="announcement">
     <div class="ann-left">
       <span class="ann-fire">🔥</span>
@@ -587,6 +867,7 @@
 
   <!-- TOP NAVBAR -->
   <header class="navbar">
+    <button class="mobile-menu-toggle" id="mobile-menu-toggle" type="button" aria-label="Open menu">&#9776;</button>
     <div class="nav-left">
       <img src="./assets/rasoova_logo_desktop.png" alt="Rasoova Logo" class="brand-logo" />
     </div>
@@ -605,7 +886,8 @@
         <span class="badge">3</span>
       </div>
       <div class="user-dropdown-wrapper" id="user-dropdown-wrapper">
-        <div class="user-dropdown" id="user-dropdown-trigger" role="button" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-label="User menu">
+        <div class="user-dropdown" id="user-dropdown-trigger" role="button" aria-haspopup="true" aria-expanded="false"
+          tabindex="0" aria-label="User menu">
           <div class="avatar-small">
             <i class="fa-solid fa-user"></i>
           </div>
@@ -637,14 +919,14 @@
       <i class="fa-solid fa-house"></i>
       <span>Home</span>
     </a>
-   
 
-     <a href="./menupage.html" class="nav-item">
+
+    <a href="./menupage.html" class="nav-item">
       <i class="fa-solid fa-utensils"></i>
       <span>Menu</span>
     </a>
 
-     <a href="./order.html" class="nav-item">
+    <a href="./order.html" class="nav-item">
       <i class="fa-solid fa-box-open"></i>
       <span>My Orders</span>
     </a>
@@ -662,14 +944,20 @@
     </a>
   </nav>
 
-  <!-- Hero Banner -->
+  <!-- Hero Banner (desktop only) -->
   <div class="hero-banner">
     <img src="./assets/address-banner-image.png" alt="Rasoova My Addresses">
   </div>
 
+  <!-- Mobile Page Header (mobile only) -->
+  <div class="mobile-page-header">
+    <h1>My Addresses</h1>
+    <p>Manage your saved delivery addresses</p>
+  </div>
+
   <!-- Main Content Layout -->
   <main class="container page-layout" style="position: relative; z-index: 1;">
-    
+
     <!-- Addresses List Container -->
     <div class="address-list" id="addressList">
       <!-- Cards rendered via JavaScript below -->
@@ -718,25 +1006,47 @@
 
   <!-- MOBILE BOTTOM NAV -->
   <nav class="mobile-bottom-nav">
-    <a href="./index.html">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+    <a href="./index.html" class="active">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+      </svg>
       <span>Home</span>
     </a>
+    <a href="./menupage.html">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 12h18M3 6h18M3 18h18" />
+      </svg>
+      <span>Menu</span>
+    </a>
+    <a href="./cart.html" class="nav-cart">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="9" cy="21" r="1" />
+        <circle cx="20" cy="21" r="1" />
+        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+      </svg>
+      <i class="cart-badge">0</i>
+      <span>Cart</span>
+    </a>
     <a href="./order.html">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
-      <span>My Orders</span>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+        <polyline points="14 2 14 8 20 8" />
+        <line x1="16" y1="13" x2="8" y2="13" />
+        <line x1="16" y1="17" x2="8" y2="17" />
+        <polyline points="10 9 9 9 8 9" />
+      </svg>
+      <span>Orders</span>
     </a>
     <a href="./profile.html">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+        <circle cx="12" cy="7" r="4" />
+      </svg>
       <span>Profile</span>
-    </a>
-    <a href="./address.html" class="active">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-      <span>Address</span>
-    </a>
-    <a href="./help-support.html">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"></path><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path></svg>
-      <span>Help &amp; Support</span>
     </a>
   </nav>
 
@@ -778,7 +1088,7 @@
     // Render Address List Function
     function renderAddresses() {
       addressListEl.innerHTML = '';
-      
+
       addresses.forEach(addr => {
         const card = document.createElement('div');
         card.className = `address-card ${addr.isDefault ? 'default-border' : ''}`;
@@ -843,23 +1153,42 @@
   </script>
 
   <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const dropdownTrigger = document.getElementById('user-dropdown-trigger');
-    const dropdownMenu    = document.getElementById('user-dropdown-menu');
-    const dropdownArrow   = document.getElementById('user-dropdown-arrow');
-    const headerLogoutBtn = document.getElementById('header-logout-btn');
-    const headerUserName  = document.getElementById('header-user-name');
-    if (headerUserName) { const n = localStorage.getItem('rasoovaUserName'); if (n) headerUserName.textContent = n; }
-    function openDropdown() { dropdownMenu.classList.add('open'); dropdownTrigger.setAttribute('aria-expanded','true'); dropdownArrow.style.transform='rotate(180deg)'; }
-    function closeDropdown() { dropdownMenu.classList.remove('open'); dropdownTrigger.setAttribute('aria-expanded','false'); dropdownArrow.style.transform='rotate(0deg)'; }
-    if (dropdownTrigger && dropdownMenu) {
-      dropdownTrigger.addEventListener('click', (e) => { e.stopPropagation(); dropdownMenu.classList.contains('open') ? closeDropdown() : openDropdown(); });
-      document.addEventListener('click', (e) => { if (!dropdownTrigger.contains(e.target) && !dropdownMenu.contains(e.target)) closeDropdown(); });
-      document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeDropdown(); });
-    }
-    function doLogout() { localStorage.removeItem('rasoovaAuth'); localStorage.removeItem('rasoovaUserName'); closeDropdown(); window.location.href = './login.html'; }
-    if (headerLogoutBtn) headerLogoutBtn.addEventListener('click', doLogout);
-  });
+    document.addEventListener('DOMContentLoaded', () => {
+      // ── User dropdown ──
+      const dropdownTrigger = document.getElementById('user-dropdown-trigger');
+      const dropdownMenu = document.getElementById('user-dropdown-menu');
+      const dropdownArrow = document.getElementById('user-dropdown-arrow');
+      const headerLogoutBtn = document.getElementById('header-logout-btn');
+      const headerUserName = document.getElementById('header-user-name');
+      if (headerUserName) { const n = localStorage.getItem('rasoovaUserName'); if (n) headerUserName.textContent = n; }
+      function openDropdown() { dropdownMenu.classList.add('open'); dropdownTrigger.setAttribute('aria-expanded', 'true'); dropdownArrow.style.transform = 'rotate(180deg)'; }
+      function closeDropdown() { dropdownMenu.classList.remove('open'); dropdownTrigger.setAttribute('aria-expanded', 'false'); dropdownArrow.style.transform = 'rotate(0deg)'; }
+      if (dropdownTrigger && dropdownMenu) {
+        dropdownTrigger.addEventListener('click', (e) => { e.stopPropagation(); dropdownMenu.classList.contains('open') ? closeDropdown() : openDropdown(); });
+        document.addEventListener('click', (e) => { if (!dropdownTrigger.contains(e.target) && !dropdownMenu.contains(e.target)) closeDropdown(); });
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeDropdown(); });
+      }
+      function doLogout() { localStorage.removeItem('rasoovaAuth'); localStorage.removeItem('rasoovaUserName'); closeDropdown(); window.location.href = './login.html'; }
+      if (headerLogoutBtn) headerLogoutBtn.addEventListener('click', doLogout);
+
+      // ── Mobile hamburger menu toggle ──
+      const menuBtn = document.getElementById('mobile-menu-toggle');
+      const subNav = document.querySelector('.sub-nav');
+      if (menuBtn && subNav) {
+        menuBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          subNav.classList.toggle('open');
+          menuBtn.setAttribute('aria-expanded', subNav.classList.contains('open'));
+        });
+        document.addEventListener('click', (e) => {
+          if (!subNav.contains(e.target) && e.target !== menuBtn) {
+            subNav.classList.remove('open');
+            menuBtn.setAttribute('aria-expanded', 'false');
+          }
+        });
+      }
+    });
   </script>
 </body>
+
 </html>
