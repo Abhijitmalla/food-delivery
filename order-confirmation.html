@@ -707,7 +707,10 @@
       /* Navbar mobile */
       .navbar {
         padding: 10px 20px;
-        position: relative;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        background: #ffffff;
         justify-content: flex-end;
       }
       .mobile-menu-toggle {
@@ -739,7 +742,7 @@
       .sub-nav { display: none; }
       .sub-nav.open {
         display: flex;
-        position: absolute;
+        position: fixed;
         top: 58px;
         left: 0;
         right: 0;
@@ -1199,7 +1202,8 @@
     var subNav = document.querySelector('.sub-nav');
     if (menuBtn) {
       menuBtn.addEventListener('click', function () {
-        subNav.classList.toggle('open');
+        const isOpen = subNav.classList.toggle('open');
+        menuBtn.setAttribute('aria-expanded', isOpen);
       });
     }
   </script>
